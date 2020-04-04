@@ -1,0 +1,24 @@
+<div class="row m-auto">
+	<div class="panel-img col-xl-6 d-xl-inline-block d-none"></div>
+	<div class="panel-login col-xl-6 col-12 d-flex align-items-center">
+		<div class="login-box m-auto">
+			<h2 class="title text-secondary text-center">Entre ou cadastre-se</h2>
+			<form action="/authenticate" method="post">
+				<div class="label-float mt-4">    
+					<input type="email" name="email" class="form-control mt-1 bg-transparent input-login" size="60" maxlength="60" placeholder="E-mail" required>
+					<label>E-mail</label>
+				</div>
+				<div class="label-float mt-4">    
+					<input type="password" name="senha" class="form-control mt-1 bg-transparent input-login" size="60" maxlength="15" placeholder="Senha" required>
+					<label>Senha</label>
+				</div>
+				<button type="submit" class="btn btn-register text-white w-100 mt-4">Entrar</button>
+				<?php if(empty($_GET['login'])) {?>
+				<?php } else if($_GET['login'] == 'erro') { ?>
+					<small class="form-text text-danger">E-mail e ou senha inválido(s)</small>
+				<?php } ?>
+				<a href="/sign_up" class="mt-2 d-block register-link">Ainda não possui cadastro? clique aqui</a>
+			</form>
+		</div>
+	</div>
+</div>

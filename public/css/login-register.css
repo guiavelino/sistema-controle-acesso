@@ -1,0 +1,114 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none !important;
+}
+
+/*Página index.phtml*/
+.panel-img{
+    background: url('../img/backgrounds/bg-login.jpg') center no-repeat;
+    background-size:cover;
+    height: 100vh; 
+}
+.panel-login{
+    height: 100vh;
+}
+
+@media(max-width:1200px){
+    .panel-login{
+        background: url('../img/backgrounds/bg-login.jpg') center no-repeat;
+        background-color: rgba(0, 0, 0, 0.6);
+        background-blend-mode: darken;
+    }
+    .title{
+        color: #FFFFFF !important;
+    }
+    .register-link, .input-login{
+        color: #cccccc !important;
+    }
+}
+
+/*Página register.phtml*/
+.bg-register{
+    background: url('../img/backgrounds/bg-register.jpg') center no-repeat;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: darken;
+    background-size:cover;
+    height: 100vh;
+}
+.registration-panel{
+    background-color: #FFFFFF;
+    width: 30rem;
+}
+@media(max-width:552px){
+    .bg-register{
+        background: #FFFFFF;
+    }
+}
+
+/*Formulário, inputs e botão*/
+.form-control{
+    border:none !important;
+    margin-top: 15px;
+    border-bottom: 1px solid rgb(146, 146, 146) !important;
+    border-radius: 0;
+    box-shadow: none!important;
+    transition: all .3s ease-out;
+    outline: none;
+    padding-left: 2px;
+}
+.label-float{
+    position: relative;
+    padding-top: 10px;
+    color: rgb(117, 117, 117);
+}
+.label-float input{
+    border: 0;
+    border-bottom: 2px solid lightgrey;
+    outline: none;
+    min-width: 180px;
+    font-size: 14px;
+    transition: all .3s ease-out;
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    -webkit-appearance:none;
+    border-radius:0;
+}
+.label-float input:focus{
+    border-bottom: 2px solid #20B2AA!important;
+}
+.label-float input::placeholder{
+    color:transparent;
+}
+.label-float label{
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 20px;
+    transition: all .3s ease-out;
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+}
+.label-float input:focus + label,
+.label-float input:not(:placeholder-shown) + label{
+    font-size: 16px;
+    margin-top: -7px;
+    color: #20B2AA; 
+}
+.label-float input:not(:placeholder-shown){
+    border-bottom: 2px solid #20B2AA!important;
+}
+.btn-register{
+    background: linear-gradient(90deg, rgb(30, 108, 163) 0%, rgb(30, 163, 110) 70%);
+    transition: 0.5s;
+}
+.btn-register:active{
+    background: linear-gradient(90deg, rgb(21, 72, 109) 0%, rgb(20, 116, 78) 70%);
+}
+.btn-register:hover{
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.603);
+}
+
+
