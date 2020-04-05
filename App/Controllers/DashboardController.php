@@ -19,10 +19,10 @@ class DashboardController extends Action {
         $this->validateAuthentication();
 
         if($_SESSION['nivel_acesso'] == 'administrador'){
-            $this->render('dashboard-admin');
+            $this->render('dashboard_admin');
         }
         else{
-            $this->render('dashboard-user');
+            $this->render('dashboard_user');
         }  
     }
 

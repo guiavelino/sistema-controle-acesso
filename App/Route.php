@@ -48,7 +48,26 @@ class Route extends Bootstrap {
 			'controller' => 'OrdersController',
 			'action' => 'registerOrders'
 		);
-		
+		$routes['edit_orders'] = array(
+			'route' => '/edit_orders',
+			'controller' => 'OrdersController',
+			'action' => 'editOrders'
+		);
+		$routes['update_orders'] = array(
+			'route' => '/update_orders',
+			'controller' => 'OrdersController',
+			'action' => 'updateOrders'
+		);
+		$routes['remove_orders'] = array(
+			'route' => '/remove_orders',
+			'controller' => 'OrdersController',
+			'action' => 'removeOrders'
+		);
+		$routes['delete_orders'] = array(
+			'route' => '/delete_orders',
+			'controller' => 'OrdersController',
+			'action' => 'deleteOrders'
+		);
 
 		$this->setRoutes($routes);
 	}

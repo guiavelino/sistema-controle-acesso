@@ -19,12 +19,12 @@ class OrdersController extends Action {
         $this->validateAuthentication();
 
         if($_SESSION['nivel_acesso'] == 'administrador'){
-            $this->render('orders-admin');
+            $this->render('orders_admin');
         }
         else{
             $encomendas = Container::getModel('Orders');
             $this->view->encomendas = $encomendas->getAll();
-            $this->render('orders-user');
+            $this->render('orders_user');
         }  
     }
 
@@ -37,6 +37,44 @@ class OrdersController extends Action {
 
         header('Location: /orders');
     }
+
+    public function editOrders(){
+        if(isset($_POST['id_encomenda'])){
+            $this->render('edit_orders');
+        }else{
+            header('Location: /orders');
+        }
+    }
+
+    public function updateOrders(){
+        if(isset($_POST['id_encomenda'])){
+            $encomendas = Container::getModel('Orders');
+            $encomendas->empresa = $_POST['empresa'];
+            $encomendas->apartamento = $_POST['apartamento'];
+            $encomendas->bloco = $_POST['bloco'];
+            $encomendas->id_encomenda = $_POST['id_encomenda'];
+            $encomendas->updateOrder();
+        }
+        header('Location: /orders');
+    }
+
+    public function removeOrders(){
+        if(isset($_POST['id_encomenda'])){
+            $this->render('remove_orders');
+        }else{
+            header('Location: /orders');
+        }
+    }
+
+    public function deleteOrders(){
+        if(isset($_POST['id_encomenda'])){
+            $encomendas = Container::getModel('Orders');
+            $encomendas->id_encomenda = $_POST['id_encomenda'];
+            $encomendas->deleteOrder();
+        }
+        header('Location: /orders');
+    }
+
 
 }
 
