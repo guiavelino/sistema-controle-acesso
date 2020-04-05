@@ -23,7 +23,6 @@ class Route extends Bootstrap {
 			'controller' => 'IndexController',
 			'action' => 'register'
 		);
-
 		$routes['authenticate'] = array(
 			'route' => '/authenticate',
 			'controller' => 'AuthController',
@@ -34,16 +33,21 @@ class Route extends Bootstrap {
 			'controller' => 'AuthController',
 			'action' => 'signOut'
 		);
-
-
-
-		
 		$routes['dashboard'] = array(
 			'route' => '/dashboard',
 			'controller' => 'DashboardController',
 			'action' => 'dashboard'
 		);
-
+		$routes['orders'] = array(
+			'route' => '/orders',
+			'controller' => 'OrdersController',
+			'action' => 'orders'
+		);
+		$routes['register_orders'] = array(
+			'route' => '/register_orders',
+			'controller' => 'OrdersController',
+			'action' => 'registerOrders'
+		);
 		
 
 		$this->setRoutes($routes);

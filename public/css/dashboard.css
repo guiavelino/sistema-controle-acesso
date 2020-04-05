@@ -1,0 +1,38 @@
+/* Dashboard usuário */
+.dashboard-gradient{
+    background:radial-gradient(rgba(17, 17, 17, 0.849),#111)
+}
+.col-md-6{
+    height: 46vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bg-1, .bg-2, .bg-3, .bg-4{
+    transition: 0.4s;
+    cursor: pointer;  
+}
+.bg-1{
+    background-color: rgba(30, 163, 156, 0.5);
+}
+.bg-1:hover{
+    background-color: rgb(30, 163, 156);
+}
+.bg-2{
+    background-color: rgba(37, 144, 231, 0.5);
+}
+.bg-2:hover{
+    background-color: rgb(37, 144, 231);
+}
+.bg-3{
+    background-color: rgba(51, 112, 51, 0.452);
+}
+.bg-3:hover{
+    background-color: rgb(51, 112, 51);
+}
+.bg-4{
+    background-color: rgba(58, 70, 180, 0.534);
+}
+.bg-4:hover{
+    background-color: rgb(58, 70, 180);
+}

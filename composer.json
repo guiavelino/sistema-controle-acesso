@@ -1,12 +1,12 @@
 {
-	"name": "miniframework",
+	"name": "Controle de acesso",
 	"require": {
 		"php": ">= 7.0"
 	},
 	"authors": [
 		{
-			"name": "Jorge Sant Ana",
-			"email": "jorge@teste.com.br"
+			"name": "Guilherme Avelino de Souza",
+			"email": "guilhermeavelino1@outlook.com"
 		}
 	],
 	"autoload": {

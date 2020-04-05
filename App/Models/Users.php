@@ -63,6 +63,7 @@ class Users extends Model{
             $this->nome = $usuario['nome'];
             $this->email = $usuario['email'];
             $this->senha = $usuario['senha'];
+            $this->nivel_acesso = $usuario['nivel_acesso']; 
         }
     }
 }

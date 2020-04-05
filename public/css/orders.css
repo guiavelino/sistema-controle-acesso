@@ -1,0 +1,16 @@
+.content{
+    background-color: #F5F9FC;
+    min-height: 92vh;
+}
+.menu-user{
+    z-index: 999;
+    transition: .4s;
+}
+.add{
+    background-color: #1ea39c;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.btn-action{
+    width: 40px;
+}

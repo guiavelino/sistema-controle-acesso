@@ -1,0 +1,46 @@
+<header id="header" class="header d-flex align-items-center justify-content-end">
+        <div class="dropdown mr-3">
+            <button class="btn btn-light btn-user border-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="text-dark">
+                    Olá,
+                </span>
+                <span class="text-secondary mr-1">
+                    <?= $_SESSION['nome'] ?>
+                </span>
+                <img width="35" height="35" src="img/users/user.png">
+            </button>
+            <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
+                <a href="#">
+                    <i class="fas fa-user-alt ml-2"></i>
+                    <span class="ml-2">
+                        Meu Perfil
+                    </span>
+                </a>
+                <hr class="m-0">
+                <a href="/sign_out">
+                    <i class="fas fa-sign-out-alt ml-2"></i>
+                    <span class="ml-2">
+                        Sair
+                    </span>
+                </a>
+            </div>
+        </div> 
+</header>
+<div class="container-fluid">
+    <div class="row dashboard-gradient">
+        <a href="#" class="col-md-6 bg-1 text-center">
+            <h1 class="text-white"><i class="fas fa-walking px-2"></i>Visitantes</h1>
+        </a>
+        <a href="#" class="col-md-6 bg-2 text-center">
+            <h1 class="text-white"><i class="fas fa-toolbox px-2"></i>Prestadores de serviços</h1>
+        </a>
+    </div>
+    <div class="row dashboard-gradient">
+        <a href="/orders" class="col-md-6 bg-3 text-center">
+            <h1 class="text-white"><i class="fas fa-dolly px-2"></i>Encomendas</h1>
+        </a>
+        <a href="#" class="col-md-6 bg-4 text-center">
+            <h1 class="text-white"><i class="fas fa-building px-2"></i>Moradores</h1>
+        </a>
+    </div>
+</div>

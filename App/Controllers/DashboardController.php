@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\Usuario;
+use App\Models\Users;
 use MF\Controller\Action;
 use MF\Model\Container;
 
@@ -17,7 +17,13 @@ class DashboardController extends Action {
 
 	public function dashboard(){
         $this->validateAuthentication();
-        $this->render('dashboard');
+
+        if($_SESSION['nivel_acesso'] == 'administrador'){
+            $this->render('dashboard-admin');
+        }
+        else{
+            $this->render('dashboard-user');
+        }  
     }
 
 }

@@ -18,7 +18,7 @@ create table moradores(
 	nome varchar(60) not null,
 	cpf char(14) not null,
 	telefone varchar(20) not null,
-	apartamento char(5) not null,
+	apartamento varchar(5) not null,
 	bloco char(1) not null
 );
 
@@ -27,9 +27,9 @@ create table prestadores_servicos(
 	nome varchar(60) not null,
 	cpf char(14) not null,
 	telefone varchar(20) not null,
-	apartamento char(5) not null,
+	apartamento varchar(5) not null,
 	bloco char(1) not null,
-	data_de_entrada datetime
+	data_de_entrada datetime default CURRENT_TIMESTAMP
 );
 
 create table visitantes(
@@ -37,16 +37,16 @@ create table visitantes(
 	nome varchar(60) not null,
 	cpf char(14) not null,
 	telefone varchar(20) not null,
-	apartamento char(5) not null,
+	apartamento varchar(5) not null,
 	bloco char(1) not null,
-	data_de_entrada datetime
+	data_de_entrada datetime default CURRENT_TIMESTAMP
 );
 
 create table encomendas(
 	id_encomenda int primary key AUTO_INCREMENT not null,
 	empresa varchar(60) not null,
-	apartamento char(5) not null,
+	apartamento varchar(5) not null,
 	bloco char(1) not null,
-	data_de_entrada datetime
+	data_entrega datetime default CURRENT_TIMESTAMP
 )
 

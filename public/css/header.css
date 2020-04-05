@@ -1,0 +1,55 @@
+::-webkit-scrollbar{
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #20B2AA;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: #BDBDBD;
+}
+.header{
+    height:8vh;
+    width: 100% !important;
+}
+.button, .secret-button{
+    width: 40px;
+    cursor: pointer;
+    font-size:18pt;
+    color:#354052;
+    transition: .4s;
+}
+.btn-user{
+    border-radius: 45px;  
+}
+.btn-user:hover {
+    background-color: rgb(230, 227, 227);
+    transition: 0.4s ease-in-out;
+}
+.btn-user>img{
+    border-radius:50%;
+}
+.drop{
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right: 10px;
+    top: 60px;
+}
+.drop a{
+    line-height: 50px;
+    text-decoration: none;
+    display: block;
+    font-size: 11pt;
+    font-family: Arial;
+    color: gray;
+    transition: 0.1s ease-in-out;
+}
+.drop a:hover {
+    background-color: #F2F2F2;
+    color: #20B2AA;
+}
+.drop a i{
+    font-size: 12pt
+}

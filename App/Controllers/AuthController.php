@@ -20,7 +20,8 @@ class AuthController extends Action {
             $_SESSION['id'] = $usuario->id;
             $_SESSION['nome'] = $usuario->nome;
             $_SESSION['email'] = $usuario->email;
-            
+            $_SESSION['nivel_acesso'] = $usuario->nivel_acesso;
+       
             header('Location: /dashboard');
         }
         else{

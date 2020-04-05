@@ -1,0 +1,129 @@
+<header id="header" class="header d-flex align-items-center justify-content-between">
+        <div class="button ml-3 text-center" onclick="sidebarUser()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="dropdown mr-3">
+            <button class="btn btn-light btn-user border-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="text-dark">
+                    Olá,
+                </span>
+                <span class="text-secondary mr-1">
+                    <?= $_SESSION['nome'] ?>
+                </span>
+                <img width="35" height="35" src="img/users/user.png">
+            </button>
+            <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
+                <a href="#">
+                    <i class="fas fa-user-alt ml-2"></i>
+                    <span class="ml-2">
+                        Meu Perfil
+                    </span>
+                </a>
+                <hr class="m-0">
+                <a href="/sign_out">
+                    <i class="fas fa-sign-out-alt ml-2"></i>
+                    <span class="ml-2">
+                        Sair
+                    </span>
+                </a>
+            </div>
+        </div> 
+</header>
+
+<div class="container-fluid dashboard-gradient position-absolute menu-user" id="menu-user" style="margin-left: -100%">
+    <div class="row dashboard-gradient">
+        <a href="#" class="col-md-6 bg-1 text-center">
+            <h1 class="text-white"><i class="fas fa-walking px-2"></i>Visitantes</h1>
+        </a>
+        <a href="#" class="col-md-6 bg-2 text-center">
+            <h1 class="text-white"><i class="fas fa-toolbox px-2"></i>Prestadores de serviços</h1>
+        </a>
+    </div>
+    <div class="row dashboard-gradient">
+        <a href="/orders" class="col-md-6 bg-3 text-center">
+            <h1 class="text-white"><i class="fas fa-dolly px-2"></i>Encomendas</h1>
+        </a>
+        <a href="#" class="col-md-6 bg-4 text-center">
+            <h1 class="text-white"><i class="fas fa-building px-2"></i>Moradores</h1>
+        </a>
+    </div>
+</div>
+
+<section class="content py-4 container-fluid" id="content">
+        <ol class="breadcrumb mb-4 bg-dark">
+            <li class="breadcrumb-item active text-light">Encomendas</li>
+        </ol>
+        <div class="card mb-4 border-0">
+            <div class="card-header text-center add" data-toggle="modal" data-target="#form-modal">
+                <h5 class="m-0"><i class="fas fa-plus-circle mr-1"></i>Adicionar</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered mb-0">
+                    <thead class="text-center card-header text-dark"> 
+                        <th>Empresa</th>
+                        <th>Apartamento</th>
+                        <th>Bloco</th>
+                        <th>Data da entrega</th>
+                        <th>Hora da entrega</th>
+                        <th>Ações</th>
+                    </thead>
+
+                    <?php foreach($this->view->encomendas as $e){?>
+                        <tbody class="text-center">
+                            <td><?=$e['empresa']?></td>
+                            <td><?=$e['apartamento']?></td>
+                            <td><?=$e['bloco']?></td>
+                            <td><?=$e['data'] = date('d/m/Y', strtotime($e['data_entrega']))?></td>
+                            <td><?=$e['hora'] = date('H:i', strtotime($e['data_entrega']))?></td>
+                            <th>                            
+                                <button class="btn btn-info btn-action">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger btn-action">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </th>
+                        </tbody>
+                    <?php }?>
+
+                </table>
+            </div>   
+        </div>
+</section>
+
+
+<!-- Modal de cadastro-->
+<div class="modal fade " id="form-modal" tabindex="-1" role="dialog" aria-labelledby="titulo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header text-center align-items-center">
+                <h4 class="modal-title font-weight-bold text-secondary">Encomendas</h4>
+                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/register_orders" method="post">
+                <div class="modal-body py-4">
+                    <div class="card card-body border-0 pt-0">
+                        <div class="label-float">
+                            <input type="text" name="empresa" class="form-control mt-2" size="60" placeholder="Empresa" maxlength="60" required>
+                            <label>Empresa</label>
+                        </div>
+                        <div class="label-float mt-4">
+                            <input type="text" name="apartamento" class="form-control mt-2" size="5" placeholder="Apartamento" maxlength="5" required>
+                            <label>Apartamento</label>
+                        </div>
+                        <label class="mt-4 text-secondary">Bloco</label>
+                        <select class="form-control mt-0 pt-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-register w-100 text-light">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
