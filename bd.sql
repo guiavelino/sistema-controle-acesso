@@ -9,7 +9,7 @@ create table usuarios(
     telefone varchar(20) DEFAULT '(xx)xxxxx-xxxx',
     data_nascimento date DEFAULT '1970-01-01',
     genero varchar(30) DEFAULT 'Indefinido',
-	imagem_usuario varchar(80) DEFAULT 'user.png'
+	imagem_usuario varchar(80) DEFAULT 'user.png',
 	nivel_acesso varchar(13) not null  
 );
 

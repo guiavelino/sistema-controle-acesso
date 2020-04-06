@@ -11,6 +11,11 @@
     color: #FFFFFF;
     cursor: pointer;
 }
+.fa-ellipsis-v{
+    font-size: 18px;
+}
 .btn-action{
-    width: 40px;
+    text-align: center;
+    width: 45px;
+    padding: 10px;
 }

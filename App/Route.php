@@ -43,6 +43,11 @@ class Route extends Bootstrap {
 			'controller' => 'OrdersController',
 			'action' => 'orders'
 		);
+		$routes['export_orders'] = array(
+			'route' => '/export_orders',
+			'controller' => 'OrdersController',
+			'action' => 'exportOrders'
+		);
 		$routes['register_orders'] = array(
 			'route' => '/register_orders',
 			'controller' => 'OrdersController',
@@ -68,6 +73,7 @@ class Route extends Bootstrap {
 			'controller' => 'OrdersController',
 			'action' => 'deleteOrders'
 		);
+		
 
 		$this->setRoutes($routes);
 	}

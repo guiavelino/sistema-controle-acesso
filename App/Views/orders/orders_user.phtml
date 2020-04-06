@@ -50,8 +50,14 @@
 </div>
 
 <section class="content py-4 container-fluid" id="content">
-        <ol class="breadcrumb mb-4 bg-dark">
+        <ol class="breadcrumb mb-4 bg-dark justify-content-between">
             <li class="breadcrumb-item active text-light"><h5 class="m-0">Encomendas</h5></li>
+            <button class="btn bg-transparent" style="box-shadow: 0px 0px 0px" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v text-white"></i>
+            </button>
+            <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
+                <a href="/export_orders" class="text-center"><span >Exportar para Excel</span></a>
+            </div>
         </ol>
         <div class="card mb-4 border-0">
             <div class="card-header text-center add" data-toggle="modal" data-target="#form-modal">
