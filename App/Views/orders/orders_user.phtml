@@ -1,36 +1,36 @@
-<header id="header" class="header d-flex align-items-center justify-content-between">
-        <div class="button ml-3 text-center" onclick="sidebarUser()">
-            <i class="fas fa-bars"></i>
+<header id="header" class="header d-flex align-items-center justify-content-between position-fixed bg-white">
+    <div class="button ml-3 text-center" onclick="sidebarUser()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="dropdown mr-3">
+        <button class="btn btn-light btn-user border-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="text-dark">
+                Olá,
+            </span>
+            <span class="text-secondary mr-1">
+                <?= $_SESSION['nome'] ?>
+            </span>
+            <img width="35" height="35" src="img/users/user.png">
+        </button>
+        <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
+            <a href="#">
+                <i class="fas fa-user-alt ml-2"></i>
+                <span class="ml-2">
+                    Meu Perfil
+                </span>
+            </a>
+            <hr class="m-0">
+            <a href="/sign_out">
+                <i class="fas fa-sign-out-alt ml-2"></i>
+                <span class="ml-2">
+                    Sair
+                </span>
+            </a>
         </div>
-        <div class="dropdown mr-3">
-            <button class="btn btn-light btn-user border-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="text-dark">
-                    Olá,
-                </span>
-                <span class="text-secondary mr-1">
-                    <?= $_SESSION['nome'] ?>
-                </span>
-                <img width="35" height="35" src="img/users/user.png">
-            </button>
-            <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
-                <a href="#">
-                    <i class="fas fa-user-alt ml-2"></i>
-                    <span class="ml-2">
-                        Meu Perfil
-                    </span>
-                </a>
-                <hr class="m-0">
-                <a href="/sign_out">
-                    <i class="fas fa-sign-out-alt ml-2"></i>
-                    <span class="ml-2">
-                        Sair
-                    </span>
-                </a>
-            </div>
-        </div> 
+    </div> 
 </header>
 
-<div class="container-fluid dashboard-gradient position-absolute menu-user" id="menu-user" style="margin-left: -100%">
+<div class="container-fluid dashboard-gradient menu-user" id="menu-user" style="margin-left: -100%;">
     <div class="row dashboard-gradient">
         <a href="#" class="col-md-6 bg-1 text-center">
             <h1 class="text-white"><i class="fas fa-walking px-2"></i>Visitantes</h1>
@@ -50,31 +50,38 @@
 </div>
 
 <section class="content py-4 container-fluid" id="content">
-        <ol class="breadcrumb mb-4 bg-dark justify-content-between">
-            <li class="breadcrumb-item active text-light"><h5 class="m-0">Encomendas</h5></li>
-            <button class="btn bg-transparent" style="box-shadow: 0px 0px 0px" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-ellipsis-v text-white"></i>
-            </button>
-            <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
-                <a href="/export_orders" class="text-center"><span >Exportar para Excel</span></a>
-            </div>
-        </ol>
-        <div class="card mb-4 border-0">
-            <div class="card-header text-center add" data-toggle="modal" data-target="#form-modal">
-                <h5 class="m-0"><i class="fas fa-plus-circle mr-1"></i>Adicionar</h5>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover mb-0">
-                    <thead class="text-center card-header text-dark"> 
+    <ol class="breadcrumb mb-4 bg-dark justify-content-between">
+        <li class="breadcrumb-item active text-light"><h5 class="m-0">Encomendas</h5></li>
+        <button class="btn bg-transparent btn-exports px-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis-v text-white"></i>
+        </button>
+        <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
+            <h6 class="p-2" style="color: #20B2AA">Exportar</h6>
+            <a href="/export_orders" class="px-2">
+                <i class="far fa-file-excel"></i>
+                <span class="ml-1">Para Excel</span>
+            </a>
+        </div>
+    </ol>
+    <div class="card mb-4 border-0">
+        <div class="card-header text-center add" data-toggle="modal" data-target="#form-modal">
+            <h5 class="m-0"><i class="fas fa-plus-circle mr-1"></i>Adicionar</h5>
+        </div>
+        <div class="card-body table-responsive pt-1">
+            <table class="table table-bordered table-hover mb-0" id="dataTable">
+                <thead class="text-center card-header text-dark"> 
+                    <tr>
                         <th>Empresa</th>
                         <th>Apartamento</th>
                         <th>Bloco</th>
                         <th>Data da entrega</th>
                         <th>Hora da entrega</th>
                         <th>Ações</th>
-                    </thead>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
                     <?php foreach($this->view->encomendas as $e){?>
-                        <tbody class="text-center">
+                        <tr>
                             <td><?=$e['empresa']?></td>
                             <td><?=$e['apartamento']?></td>
                             <td><?=$e['bloco']?></td>
@@ -100,11 +107,12 @@
                                     </button>
                                 </form>
                             </th>
-                        </tbody>
+                        </tr>
                     <?php }?>
-                </table>
-            </div>   
-        </div>
+                </tbody>
+            </table>
+        </div>   
+    </div>
 </section>
 
 

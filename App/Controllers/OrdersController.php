@@ -80,22 +80,28 @@ class OrdersController extends Action {
 
         // Definindo o nome do arquivo que será exportado
 		$arquivo = 'relacao_encomendas.xls';
-		
+        
+        // Formatando estilo da tabela
+        $style_first_header = "height: 60px; text-align:center; background-color:#1EA39C; color:#FFFFFF; display:table-cell; vertical-align:middle;";
+        $style_second_header = "height: 45px; width: 200px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
+        $style_titile_header = "font-size:22px";
+        $style_content = "height:32px; text-align:center; font-size:20;  display:table-cell; vertical-align:middle";
+
 		// Criando uma tabela HTML com o formato da planilha
 		$html = '';
 		$html .= '<table border="1">';
+		$html .= "<tr>";
+		$html .= "<td colspan='5' style='$style_first_header'><h2>Encomendas</h2></td>";
+		$html .= "</tr>";
 		$html .= '<tr>';
-		$html .= '<td colspan="5" style="text-align:center; background-color:#1EA39C; color:#FFFFFF"><h2 style="margin:0">Encomendas</h2></td>';
-		$html .= '</tr>';
-		$html .= '<tr>';
-		$html .= '<td style="text-align:center; background-color:#F7F7F7"><h4 style="margin:0">Empresa</h4></td>';
-		$html .= '<td style="text-align:center; background-color:#F7F7F7"><h4 style="margin:0">Apartamento</h4></td>';
-		$html .= '<td style="text-align:center; background-color:#F7F7F7"><h4 style="margin:0">Bloco</h4></td>';
-        $html .= '<td style="text-align:center; background-color:#F7F7F7"><h4 style="margin:0">Data da entrega</h4></td>';
-        $html .= '<td style="text-align:center; background-color:#F7F7F7"><h4 style="margin:0">Hora da entrega</h4></td>';
+		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Empresa</h4></td>";
+		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
+		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
+        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data da entrega</h4></td>";
+        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Hora da entrega</h4></td>";
 		$html .= '</tr>';
         foreach($encomendas->getAll() as $encomendas){
-            $html .= '<tr style="text-align:center">';
+            $html .= "<tr style='$style_content'>";
 			$html .= '<td>'.$encomendas["empresa"].'</td>';
 			$html .= '<td>'.$encomendas["apartamento"].'</td>';
 			$html .= '<td>'.$encomendas["bloco"].'</td>';

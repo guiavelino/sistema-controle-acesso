@@ -1,16 +1,14 @@
 /* Dashboard usuário */
 .dashboard-gradient{
-    background:radial-gradient(rgba(17, 17, 17, 0.849),#111)
-}
-.col-md-6{
-    height: 46vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background:radial-gradient(rgba(17, 17, 17, 0.849),#111);
 }
 .bg-1, .bg-2, .bg-3, .bg-4{
     transition: 0.4s;
     cursor: pointer;  
+    height: 45.7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .bg-1{
     background-color: rgba(30, 163, 156, 0.5);
@@ -35,4 +33,8 @@
 }
 .bg-4:hover{
     background-color: rgb(58, 70, 180);
+}
+::selection{
+    background-color:#20B2AA;
+    color: #ffffff;
 }
