@@ -52,14 +52,14 @@
 <section class="content py-4 container-fluid" id="content">
     <ol class="breadcrumb mb-4 bg-dark justify-content-between">
         <li class="breadcrumb-item active text-light">
-            <h4 class="m-0"><i class="fas fa-dolly mr-3 ml-2" style="font-size:28px"></i>Encomendas</h4>
+            <h4 class="m-0"><i class="fas fa-building mr-3 ml-2" style="font-size:28px"></i>Moradores</h4>
         </li>
         <button class="btn bg-transparent btn-exports px-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-ellipsis-v text-white"></i>
         </button>
         <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
             <h6 class="p-2" style="color: #20B2AA">Exportar</h6>
-            <a href="/export_orders" class="px-2">
+            <a href="/export_residents" class="px-2">
                 <i class="far fa-file-excel"></i>
                 <span class="ml-1">Para Excel</span>
             </a>
@@ -73,35 +73,39 @@
             <table class="table table-bordered table-hover mb-0" id="dataTable">
                 <thead class="text-center card-header text-dark"> 
                     <tr>
-                        <th>Empresa</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
                         <th>Apartamento</th>
                         <th>Bloco</th>
-                        <th>Data da entrega</th>
-                        <th>Hora da entrega</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    <?php foreach($this->view->encomendas as $e){?>
+                    <?php foreach($this->view->moradores as $e){?>
                         <tr>
-                            <td><?=$e['empresa']?></td>
+                            <td><?=$e['nome']?></td>
+                            <td><?=$e['cpf']?></td>
+                            <td><?=$e['telefone']?></td>
                             <td><?=$e['apartamento']?></td>
                             <td><?=$e['bloco']?></td>
-                            <td><?=$e['data'] = date('d/m/Y', strtotime($e['data_entrega']))?></td>
-                            <td><?=$e['hora'] = date('H:i', strtotime($e['data_entrega']))?></td>
                             <th>                  
-                                <form action="/edit_orders" method="post" class="d-inline-block">          
-                                    <input type="hidden" name="id_encomenda" value="<?=$e['id_encomenda']?>">
-                                    <input type="hidden" name="empresa" value="<?=$e['empresa']?>">
+                                <form action="/edit_residents" method="post" class="d-inline-block">          
+                                    <input type="hidden" name="id_morador" value="<?=$e['id_morador']?>">
+                                    <input type="hidden" name="nome" value="<?=$e['nome']?>">
+                                    <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
+                                    <input type="hidden" name="telefone" value="<?=$e['telefone']?>">
                                     <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
                                     <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
                                     <button type="submit" class="btn btn-info btn-action">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </form>
-                                <form action="/remove_orders" method="post" class="d-inline-block"> 
-                                    <input type="hidden" name="id_encomenda" value="<?=$e['id_encomenda']?>">
-                                    <input type="hidden" name="empresa" value="<?=$e['empresa']?>">
+                                <form action="/remove_residents" method="post" class="d-inline-block"> 
+                                    <input type="hidden" name="id_morador" value="<?=$e['id_morador']?>">
+                                    <input type="hidden" name="nome" value="<?=$e['nome']?>">
+                                    <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
+                                    <input type="hidden" name="telefone" value="<?=$e['telefone']?>">
                                     <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
                                     <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
                                     <button type="submit" class="btn btn-danger btn-action">
@@ -122,17 +126,25 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-0">
             <div class="modal-header text-center align-items-center">
-                <h4 class="modal-title font-weight-bold text-secondary">Encomendas</h4>
+                <h4 class="modal-title font-weight-bold text-secondary">Moradores</h4>
                 <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/register_orders" method="post">
+            <form action="register_residents" method="post">
                 <div class="modal-body py-4">
                     <div class="card card-body border-0 pt-0">
                         <div class="label-float">
-                            <input type="text" name="empresa" class="form-control mt-2" size="60" placeholder="Empresa" maxlength="60" required>
-                            <label>Empresa</label>
+                            <input type="text" name="nome" class="form-control mt-2" size="60" placeholder="Nome" maxlength="60" required>
+                            <label>Nome</label>
+                        </div>
+                        <div class="label-float mt-4">
+                            <input type="text" name="cpf" class="form-control mt-2" size="5" placeholder="CPF" maxlength="14" required>
+                            <label>CPF</label>
+                        </div>
+                        <div class="label-float mt-4">
+                            <input type="text" name="telefone" class="form-control mt-2" size="5" placeholder="telefone" maxlength="20" required>
+                            <label>Telefone</label>
                         </div>
                         <div class="label-float mt-4">
                             <input type="text" name="apartamento" class="form-control mt-2" size="5" placeholder="Apartamento" maxlength="5" required>

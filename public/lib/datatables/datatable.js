@@ -7,12 +7,12 @@ $(document).ready(function() {
 $('#dataTable').DataTable( {
     language: {
         "sEmptyTable": "Nenhum registro encontrado",
-        "sInfo": "Mostrando _START_ até _END_ de _TOTAL_ registros",
-        "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros",
         "sInfoFiltered": "(Filtrados de _MAX_ registros)",
         "sInfoPostFix": "",
         "sInfoThousands": ".",
-        "sLengthMenu": "Resultados por página _MENU_",
+        "sLengthMenu": "Registros por página _MENU_",
         "sLoadingRecords": "Carregando...",
         "sProcessing": "Processando...",
         "sZeroRecords": "Nenhum registro encontrado",

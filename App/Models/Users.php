@@ -46,8 +46,6 @@ class Users extends Model{
         $stmt->bindValue(":senha", $this->senha);
         $stmt->bindValue(":nivel_acesso", $this->nivel_acesso);
         $stmt->execute();
-
-        return $this;
     }
 
     public function authenticate(){

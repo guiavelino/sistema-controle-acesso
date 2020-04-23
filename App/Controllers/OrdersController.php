@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\Users;
 use MF\Controller\Action;
 use MF\Model\Container;
 
@@ -29,20 +28,26 @@ class OrdersController extends Action {
     }
 
     public function registerOrders(){
-        $encomendas = Container::getModel('Orders');
-		$encomendas->empresa = $_POST['empresa'];
-		$encomendas->apartamento = $_POST['apartamento'];
-		$encomendas->bloco = $_POST['bloco'];
-        $encomendas->registerOrder();
-
-        header('Location: /orders');
+        if($_POST['empresa'] != '' &&  $_POST['apartamento'] != '' &&  $_POST['bloco'] != ''){
+            $encomendas = Container::getModel('Orders');
+            $encomendas->empresa = $_POST['empresa'];
+            $encomendas->apartamento = $_POST['apartamento'];
+            $encomendas->bloco = $_POST['bloco'];
+            $encomendas->registerOrder();
+            echo "<script>alert('Cadastro realizado com sucesso!')</script>";
+        }
+        else{
+            echo "<script>alert('Preencha todos os campos para realizar o cadastro!')</script>";
+        }
+        echo "<script> location.href = '/orders' </script>";
     }
 
     public function editOrders(){
         if(isset($_POST['id_encomenda'])){
             $this->render('edit_orders');
         }else{
-            header('Location: /orders');
+            echo "<script>alert('Selecione um registro para continuar!')</script>";
+            echo "<script> location.href = '/orders' </script>";
         }
     }
 
@@ -54,15 +59,17 @@ class OrdersController extends Action {
             $encomendas->bloco = $_POST['bloco'];
             $encomendas->id_encomenda = $_POST['id_encomenda'];
             $encomendas->updateOrder();
+            echo "<script>alert('Registro atualizado com sucesso!')</script>";
         }
-        header('Location: /orders');
+        echo "<script> location.href = '/orders' </script>";
     }
 
     public function removeOrders(){
         if(isset($_POST['id_encomenda'])){
             $this->render('remove_orders');
         }else{
-            header('Location: /orders');
+            echo "<script>alert('Selecione um registro para continuar!')</script>";
+            echo "<script> location.href = '/orders' </script>";
         }
     }
 
@@ -76,6 +83,7 @@ class OrdersController extends Action {
     }
 
     public function exportOrders(){
+        $this->validateAuthentication();
         $encomendas = Container::getModel('Orders');
 
         // Definindo o nome do arquivo que será exportado

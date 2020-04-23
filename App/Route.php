@@ -75,6 +75,43 @@ class Route extends Bootstrap {
 		);
 		
 
+		
+		$routes['residents'] = array(
+			'route' => '/residents',
+			'controller' => 'ResidentsController',
+			'action' => 'residents'
+		);
+		$routes['export_residents'] = array(
+			'route' => '/export_residents',
+			'controller' => 'ResidentsController',
+			'action' => 'exportResidents'
+		);
+		$routes['register_residents'] = array(
+			'route' => '/register_residents',
+			'controller' => 'ResidentsController',
+			'action' => 'registerResidents'
+		);
+		$routes['edit_residents'] = array(
+			'route' => '/edit_residents',
+			'controller' => 'ResidentsController',
+			'action' => 'editResidents'
+		);
+		$routes['update_residents'] = array(
+			'route' => '/update_residents',
+			'controller' => 'ResidentsController',
+			'action' => 'updateResidents'
+		);
+		$routes['remove_residents'] = array(
+			'route' => '/remove_residents',
+			'controller' => 'ResidentsController',
+			'action' => 'removeResidents'
+		);
+		$routes['delete_residents'] = array(
+			'route' => '/delete_residents',
+			'controller' => 'ResidentsController',
+			'action' => 'deleteResidents'
+		);
+
 		$this->setRoutes($routes);
 	}
 

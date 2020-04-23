@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\Users;
 use MF\Controller\Action;
 use MF\Model\Container;
 

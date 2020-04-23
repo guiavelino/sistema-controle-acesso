@@ -13,6 +13,11 @@
         position: absolute;
     }
 }
+.modal-header button:focus{
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+}
 .add{
     background-color: #20B2AA;
     color: #FFFFFF;

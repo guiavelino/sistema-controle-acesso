@@ -1,13 +1,22 @@
 <div class="nav navbar align-items-center bg-dark" style="height:4rem">
     <h4 class="m-0 text-light">Atualizar registro</h4>
 </div>
+
 <div class="d-flex align-items-center justify-content-center px-1" style="min-height: 91vh">
     <div class="py-4 px-3 card" style="width:30rem">
-        <form action="/update_orders" method="post">
-            <input type="hidden" name="id_encomenda" value="<?=$_POST['id_encomenda']?>">
+        <form action="/update_residents" method="post">
+            <input type="hidden" name="id_morador" value="<?=$_POST['id_morador']?>">
             <div class="label-float mt-4">    
-                <input type="text" name="empresa" class="form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="empresa" value="<?=$_POST['empresa']?>">
-                <label>Empresa</label>
+                <input type="text" name="nome" class="form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?=$_POST['nome']?>">
+                <label>Nome</label>
+            </div>
+            <div class="label-float mt-4">    
+                <input type="text" name="cpf" class="form-control mt-1 bg-transparent" size="60" maxlength="14" placeholder="CPF" value="<?=$_POST['cpf']?>">
+                <label>CPF</label>
+            </div>
+            <div class="label-float mt-4">    
+                <input type="text" name="telefone" class="form-control mt-1 bg-transparent" size="60" maxlength="20" placeholder="Telefone" value="<?=$_POST['telefone']?>">
+                <label>Telefone</label>
             </div>
             <div class="label-float mt-4">    
                 <input type="text" name="apartamento" class="form-control mt-1 bg-transparent" size="60" maxlength="5" placeholder="Apartamento" value="<?=$_POST['apartamento']?>">
@@ -23,7 +32,7 @@
                 <?php }?>
             </select>
             <button type="submit" class="btn btn-register text-white w-100 mt-5">Atualizar</button>   
-            <a href="/orders" class="btn btn-danger text-white w-100 mt-2">Voltar</a>      
+            <a href="/residents" class="btn btn-danger text-white w-100 mt-2">Voltar</a>      
         </form>
     </div>
 </div>

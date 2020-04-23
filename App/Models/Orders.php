@@ -25,8 +25,6 @@ class Orders extends Model{
         $stmt->bindValue(":apartamento", $this->apartamento);
         $stmt->bindValue(":bloco", $this->bloco);
         $stmt->execute();
-
-        return $this;
     }
 
     public function updateOrder(){

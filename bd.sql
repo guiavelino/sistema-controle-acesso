@@ -4,7 +4,7 @@ use controle_de_acesso;
 create table usuarios(
 	id_usuario int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
-	email varchar(80) not null,
+	email varchar(80) not null unique,
     senha varchar(32) not null,
     telefone varchar(20) DEFAULT '(xx)xxxxx-xxxx',
     data_nascimento date DEFAULT '1970-01-01',
@@ -16,7 +16,7 @@ create table usuarios(
 create table moradores(
 	id_morador int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
-	cpf char(14) not null,
+	cpf char(14) not null unique,
 	telefone varchar(20) not null,
 	apartamento varchar(5) not null,
 	bloco char(1) not null
@@ -25,7 +25,7 @@ create table moradores(
 create table prestadores_servicos(
 	id_prestador_servico int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
-	cpf char(14) not null,
+	cpf char(14) not null unique,
 	telefone varchar(20) not null,
 	apartamento varchar(5) not null,
 	bloco char(1) not null,
@@ -35,7 +35,7 @@ create table prestadores_servicos(
 create table visitantes(
 	id_visitante int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
-	cpf char(14) not null,
+	cpf char(14) not null unique,
 	telefone varchar(20) not null,
 	apartamento varchar(5) not null,
 	bloco char(1) not null,
