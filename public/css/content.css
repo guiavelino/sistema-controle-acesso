@@ -1,13 +1,10 @@
-*{
-    box-shadow: none !important;
-    outline: none !important;
-}
-
+/* Conteúdo das páginas */
 .content{
     background-color: #F5F9FC;
     min-height: 91vh;
     margin-top: 4rem;
 }
+/* Menu lateral */
 .menu-user{
     z-index: 999;
     transition: .4s;
@@ -18,16 +15,7 @@
         position: absolute;
     }
 }
-.modal-header button:focus{
-    box-shadow: 0 0 0 0;
-    border: 0 none;
-    outline: 0;
-}
-.add{
-    background-color: #20B2AA;
-    color: #FFFFFF;
-    cursor: pointer;
-}
+/* Botão de Exportação dos dados da tabela */
 .btn-exports{
     box-shadow: 0px 0px 0px !important;
 }
@@ -40,11 +28,25 @@
 .fa-file-excel{
     font-size: 16px !important;
 }
+/* Botão de cadastro */
+.add{
+    background-color: #20B2AA;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+/* Botões de edição e exclusão dos registros */
 .btn-action{
     text-align: center;
     width: 45px;
     padding: 10px;
 }
+/* Janelas modal */
+.modal-header button:focus{
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+}
+/* Recursos datatable */
 label{
     margin: 15px 0;
 }
@@ -57,21 +59,17 @@ select.custom-select{
 }
 input[type="search"]{
     background-color: #FFFFFF;
+    border: none !important;
     font-size: 16px;
     margin: 0;
-}
-
-input[type="search"]:focus{
-    border-color: #20B2AA!important;
 }
 .dataTables_info, .dataTables_paginate{
     margin: 10px 0px !important;
     padding-top: 0px !important;
     line-height: 38px !important;
 }
-
 .page-item.active .page-link{
     background-color: #20B2AA!important;
-    border: 1px solid #20B2AA;
+    border: 1px solid #20B2AA;  
 }
 

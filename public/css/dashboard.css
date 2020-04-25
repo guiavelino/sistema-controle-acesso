@@ -34,7 +34,4 @@
 .bg-4:hover{
     background-color: rgb(58, 70, 180);
 }
-::selection{
-    background-color:#20B2AA;
-    color: #ffffff;
-}
+

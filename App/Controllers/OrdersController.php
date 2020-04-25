@@ -78,8 +78,9 @@ class OrdersController extends Action {
             $encomendas = Container::getModel('Orders');
             $encomendas->id_encomenda = $_POST['id_encomenda'];
             $encomendas->deleteOrder();
+            echo "<script>alert('Registro excluído com sucesso!')</script>";
         }
-        header('Location: /orders');
+        echo "<script> location.href = '/orders' </script>";
     }
 
     public function exportOrders(){

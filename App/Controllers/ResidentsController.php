@@ -33,22 +33,22 @@ class ResidentsController extends Action {
             $moradores = Container::getModel('Residents');
             
             //Tratando duplicidade de CPF - Solução funcional, porém redundante. 
-            foreach($moradores->getAll() as $a){
-                if($_POST['cpf'] == $a['cpf']){
+            foreach($moradores->getAll() as $e){
+                if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um morador ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
             }
-            foreach($moradores->getAllV() as $b){
-                if($_POST['cpf'] == $b['cpf']){
+            foreach($moradores->getAllV() as $e){
+                if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um visitante ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
             }
-            foreach($moradores->getAllP() as $c){
-                if($_POST['cpf'] == $c['cpf']){
+            foreach($moradores->getAllP() as $e){
+                if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um prestador de serviço ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
@@ -81,15 +81,22 @@ class ResidentsController extends Action {
         if(isset($_POST['id_morador'])){
             $moradores = Container::getModel('Residents');
 
-            foreach($moradores->getAllV() as $b){
-                if($_POST['cpf'] == $b['cpf']){
+            foreach($moradores->getAll() as $e){
+                if($_POST['cpf'] == $e['cpf'] && $_POST['id_morador'] != $e['id_morador']){
+                    echo "<script>alert('Erro ao realizar atualização, um morador ja possui este CPF!')</script>";
+                    echo "<script> location.href = '/residents' </script>";
+                    exit;
+                }
+            }
+            foreach($moradores->getAllV() as $e){
+                if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar atualização, um visitante ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
             }
-            foreach($moradores->getAllP() as $c){
-                if($_POST['cpf'] == $c['cpf']){
+            foreach($moradores->getAllP() as $e){
+                if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar atualização, um prestador de serviço ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
@@ -122,8 +129,9 @@ class ResidentsController extends Action {
             $moradores = Container::getModel('Residents');
             $moradores->id_morador = $_POST['id_morador'];
             $moradores->deleteResident();
+            echo "<script>alert('Registro excluído com sucesso!')</script>";
         }
-        header('Location: /residents');
+        echo "<script> location.href = '/residents' </script>";
     }
 
     public function exportResidents(){

@@ -1,10 +1,3 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    text-decoration: none !important;
-}
-
 /*Página index.phtml*/
 .panel-img{
     background: url('../img/backgrounds/bg-login.jpg') center no-repeat;
