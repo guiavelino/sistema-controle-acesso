@@ -1,4 +1,5 @@
-create database controle_de_acesso;
+drop database if exists controle_de_acesso;
+create database if not exists controle_de_acesso;
 use controle_de_acesso;
 
 create table usuarios(
