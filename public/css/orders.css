@@ -1,3 +1,8 @@
+*{
+    box-shadow: none !important;
+    outline: none !important;
+}
+
 .content{
     background-color: #F5F9FC;
     min-height: 91vh;
@@ -46,18 +51,27 @@ label{
 select.custom-select{
     background-color: rgb(238, 240, 240);
     border: 0px !important;
-    border-radius: 25px;
+    border-radius: 5px;
     margin: 0 0 0 10px; 
     cursor: pointer;
 }
 input[type="search"]{
     background-color: #FFFFFF;
     font-size: 16px;
-    border: 0px !important;
     margin: 0;
+}
+
+input[type="search"]:focus{
+    border-color: #20B2AA!important;
 }
 .dataTables_info, .dataTables_paginate{
     margin: 10px 0px !important;
     padding-top: 0px !important;
     line-height: 38px !important;
 }
+
+.page-item.active .page-link{
+    background-color: #20B2AA!important;
+    border: 1px solid #20B2AA;
+}
+

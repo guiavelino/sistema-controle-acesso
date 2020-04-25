@@ -9,7 +9,7 @@
 .panel-img{
     background: url('../img/backgrounds/bg-login.jpg') center no-repeat;
     background-size:cover;
-    height: 100vh; 
+    min-height: 100vh; 
 }
 .panel-login{
     height: 100vh;
@@ -35,7 +35,7 @@
     background-color: rgba(0, 0, 0, 0.6);
     background-blend-mode: darken;
     background-size:cover;
-    height: 100vh;
+    min-height: 100vh;
 }
 .registration-panel{
     background-color: #FFFFFF;
@@ -110,5 +110,4 @@
 .btn-register:hover{
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.603);
 }
-
 
