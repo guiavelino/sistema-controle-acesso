@@ -53,18 +53,6 @@ class Residents extends Model{
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    public function getAllV(){
-        $stmt = $this->db->prepare("SELECT * FROM visitantes");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function getAllP(){
-        $stmt = $this->db->prepare("SELECT * FROM prestadores_servicos");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 }
 
 

@@ -51,7 +51,7 @@
         Você tem certeza que deseja excluir <?=$_POST['nome']?> da lista de visitantes?
       </div>
       <div class="modal-footer">
-        <form action="delete_visitors" method="post">
+        <form action="/delete_visitors" method="post">
             <input type="hidden" name="id_visitante" value="<?=$_POST['id_visitante']?>">
             <button type="submit" class="btn btn-info" style="width:120px">Sim</button>
         </form>

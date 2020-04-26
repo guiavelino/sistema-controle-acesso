@@ -29,8 +29,9 @@ class ResidentsController extends Action {
 
     public function registerResidents(){
         if($_POST['nome'] != '' &&  $_POST['cpf'] != '' && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
-            
             $moradores = Container::getModel('Residents');
+            $prestadores_servicos = Container::getModel('ServiceProviders');
+            $visitantes = Container::getModel('Visitors');
             
             //Tratando duplicidade de CPF - Solução funcional, porém redundante. 
             foreach($moradores->getAll() as $e){
@@ -39,17 +40,17 @@ class ResidentsController extends Action {
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
-            }
-            foreach($moradores->getAllV() as $e){
+            }  
+            foreach($prestadores_servicos->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao realizar cadastro, um visitante ja possui este CPF!')</script>";
+                    echo "<script>alert('Erro ao realizar cadastro, um prestador de serviço ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
             }
-            foreach($moradores->getAllP() as $e){
+            foreach($visitantes->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao realizar cadastro, um prestador de serviço ja possui este CPF!')</script>";
+                    echo "<script>alert('Erro ao realizar cadastro, um visitante ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
@@ -80,6 +81,8 @@ class ResidentsController extends Action {
     public function updateResidents(){
         if(isset($_POST['id_morador'])){
             $moradores = Container::getModel('Residents');
+            $prestadores_servicos = Container::getModel('ServiceProviders');
+            $visitantes = Container::getModel('Visitors');
 
             foreach($moradores->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf'] && $_POST['id_morador'] != $e['id_morador']){
@@ -88,16 +91,16 @@ class ResidentsController extends Action {
                     exit;
                 }
             }
-            foreach($moradores->getAllV() as $e){
+            foreach($prestadores_servicos->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este CPF!')</script>";
+                    echo "<script>alert('Erro ao atualizar registro, um prestador de serviço ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
             }
-            foreach($moradores->getAllP() as $e){
+            foreach($visitantes->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao atualizar registro, um prestador de serviço ja possui este CPF!')</script>";
+                    echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
@@ -149,7 +152,8 @@ class ResidentsController extends Action {
         $style_content = "height:32px; text-align:center; font-size:20;  display:table-cell; vertical-align:middle";
 
 		// Criando uma tabela HTML com o formato da planilha
-		$html = '';
+        $html = '';
+        $html .= '<meta charset="utf-8"/>';
 		$html .= '<table border="1">';
 		$html .= "<tr>";
 		$html .= "<td colspan='5' style='$style_first_header'><h2>Moradores</h2></td>";
@@ -183,7 +187,6 @@ class ResidentsController extends Action {
 		echo $html;
 		exit;
     }
-
 }
 
 ?>

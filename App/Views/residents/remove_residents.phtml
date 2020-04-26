@@ -44,7 +44,7 @@
         Você tem certeza que deseja excluir <?=$_POST['nome']?> da lista de moradores?
       </div>
       <div class="modal-footer">
-        <form action="delete_residents" method="post">
+        <form action="/delete_residents" method="post">
             <input type="hidden" name="id_morador" value="<?=$_POST['id_morador']?>">
             <button type="submit" class="btn btn-info" style="width:120px">Sim</button>
         </form>

@@ -143,6 +143,43 @@ class Route extends Bootstrap {
 			'controller' => 'VisitorsController',
 			'action' => 'deleteVisitors'
 		);
+		$routes['service_providers'] = array(
+			'route' => '/service_providers',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'serviceProviders'
+		);
+		$routes['export_service_providers'] = array(
+			'route' => '/export_service_providers',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'exportServiceProviders'
+		);
+		$routes['register_service_providers'] = array(
+			'route' => '/register_service_providers',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'registerServiceProviders'
+		);
+		$routes['edit_service_providers'] = array(
+			'route' => '/edit_service_providers',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'editServiceProviders'
+		);
+		$routes['update_service_providers'] = array(
+			'route' => '/update_service_providers',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'updateServiceProviders'
+		);
+		$routes['remove_service_providers'] = array(
+			'route' => '/remove_service_providers',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'removeServiceProviders'
+		);
+		$routes['delete_service_providers'] = array(
+			'route' => '/delete_service_providers',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'deleteServiceProviders'
+		);
+		
+
 
 		$this->setRoutes($routes);
 	}

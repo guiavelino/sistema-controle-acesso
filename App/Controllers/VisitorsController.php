@@ -29,8 +29,9 @@ class VisitorsController extends Action {
 
     public function registerVisitors(){
         if($_POST['nome'] != '' &&  $_POST['cpf'] != '' && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
-            
             $visitantes = Container::getModel('Visitors');
+            $moradores = Container::getModel('Residents');
+            $prestadores_servicos = Container::getModel('ServiceProviders');
             
             //Tratando duplicidade de CPF - Solução funcional, porém redundante. 
             foreach($visitantes->getAll() as $e){
@@ -40,14 +41,14 @@ class VisitorsController extends Action {
                     exit;
                 }
             }
-            foreach($visitantes->getAllM() as $e){
+            foreach($moradores->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um morador ja possui este CPF!')</script>";
                     echo "<script> location.href = '/visitors' </script>";
                     exit;
                 }
             }
-            foreach($visitantes->getAllP() as $e){
+            foreach($prestadores_servicos->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um prestador de serviço ja possui este CPF!')</script>";
                     echo "<script> location.href = '/visitors' </script>";
@@ -80,6 +81,8 @@ class VisitorsController extends Action {
     public function updateVisitors(){
         if(isset($_POST['id_visitante'])){
             $visitantes = Container::getModel('Visitors');
+            $moradores = Container::getModel('Residents');
+            $prestadores_servicos = Container::getModel('ServiceProviders');
 
             foreach($visitantes->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf'] && $_POST['id_visitante'] != $e['id_visitante']){
@@ -88,14 +91,14 @@ class VisitorsController extends Action {
                     exit;
                 }
             }
-            foreach($visitantes->getAllM() as $e){
+            foreach($moradores->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao atualizar registro, um morador ja possui este CPF!')</script>";
                     echo "<script> location.href = '/visitors' </script>";
                     exit;
                 }
             }
-            foreach($visitantes->getAllP() as $e){
+            foreach($prestadores_servicos->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao atualizar registro, um prestador de serviço ja possui este CPF!')</script>";
                     echo "<script> location.href = '/visitors' </script>";
@@ -149,7 +152,8 @@ class VisitorsController extends Action {
         $style_content = "height:32px; text-align:center; font-size:20;  display:table-cell; vertical-align:middle";
 
 		// Criando uma tabela HTML com o formato da planilha
-		$html = '';
+        $html = '';
+        $html .= '<meta charset="utf-8"/>';
 		$html .= '<table border="1">';
 		$html .= "<tr>";
 		$html .= "<td colspan='7' style='$style_first_header'><h2>Visitantes</h2></td>";
@@ -187,7 +191,6 @@ class VisitorsController extends Action {
 		echo $html;
 		exit;
     }
-
 }
 
 ?>

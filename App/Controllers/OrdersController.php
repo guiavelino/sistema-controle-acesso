@@ -98,7 +98,8 @@ class OrdersController extends Action {
         $style_content = "height:32px; text-align:center; font-size:20;  display:table-cell; vertical-align:middle";
 
 		// Criando uma tabela HTML com o formato da planilha
-		$html = '';
+        $html = '';
+        $html .= '<meta charset="utf-8"/>';
 		$html .= '<table border="1">';
 		$html .= "<tr>";
 		$html .= "<td colspan='5' style='$style_first_header'><h2>Encomendas</h2></td>";
