@@ -61,7 +61,7 @@ class ResidentsController extends Action {
             $moradores->apartamento = $_POST['apartamento'];
             $moradores->bloco = $_POST['bloco'];
             $moradores->registerResident();
-            echo "<script>alert('Cadastro realizado com sucesso!')</script>";
+            echo "<script>alert('Morador cadastrado com sucesso!')</script>";
         }else{
             echo "<script>alert('Preencha todos os campos para realizar o cadastro!')</script>";
         }
@@ -83,21 +83,21 @@ class ResidentsController extends Action {
 
             foreach($moradores->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf'] && $_POST['id_morador'] != $e['id_morador']){
-                    echo "<script>alert('Erro ao realizar atualização, um morador ja possui este CPF!')</script>";
+                    echo "<script>alert('Erro ao atualizar registro, um morador ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
             }
             foreach($moradores->getAllV() as $e){
                 if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao realizar atualização, um visitante ja possui este CPF!')</script>";
+                    echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
             }
             foreach($moradores->getAllP() as $e){
                 if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao realizar atualização, um prestador de serviço ja possui este CPF!')</script>";
+                    echo "<script>alert('Erro ao atualizar registro, um prestador de serviço ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
@@ -143,7 +143,8 @@ class ResidentsController extends Action {
         
         // Formatando estilo da tabela
         $style_first_header = "height: 60px; text-align:center; background-color:#1EA39C; color:#FFFFFF; display:table-cell; vertical-align:middle;";
-        $style_second_header = "height: 45px; width: 300px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
+        $style_second_header_name = "height: 45px; width: 300px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
+        $style_second_header = "height: 45px; width: 200px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
         $style_titile_header = "font-size:22px";
         $style_content = "height:32px; text-align:center; font-size:20;  display:table-cell; vertical-align:middle";
 
@@ -154,7 +155,7 @@ class ResidentsController extends Action {
 		$html .= "<td colspan='5' style='$style_first_header'><h2>Moradores</h2></td>";
 		$html .= "</tr>";
 		$html .= '<tr>';
-		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Nome</h4></td>";
+		$html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Nome</h4></td>";
 		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>CPF</h4></td>";
 		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Telefone</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";

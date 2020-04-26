@@ -34,7 +34,7 @@ class OrdersController extends Action {
             $encomendas->apartamento = $_POST['apartamento'];
             $encomendas->bloco = $_POST['bloco'];
             $encomendas->registerOrder();
-            echo "<script>alert('Cadastro realizado com sucesso!')</script>";
+            echo "<script>alert('Encomenda cadastrada com sucesso!')</script>";
         }
         else{
             echo "<script>alert('Preencha todos os campos para realizar o cadastro!')</script>";
@@ -92,6 +92,7 @@ class OrdersController extends Action {
         
         // Formatando estilo da tabela
         $style_first_header = "height: 60px; text-align:center; background-color:#1EA39C; color:#FFFFFF; display:table-cell; vertical-align:middle;";
+        $style_second_header_name = "height: 45px; width: 300px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
         $style_second_header = "height: 45px; width: 200px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
         $style_titile_header = "font-size:22px";
         $style_content = "height:32px; text-align:center; font-size:20;  display:table-cell; vertical-align:middle";
@@ -103,11 +104,11 @@ class OrdersController extends Action {
 		$html .= "<td colspan='5' style='$style_first_header'><h2>Encomendas</h2></td>";
 		$html .= "</tr>";
 		$html .= '<tr>';
-		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Empresa</h4></td>";
+		$html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Empresa</h4></td>";
 		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
 		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data da entrega</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Hora da entrega</h4></td>";
+        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data de entrega</h4></td>";
+        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Hora de entrega</h4></td>";
 		$html .= '</tr>';
         foreach($encomendas->getAll() as $encomendas){
             $html .= "<tr style='$style_content'>";

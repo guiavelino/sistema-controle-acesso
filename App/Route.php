@@ -73,9 +73,6 @@ class Route extends Bootstrap {
 			'controller' => 'OrdersController',
 			'action' => 'deleteOrders'
 		);
-		
-
-		
 		$routes['residents'] = array(
 			'route' => '/residents',
 			'controller' => 'ResidentsController',
@@ -110,6 +107,41 @@ class Route extends Bootstrap {
 			'route' => '/delete_residents',
 			'controller' => 'ResidentsController',
 			'action' => 'deleteResidents'
+		);
+		$routes['visitors'] = array(
+			'route' => '/visitors',
+			'controller' => 'VisitorsController',
+			'action' => 'visitors'
+		);
+		$routes['export_visitors'] = array(
+			'route' => '/export_visitors',
+			'controller' => 'VisitorsController',
+			'action' => 'exportVisitors'
+		);
+		$routes['register_visitors'] = array(
+			'route' => '/register_visitors',
+			'controller' => 'VisitorsController',
+			'action' => 'registerVisitors'
+		);
+		$routes['edit_visitors'] = array(
+			'route' => '/edit_visitors',
+			'controller' => 'VisitorsController',
+			'action' => 'editVisitors'
+		);
+		$routes['update_visitors'] = array(
+			'route' => '/update_visitors',
+			'controller' => 'VisitorsController',
+			'action' => 'updateVisitors'
+		);
+		$routes['remove_visitors'] = array(
+			'route' => '/remove_visitors',
+			'controller' => 'VisitorsController',
+			'action' => 'removeVisitors'
+		);
+		$routes['delete_visitors'] = array(
+			'route' => '/delete_visitors',
+			'controller' => 'VisitorsController',
+			'action' => 'deleteVisitors'
 		);
 
 		$this->setRoutes($routes);

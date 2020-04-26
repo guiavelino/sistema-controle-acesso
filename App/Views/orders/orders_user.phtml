@@ -32,7 +32,7 @@
 
 <div class="container-fluid dashboard-gradient menu-user" id="menu-user" style="margin-left: -100%;">
     <div class="row dashboard-gradient">
-        <a href="#" class="col-md-6 bg-1 text-center">
+        <a href="/visitors" class="col-md-6 bg-1 text-center">
             <h1 class="text-white"><i class="fas fa-walking px-2"></i>Visitantes</h1>
         </a>
         <a href="#" class="col-md-6 bg-2 text-center">
@@ -76,8 +76,8 @@
                         <th>Empresa</th>
                         <th>Apartamento</th>
                         <th>Bloco</th>
-                        <th>Data da entrega</th>
-                        <th>Hora da entrega</th>
+                        <th>Data de entrega</th>
+                        <th>Hora de entrega</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -104,6 +104,8 @@
                                     <input type="hidden" name="empresa" value="<?=$e['empresa']?>">
                                     <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
                                     <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
+                                    <input type="hidden" name="data_entrega" value="<?=$e['data']?>">
+                                    <input type="hidden" name="hora_entrega" value="<?=$e['hora']?>">
                                     <button type="submit" class="btn btn-danger btn-action">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>

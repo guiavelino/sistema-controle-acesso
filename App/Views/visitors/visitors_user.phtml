@@ -52,14 +52,14 @@
 <section class="content py-4 container-fluid" id="content">
     <ol class="breadcrumb mb-4 bg-dark justify-content-between">
         <li class="breadcrumb-item active text-light">
-            <h4 class="m-0"><i class="fas fa-building mr-3 ml-2" style="font-size:28px"></i>Moradores</h4>
+            <h4 class="m-0"><i class="fas fa-walking mr-3 ml-2" style="font-size:28px"></i>Visitantes</h4>
         </li>
         <button class="btn bg-transparent btn-exports px-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-ellipsis-v text-white"></i>
         </button>
         <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
             <h6 class="p-2" style="color: #20B2AA">Exportar</h6>
-            <a href="/export_residents" class="px-2">
+            <a href="/export_visitors" class="px-2">
                 <i class="far fa-file-excel"></i>
                 <span class="ml-1">Para Excel</span>
             </a>
@@ -78,20 +78,24 @@
                         <th>Telefone</th>
                         <th>Apartamento</th>
                         <th>Bloco</th>
+                        <th>Data de entrada</th>
+                        <th>Hora de entrada</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    <?php foreach($this->view->moradores as $e){?>
+                    <?php foreach($this->view->visitantes as $e){?>
                         <tr>
                             <td><?=$e['nome']?></td>
                             <td><?=$e['cpf']?></td>
                             <td><?=$e['telefone']?></td>
                             <td><?=$e['apartamento']?></td>
                             <td><?=$e['bloco']?></td>
+                            <td><?=$e['data'] = date('d/m/Y', strtotime($e['data_de_entrada']))?></td>
+                            <td><?=$e['hora'] = date('H:i', strtotime($e['data_de_entrada']))?></td>
                             <th>                  
-                                <form action="/edit_residents" method="post" class="d-inline-block">          
-                                    <input type="hidden" name="id_morador" value="<?=$e['id_morador']?>">
+                                <form action="/edit_visitors" method="post" class="d-inline-block">          
+                                    <input type="hidden" name="id_visitante" value="<?=$e['id_visitante']?>">
                                     <input type="hidden" name="nome" value="<?=$e['nome']?>">
                                     <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
                                     <input type="hidden" name="telefone" value="<?=$e['telefone']?>">
@@ -101,13 +105,15 @@
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </form>
-                                <form action="/remove_residents" method="post" class="d-inline-block"> 
-                                    <input type="hidden" name="id_morador" value="<?=$e['id_morador']?>">
+                                <form action="/remove_visitors" method="post" class="d-inline-block"> 
+                                    <input type="hidden" name="id_visitante" value="<?=$e['id_visitante']?>">
                                     <input type="hidden" name="nome" value="<?=$e['nome']?>">
                                     <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
                                     <input type="hidden" name="telefone" value="<?=$e['telefone']?>">
                                     <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
                                     <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
+                                    <input type="hidden" name="data_entrada" value="<?=$e['data']?>">
+                                    <input type="hidden" name="hora_entrada" value="<?=$e['hora']?>">
                                     <button type="submit" class="btn btn-danger btn-action">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
@@ -126,12 +132,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-0">
             <div class="modal-header text-center align-items-center">
-                <h4 class="modal-title font-weight-bold text-secondary">Moradores</h4>
+                <h4 class="modal-title font-weight-bold text-secondary">Visitantes</h4>
                 <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="register_residents" method="post">
+            <form action="register_visitors" method="post">
                 <div class="modal-body py-4">
                     <div class="card card-body border-0 pt-0">
                         <div class="label-float">
