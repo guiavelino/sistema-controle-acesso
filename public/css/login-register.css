@@ -41,16 +41,15 @@
 }
 
 /*Formulário, inputs e botão*/
-.form-control{
+.form-custom{
     border:none !important;
     margin-top: 15px;
     border-bottom: 1px solid rgb(146, 146, 146) !important;
     border-radius: 0;
-    box-shadow: none!important;
     transition: all .3s ease-out;
-    outline: none;
     padding-left: 2px;
 }
+
 .label-float{
     position: relative;
     padding-top: 10px;

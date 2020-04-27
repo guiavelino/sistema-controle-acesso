@@ -1,0 +1,169 @@
+<header id="header" class="header d-xl-none d-flex align-items-center justify-content-between position-fixed bg-white">
+    <div class="button ml-3 text-center" onclick="sidebarMyProfile()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="dropdown mr-3">
+        <button class="btn btn-light btn-user border-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="text-dark">
+                Olá,
+            </span>
+            <span class="text-secondary mr-1">
+                <?= $_SESSION['nome'] ?>
+            </span>
+            <img width="35" height="35" src="img/users/user.png">
+        </button>
+        <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
+            <a href="/my_profile">
+                <i class="fas fa-user-alt ml-2"></i>
+                <span class="ml-2">
+                    Meu Perfil
+                </span>
+            </a>
+            <hr class="m-0">
+            <a href="/sign_out">
+                <i class="fas fa-sign-out-alt ml-2"></i>
+                <span class="ml-2">
+                    Sair
+                </span>
+            </a>
+        </div>
+    </div> 
+</header>
+
+<section class="row m-auto">
+   
+    <div class="menu-profile col-xl-3 d-xl-block d-none p-0">
+        <div class="d-flex align-items-center justify-content-center" style="height:20rem">
+            <img class="user-photo p-2 mt-4" src="img/users/user.png">
+        </div>
+        <h3 class="text-white text-center mt-2"><?= $_SESSION['nome'] ?></h3>
+        <div class="list-group mt-5" id="list-tab" role="tablist">
+            <a class="item-menu-profile pl-3 active" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">
+                <i class="far fa-id-card pr-2" style="padding-left: 2px"></i>
+                Informações pessoais
+            </a>
+            <a class="item-menu-profile pl-3" id="list-photo-list" data-toggle="list" href="#list-photo" role="tab" aria-controls="photo">
+                <i class="fas fa-photo-video pr-2"></i>    
+                Alterar foto
+            </a>   
+        </div>
+    </div>
+
+    <div class="col-xl-9 col-12 p-0">
+        <div class="tab-content" id="nav-tabContent">   
+            <div class="tab-pane fade show active px-3" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">    
+                <div class="row mx-auto pt-5">   
+                    <div class="card card-information col-md-10 col-sm-12 mx-auto mt-5">
+                        <h4 class="text-dark text-center m-4">Informações pessoais</h4>
+                        <div id="row-nome">
+                            <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseNome" aria-expanded="false" aria-controls="collapseNome">
+                                <div class="col-md-3 col-12 text-secondary"><b>Nome</b></div>
+                                <div class="col-md-8 col-10 text-dark"><?=$_SESSION['nome']?></div>
+                                <div class="col-md-1 col-2 text-right"><i class="fas fa-chevron-right text-secondary"></i></div>
+                            </div>
+                            <div id="collapseNome" class="collapse" aria-labelledby="row-nome" data-parent="#accordion">
+                                <form action="#" method="post" class="row m-auto py-4 align-items-center justify-content-center">
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control mt-2" name="nome" maxlength="60" value="<?= $_SESSION['nome'] ?>">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-danger mt-2 w-100" type="submit">Atualizar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div id="row-data-nascimento">
+                            <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseDataNascimento" aria-expanded="false" aria-controls="collapseDataNascimento">
+                                <div class="col-md-3 col-12 text-secondary"><b>Data de nascimento</b></div>
+                                <div class="col-md-8 col-10 text-dark">16/12/2000</div>
+                                <div class="col-md-1 col-2 text-right"><i class="fas fa-chevron-right text-secondary"></i></div>
+                            </div>
+                            <div id="collapseDataNascimento" class="collapse" aria-labelledby="row-data-nascimento" data-parent="#accordion">
+                                <form action="#" method="post" class="row m-auto py-4 align-items-center justify-content-center">
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control mt-2" id="data_nascimento" name="data_nascimento" maxlength="10" value="16/12/2000">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-danger mt-2 w-100" type="submit">Atualizar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div id="row-genero">
+                            <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseGenero" aria-expanded="false" aria-controls="collapseGenero">
+                                <div class="col-md-3 col-12 text-secondary"><b>Gênero</b></div>
+                                <div class="col-md-8 col-10 text-dark">Masculino</div>
+                                <div class="col-md-1 col-2 text-right"><i class="fas fa-chevron-right text-secondary"></i></div>
+                            </div>
+                            <div id="collapseGenero" class="collapse" aria-labelledby="row-genero" data-parent="#accordion">
+                                <form action="#" method="post" class="row m-auto py-4 align-items-center justify-content-center">
+                                    <div class="col-sm-8">
+                                        <div class="custom-control custom-radio d-inline-block mt-2 mr-4">
+                                            <input type="radio" class="custom-control-input" id="masculino" value="Masculino" name="genero" required>
+                                            <label class="custom-control-label text-dark" for="masculino">Masculino</label>
+                                        </div>
+
+                                        <div class="custom-control custom-radio d-inline-block mt-2 mr-4">
+                                            <input type="radio" class="custom-control-input" id="feminino" value="Feminino" name="genero" required>
+                                            <label class="custom-control-label text-dark" for="feminino">Feminino</label>
+                                        </div>
+
+                                        <div class="custom-control custom-radio d-inline-block mt-2">
+                                            <input type="radio" class="custom-control-input" id="indefinido" value="Prefiro não dizer" name="genero" required>
+                                            <label class="custom-control-label text-dark" for="indefinido">Prefiro não dizer</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-danger mt-md-2 mt-4 w-100" type="submit">Atualizar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informações de contato -->
+                <div class="row my-5 mx-auto">
+                    <div class="card card-information col-md-10 col-sm-12 mr-auto ml-auto mt-5" id="accordion">
+                        <h4 class="text-dark text-center m-4">Informações de contato</h4>
+
+                        <div id="row-email">
+                            <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseEmail" aria-expanded="false" aria-controls="collapseEmail">
+                                <div class="col-md-3 col-12 text-secondary"><b>E-mail</b></div>
+                                <div class="col-md-8 col-10 text-dark"><?= $_SESSION['email'] ?></div>
+                                <div class="col-md-1 col-2 text-right"></div>
+                            </div>
+                        </div>
+
+                        <div id="row-telefone">
+                            <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseTelefone" aria-expanded="false" aria-controls="collapseTelefone">
+                                <div class="col-md-3 col-12 text-secondary"><b>Telefone</b></div>
+                                <div class="col-md-8 col-10 text-dark">(11) 96828-6839</div>
+                                <div class="col-md-1 col-2 text-right"><i class="fas fa-chevron-right text-secondary "></i></div>
+                            </div>
+                            <div id="collapseTelefone" class="collapse" aria-labelledby="row-Telefone" data-parent="#accordion">
+                                <form action="#" method="post" class="row m-auto py-4 align-items-center justify-content-center">
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control mt-2" name="telefone" id="telefone" maxlength="20" value="(11) 96828-6839">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-danger mt-2 w-100" type="submit">Atualizar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+            <div class="tab-pane fade bg-primary px-3" id="list-photo" role="tabpanel" aria-labelledby="list-photo-list">
+                <div class=" d-flex align-items-center justify-content-center">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

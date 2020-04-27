@@ -1,0 +1,43 @@
+/* Menu lateral */
+.menu-profile{
+    background-color: #242939;
+    min-height: 140vh;
+}
+img.user-photo{
+    height:15rem; 
+    width:15rem; 
+    border-radius:50%;
+}
+.item-menu-profile{
+    line-height: 60px;
+    color: #ffffff !important;
+    transition: all .4s;
+}
+.item-menu-profile.active{
+    background-color: #20B2AA;
+}
+.item-menu-profile i{
+    font-size: 20px;
+}
+/* Conteúdo */
+.col-xl-9 .tab-content .tab-pane{
+    height: 100vh;
+}
+.card-information{
+    border-radius:8px !important;
+}
+.collapsed-item{
+    line-height: 45px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.collapsed-item:hover{
+    background-color: #ddd;
+}
+.collapsed i{
+    font-size: 20px;
+}
+.custom-control-input, .custom-control-label{
+    cursor: pointer !important;
+}
+

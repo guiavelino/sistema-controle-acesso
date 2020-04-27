@@ -33,6 +33,20 @@ class Route extends Bootstrap {
 			'controller' => 'AuthController',
 			'action' => 'signOut'
 		);
+		
+
+
+
+		$routes['my_profile'] = array(
+			'route' => '/my_profile',
+			'controller' => 'UserProfileController',
+			'action' => 'myProfile'
+		);
+
+
+
+
+
 		$routes['dashboard'] = array(
 			'route' => '/dashboard',
 			'controller' => 'DashboardController',

@@ -7,23 +7,23 @@
         <form action="/update_service_providers" method="post">
             <input type="hidden" name="id_prestador_servico" value="<?=$_POST['id_prestador_servico']?>">
             <div class="label-float mt-4">    
-                <input type="text" name="nome" class="form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?=$_POST['nome']?>">
+                <input type="text" name="nome" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?=$_POST['nome']?>">
                 <label>Nome</label>
             </div>
             <div class="label-float mt-4">    
-                <input type="text" name="cpf" id="cpf" class="form-control mt-1 bg-transparent" size="60" maxlength="14" placeholder="CPF" value="<?=$_POST['cpf']?>">
+                <input type="text" name="cpf" id="cpf" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="14" placeholder="CPF" value="<?=$_POST['cpf']?>">
                 <label>CPF</label>
             </div>
             <div class="label-float mt-4">    
-                <input type="text" name="telefone" id="telefone" class="form-control mt-1 bg-transparent" size="60" maxlength="20" placeholder="Telefone" value="<?=$_POST['telefone']?>">
+                <input type="text" name="telefone" id="telefone" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="20" placeholder="Telefone" value="<?=$_POST['telefone']?>">
                 <label>Telefone</label>
             </div>
             <div class="label-float mt-4">    
-                <input type="text" name="apartamento" class="form-control mt-1 bg-transparent" size="60" maxlength="5" placeholder="Apartamento" value="<?=$_POST['apartamento']?>">
+                <input type="text" name="apartamento" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="5" placeholder="Apartamento" value="<?=$_POST['apartamento']?>">
                 <label>Apartamento</label>
             </div>
             <label class="mt-4 mb-0" style="color: #20B2AA">Bloco</label>
-            <select class="form-control mt-0 pt-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
+            <select class="form-custom form-control mt-0 pt-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
                 <option value="<?=$_POST['bloco']?>"><?=$_POST['bloco']?></option>
                 <?php if($_POST['bloco'] == 'A'){?>
                     <option value="B">B</option>
