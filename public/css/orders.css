@@ -1,0 +1,69 @@
+*{
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.content{
+    background-color: #F5F9FC;
+    min-height: 91vh;
+    margin-top: 4rem;
+}
+.menu-user{
+    z-index: 999;
+    transition: .4s;
+    position: fixed;
+}
+@media(max-width:769px){
+    .menu-user{
+        position: absolute;
+    }
+}
+.modal-header button:focus{
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+}
+.add{
+    background-color: #20B2AA;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.btn-exports{
+    box-shadow: 0px 0px 0px !important;
+}
+.btn-exports:hover{
+    background-color: rgb(69, 76, 83) !important;
+}
+.fa-ellipsis-v{
+    font-size: 18px;
+}
+.fa-file-excel{
+    font-size: 16px !important;
+}
+.btn-action{
+    text-align: center;
+    width: 45px;
+    padding: 10px;
+}
+label{
+    margin: 15px 0;
+}
+select.custom-select{
+    background-color: rgb(238, 240, 240);
+    border: 0px !important;
+    border-radius: 5px;
+    margin: 0 0 0 10px; 
+    cursor: pointer;
+}
+
+.dataTables_info, .dataTables_paginate{
+    margin: 10px 0px !important;
+    padding-top: 0px !important;
+    line-height: 38px !important;
+}
+
+.page-item.active .page-link{
+    background-color: #20B2AA!important;
+    border: 1px solid #20B2AA;
+}
+
