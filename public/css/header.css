@@ -27,8 +27,7 @@
     background-color: white;
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    right: 10px;
-    top: 60px;
+    z-index: 999 !important;
 }
 .drop a{
     line-height: 50px;

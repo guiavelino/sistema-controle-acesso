@@ -10,7 +10,7 @@
             <span class="text-secondary mr-1">
                 <?= $_SESSION['nome'] ?>
             </span>
-            <img width="35" height="35" src="img/users/user.png">
+            <img width="35" height="35" src="img/users/<?=$_SESSION['imagem_usuario']?>">
         </button>
         <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
             <a href="/my_profile">
@@ -34,25 +34,47 @@
    
     <div class="menu-profile col-xl-3 d-xl-block d-none p-0">
         <div class="d-flex align-items-center justify-content-center" style="height:20rem">
-            <img class="user-photo p-2 mt-4" src="img/users/user.png">
+            <img class="user-photo my-4" data-toggle="modal" data-target="#photoModal" src="img/users/<?=$_SESSION['imagem_usuario']?>">
         </div>
         <h3 class="text-white text-center mt-2"><?= $_SESSION['nome'] ?></h3>
         <div class="list-group mt-5" id="list-tab" role="tablist">
             <a class="item-menu-profile pl-3 active" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">
-                <i class="far fa-id-card pr-2" style="padding-left: 2px"></i>
+                <i class="far fa-id-card pr-2"></i>
                 Informações pessoais
             </a>
-            <a class="item-menu-profile pl-3" id="list-photo-list" data-toggle="list" href="#list-photo" role="tab" aria-controls="photo">
-                <i class="fas fa-photo-video pr-2"></i>    
-                Alterar foto
+            <a class="item-menu-profile pl-3" id="list-security-list" data-toggle="list" href="#list-security" role="tab" aria-controls="security">
+                <i class="fas fa-shield-alt" style="padding-right:10.5px"></i>
+                Segurança
+            </a>   
+        </div>
+    </div>
+
+    <div id="responsive-menu-profile" class="responsive-menu-profile d-xl-none d-block position-fixed" style="margin-left: -20rem">
+        <div class="d-flex align-items-center justify-content-center" style="height:20rem">
+            <img class="user-photo my-4" data-toggle="modal" data-target="#photoModal" src="img/users/<?=$_SESSION['imagem_usuario']?>">
+        </div>
+        <h3 class="text-white text-center mt-2"><?= $_SESSION['nome'] ?></h3>
+        <div class="list-group mt-5" id="list-tab" role="tablist">
+            <a class="item-menu-profile pl-3 active" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">
+                <i class="far fa-id-card pr-2"></i>
+                Informações pessoais
+            </a>
+            <a class="item-menu-profile pl-3" id="list-security-list" data-toggle="list" href="#list-security" role="tab" aria-controls="security">
+                <i class="fas fa-shield-alt" style="padding-right:10.5px"></i>
+                Segurança
             </a>   
         </div>
     </div>
 
     <div class="col-xl-9 col-12 p-0">
         <div class="tab-content" id="nav-tabContent">   
+            <div class="d-flex align-items-center justify-content-end back-home">
+                <a href="/dashboard" class="p-4" title="Retornar a página inicial">
+                    <i class="fas fa-undo-alt text-secondary" style="font-size:35px"></i>
+                </a>
+            </div>
             <div class="tab-pane fade show active px-3" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">    
-                <div class="row mx-auto pt-5">   
+                <div class="row mx-auto">   
                     <div class="card card-information col-md-10 col-sm-12 mx-auto mt-5">
                         <h4 class="text-dark text-center m-4">Informações pessoais</h4>
                         <div id="row-nome">
@@ -62,8 +84,9 @@
                                 <div class="col-md-1 col-2 text-right"><i class="fas fa-chevron-right text-secondary"></i></div>
                             </div>
                             <div id="collapseNome" class="collapse" aria-labelledby="row-nome" data-parent="#accordion">
-                                <form action="#" method="post" class="row m-auto py-4 align-items-center justify-content-center">
+                                <form action="/update_profile" method="post" class="row m-auto py-4 align-items-center justify-content-center">
                                     <div class="col-sm-8">
+                                        <input type="hidden" name="id_usuario" value="<?= $_SESSION['id']?>">
                                         <input type="text" class="form-control mt-2" name="nome" maxlength="60" value="<?= $_SESSION['nome'] ?>">
                                     </div>
                                     <div class="col-sm-4">
@@ -76,13 +99,14 @@
                         <div id="row-data-nascimento">
                             <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseDataNascimento" aria-expanded="false" aria-controls="collapseDataNascimento">
                                 <div class="col-md-3 col-12 text-secondary"><b>Data de nascimento</b></div>
-                                <div class="col-md-8 col-10 text-dark">16/12/2000</div>
+                                <div class="col-md-8 col-10 text-dark"><?=$_SESSION['data_nascimento']?></div>
                                 <div class="col-md-1 col-2 text-right"><i class="fas fa-chevron-right text-secondary"></i></div>
                             </div>
                             <div id="collapseDataNascimento" class="collapse" aria-labelledby="row-data-nascimento" data-parent="#accordion">
-                                <form action="#" method="post" class="row m-auto py-4 align-items-center justify-content-center">
+                                <form action="/update_profile" method="post" class="row m-auto py-4 align-items-center justify-content-center">
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control mt-2" id="data_nascimento" name="data_nascimento" maxlength="10" value="16/12/2000">
+                                        <input type="hidden" name="id_usuario" value="<?= $_SESSION['id']?>">
+                                        <input type="text" class="form-control mt-2" id="data_nascimento" name="data_nascimento" maxlength="10" value="<?=$_SESSION['data_nascimento']?>">
                                     </div>
                                     <div class="col-sm-4">
                                         <button class="btn btn-danger mt-2 w-100" type="submit">Atualizar</button>
@@ -94,11 +118,12 @@
                         <div id="row-genero">
                             <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseGenero" aria-expanded="false" aria-controls="collapseGenero">
                                 <div class="col-md-3 col-12 text-secondary"><b>Gênero</b></div>
-                                <div class="col-md-8 col-10 text-dark">Masculino</div>
+                                <div class="col-md-8 col-10 text-dark"><?=$_SESSION['genero']?></div>
                                 <div class="col-md-1 col-2 text-right"><i class="fas fa-chevron-right text-secondary"></i></div>
                             </div>
                             <div id="collapseGenero" class="collapse" aria-labelledby="row-genero" data-parent="#accordion">
-                                <form action="#" method="post" class="row m-auto py-4 align-items-center justify-content-center">
+                                <form action="/update_profile" method="post" class="row m-auto py-4 align-items-center justify-content-center">
+                                    <input type="hidden" name="id_usuario" value="<?= $_SESSION['id']?>">
                                     <div class="col-sm-8">
                                         <div class="custom-control custom-radio d-inline-block mt-2 mr-4">
                                             <input type="radio" class="custom-control-input" id="masculino" value="Masculino" name="genero" required>
@@ -111,7 +136,7 @@
                                         </div>
 
                                         <div class="custom-control custom-radio d-inline-block mt-2">
-                                            <input type="radio" class="custom-control-input" id="indefinido" value="Prefiro não dizer" name="genero" required>
+                                            <input type="radio" class="custom-control-input" id="indefinido" value="Indefinido" name="genero" required>
                                             <label class="custom-control-label text-dark" for="indefinido">Prefiro não dizer</label>
                                         </div>
                                     </div>
@@ -140,13 +165,14 @@
                         <div id="row-telefone">
                             <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseTelefone" aria-expanded="false" aria-controls="collapseTelefone">
                                 <div class="col-md-3 col-12 text-secondary"><b>Telefone</b></div>
-                                <div class="col-md-8 col-10 text-dark">(11) 96828-6839</div>
-                                <div class="col-md-1 col-2 text-right"><i class="fas fa-chevron-right text-secondary "></i></div>
+                                <div class="col-md-8 col-10 text-dark"><?=$_SESSION['telefone']?></div>
+                                <div class="col-md-1 col-2 text-right"><i class="fas fa-chevron-right text-secondary"></i></div>
                             </div>
                             <div id="collapseTelefone" class="collapse" aria-labelledby="row-Telefone" data-parent="#accordion">
-                                <form action="#" method="post" class="row m-auto py-4 align-items-center justify-content-center">
+                                <form action="/update_profile" method="post" class="row m-auto py-4 align-items-center justify-content-center">
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control mt-2" name="telefone" id="telefone" maxlength="20" value="(11) 96828-6839">
+                                        <input type="hidden" name="id_usuario" value="<?= $_SESSION['id']?>">
+                                        <input type="text" class="form-control mt-2" name="telefone" id="telefone" maxlength="20" value="<?=$_SESSION['telefone']?>">
                                     </div>
                                     <div class="col-sm-4">
                                         <button class="btn btn-danger mt-2 w-100" type="submit">Atualizar</button>
@@ -158,7 +184,7 @@
                 </div>
             </div>
        
-            <div class="tab-pane fade bg-primary px-3" id="list-photo" role="tabpanel" aria-labelledby="list-photo-list">
+            <div class="tab-pane fade bg-primary px-3" id="list-security" role="tabpanel" aria-labelledby="list-security-list">
                 <div class=" d-flex align-items-center justify-content-center">
                     
                 </div>
@@ -167,3 +193,45 @@
     </div>
 
 </section>
+
+<!-- Alterando foto do usuário -->
+<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header text-center align-items-center">
+                <h4 class="modal-title text-secondary">Alterar foto</h4>
+                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size:35px">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center" style="height:22rem; background-color: #111111;">
+                <img class="user-photo my-4" id="imagem_usuario" src="img/users/<?=$_SESSION['imagem_usuario']?>">
+            </div>
+            <div class="modal-footer">
+                <form action="/update_profile" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id_usuario" value="<?= $_SESSION['id']?>">
+                    <input class="d-none" type="file" name="imagem" id="imagem" onchange="previewImagem()">			
+                    <label class="btn btn-outline-info mr-1" for="imagem">Alterar foto</label>
+                    <button type="submit" class="btn btn-info">Salvar foto</button>
+                </form>		
+            </div>
+        </div>
+    </div>
+</div>
+		
+<script>
+    function previewImagem(){
+        var imagem = document.querySelector('input[name=imagem]').files[0];
+        var preview = document.querySelector('#imagem_usuario');
+        
+        var reader = new FileReader();
+        
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+        
+        if(imagem){
+            reader.readAsDataURL(imagem);
+        }
+    }
+</script>

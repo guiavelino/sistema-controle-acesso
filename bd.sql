@@ -7,7 +7,7 @@ create table usuarios(
 	nome varchar(60) not null,
 	email varchar(80) not null unique,
     senha varchar(32) not null,
-    telefone varchar(20) DEFAULT '(xx)xxxxx-xxxx',
+    telefone varchar(20) DEFAULT '(99) 9999-99999',
     data_nascimento date DEFAULT '1970-01-01',
     genero varchar(30) DEFAULT 'Indefinido',
 	imagem_usuario varchar(80) DEFAULT 'user.png',

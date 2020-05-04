@@ -42,6 +42,11 @@ class Route extends Bootstrap {
 			'controller' => 'UserProfileController',
 			'action' => 'myProfile'
 		);
+		$routes['update_profile'] = array(
+			'route' => '/update_profile',
+			'controller' => 'UserProfileController',
+			'action' => 'updateProfile'
+		);
 
 
 

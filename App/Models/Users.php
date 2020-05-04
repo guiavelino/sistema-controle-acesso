@@ -11,6 +11,10 @@ class Users extends Model{
     private $email;
     private $senha;
     private $nivel_acesso;
+    private $telefone;
+    private $data_nascimento;
+    private $genero;
+    private $imagem_usuario;
 
     public function __get($att){
         return $this->$att;
@@ -62,6 +66,35 @@ class Users extends Model{
             $this->email = $usuario['email'];
             $this->senha = $usuario['senha'];
             $this->nivel_acesso = $usuario['nivel_acesso']; 
+            $this->telefone = $usuario['telefone']; 
+            $this->data_nascimento = $usuario['data_nascimento']; 
+            $this->genero = $usuario['genero']; 
+            $this->imagem_usuario = $usuario['imagem_usuario']; 
+        }
+    }
+
+    public function updateProfile($coluna, $valor, $id_usuario){
+        $stmt = $this->db->prepare("UPDATE usuarios SET $coluna = :valor where id_usuario = :id_usuario");
+        $stmt->bindValue(":valor", $valor);
+        $stmt->bindValue(":id_usuario", $id_usuario);
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0){
+            $stmt = $this->db->prepare("SELECT * FROM usuarios where id_usuario = :id_usuario");
+            $stmt->bindValue(":id_usuario", $id_usuario);
+            $stmt->execute();
+
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            session_start();
+            $_SESSION['id'] = $usuario['id_usuario'];
+            $_SESSION['nome'] = $usuario['nome'];
+            $_SESSION['email'] = $usuario['email'];
+            $_SESSION['nivel_acesso'] = $usuario['senha'];
+            $_SESSION['telefone'] = $usuario['telefone'];
+            $_SESSION['data_nascimento'] = $usuario['data_nascimento'];
+            $_SESSION['genero'] = $usuario['genero'];
+            $_SESSION['imagem_usuario'] = $usuario['imagem_usuario'];
         }
     }
 }
