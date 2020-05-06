@@ -55,7 +55,7 @@ img.user-photo{
     margin-top:4rem !important;
     transition: all .4s;
 }
-@media(max-height:640px){
+@media(max-height:600px){
     .responsive-menu-profile{
         position: absolute !important;
     }

@@ -6,6 +6,7 @@ create table usuarios(
 	id_usuario int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
 	email varchar(80) not null unique,
+	cpf char(14) not null unique,
     senha varchar(32) not null,
     telefone varchar(20) DEFAULT '(99) 9999-99999',
     data_nascimento date DEFAULT '1970-01-01',

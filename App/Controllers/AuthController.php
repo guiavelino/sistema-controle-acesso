@@ -19,6 +19,7 @@ class AuthController extends Action {
             $_SESSION['id'] = $usuario->id;
             $_SESSION['nome'] = $usuario->nome;
             $_SESSION['email'] = $usuario->email;
+            $_SESSION['cpf'] = $usuario->cpf;
             $_SESSION['nivel_acesso'] = $usuario->nivel_acesso;
             $_SESSION['telefone'] = $usuario->telefone;
             $_SESSION['data_nascimento'] = $usuario->data_nascimento;

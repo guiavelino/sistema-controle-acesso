@@ -34,8 +34,11 @@ class Route extends Bootstrap {
 			'action' => 'signOut'
 		);
 		
-
-
+		$routes['forgot_password'] = array(
+			'route' => '/forgot_password',
+			'controller' => 'IndexController',
+			'action' => 'forgotPassword'
+		);
 
 		$routes['my_profile'] = array(
 			'route' => '/my_profile',
@@ -47,11 +50,6 @@ class Route extends Bootstrap {
 			'controller' => 'UserProfileController',
 			'action' => 'updateProfile'
 		);
-
-
-
-
-
 		$routes['dashboard'] = array(
 			'route' => '/dashboard',
 			'controller' => 'DashboardController',

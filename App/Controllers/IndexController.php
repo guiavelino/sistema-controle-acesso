@@ -17,6 +17,7 @@ class IndexController extends Action {
 		$this->view->usuario = [
 			'nome' => '',
 			'email' => '',
+			'cpf' => '',
 			'senha' => '',
 			'confirmar_senha' => ''
 		];
@@ -28,10 +29,11 @@ class IndexController extends Action {
 		$usuario = Container::getModel('Users');
 		$usuario->nome = $_POST['nome'];
 		$usuario->email = $_POST['email'];
+		$usuario->cpf = $_POST['cpf'];
 		$usuario->senha = md5($_POST['senha']);
 		$usuario->nivel_acesso = isset($_POST['user-admin']) ? $_POST['user-admin'] : '';
 
-		if($usuario->validateRegistration() && $usuario->getUserByEmail() && $_POST['senha'] == $_POST['confirmar_senha']){
+		if($usuario->validateRegistration() && $usuario->getUserByEmail() && $usuario->getUserByCPF() && $_POST['senha'] == $_POST['confirmar_senha']){
 			$usuario->registerUser();
 			$this->render('registration_success');
 		}
@@ -39,6 +41,7 @@ class IndexController extends Action {
 			$this->view->usuario = [
 				'nome' => $_POST['nome'],
 				'email' => $_POST['email'],
+				'cpf' => $_POST['cpf'],
 				'senha' => $_POST['senha'],
 				'confirmar_senha' => $_POST['confirmar_senha']
 			];
@@ -51,13 +54,21 @@ class IndexController extends Action {
 				//As senhas não correspondem
 				$this->view->erroCadastroDados = 2;
 			}
+			else if(!$usuario->getUserByCPF()){
+				//Um usuário ja possui este CPF
+				$this->view->erroCadastroDados = 3;
+			}
 			else{
 				//O e-mail ja foi cadastrado
-				$this->view->erroCadastroDados = 3;
+				$this->view->erroCadastroDados = 4;
 			}
 
 			$this->render('sign_up');
 		}
+	}
+
+	public function forgotPassword(){
+		$this->render('forgot_password');
 	}
 
 }

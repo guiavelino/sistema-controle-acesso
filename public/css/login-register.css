@@ -7,7 +7,6 @@
 .panel-login{
     height: 100vh;
 }
-
 @media(max-width:1200px){
     .panel-login{
         background: url('../img/backgrounds/bg-login.jpg') center no-repeat;
@@ -21,7 +20,6 @@
         color: #cccccc !important;
     }
 }
-
 /*Página register.phtml*/
 .bg-register{
     background: url('../img/backgrounds/bg-register.jpg') center no-repeat;
@@ -39,7 +37,23 @@
         background: #FFFFFF;
     }
 }
-
+/*Página forgot_password.phtml*/
+.bg-forgot-password{
+    background: url('../img/backgrounds/bg-forgot-password.jpg') center no-repeat;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: darken;
+    background-size:cover;
+    min-height: 100vh;
+}
+.registration-panel{
+    background-color: #FFFFFF;
+    width: 30rem;
+}
+@media(max-width:552px){
+    .bg-register{
+        background: #FFFFFF;
+    }
+}
 /*Formulário, inputs e botão*/
 .form-custom{
     border:none !important;

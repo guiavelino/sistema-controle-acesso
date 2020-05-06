@@ -70,7 +70,7 @@
         <div class="tab-content" id="nav-tabContent">   
             <div class="d-flex align-items-center justify-content-end back-home">
                 <a href="/dashboard" class="p-4" title="Retornar a página inicial">
-                    <i class="fas fa-undo-alt text-secondary" style="font-size:35px"></i>
+                    <i class="fas fa-arrow-left text-secondary" style="font-size:35px"></i>
                 </a>
             </div>
             <div class="tab-pane fade show active px-3" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">    
@@ -185,8 +185,8 @@
             </div>
        
             <div class="tab-pane fade bg-primary px-3" id="list-security" role="tabpanel" aria-labelledby="list-security-list">
-                <div class=" d-flex align-items-center justify-content-center">
-                    
+                <div class=" d-flex align-items-center bg-danger justify-content-center">
+                    <?=$_SESSION['cpf']?>
                 </div>
             </div>
         </div>
