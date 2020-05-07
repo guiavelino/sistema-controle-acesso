@@ -31,10 +31,9 @@
 </header>
 
 <section class="row m-auto">
-   
     <div class="menu-profile col-xl-3 d-xl-block d-none p-0">
         <div class="d-flex align-items-center justify-content-center" style="height:20rem">
-            <img class="user-photo my-4" data-toggle="modal" data-target="#photoModal" src="img/users/<?=$_SESSION['imagem_usuario']?>">
+            <img class="user-photo my-4" data-toggle="modal" data-target="#photoModal" src="img/users/<?=$_SESSION['imagem_usuario']?>" title="Alterar foto">
         </div>
         <h3 class="text-white text-center mt-2"><?= $_SESSION['nome'] ?></h3>
         <div class="list-group mt-5" id="list-tab" role="tablist">
@@ -42,16 +41,16 @@
                 <i class="far fa-id-card pr-2"></i>
                 Informações pessoais
             </a>
-            <a class="item-menu-profile pl-3" id="list-security-list" data-toggle="list" href="#list-security" role="tab" aria-controls="security">
+            <!-- <a class="item-menu-profile pl-3" id="list-security-list" data-toggle="list" href="#list-security" role="tab" aria-controls="security">
                 <i class="fas fa-shield-alt" style="padding-right:10.5px"></i>
                 Segurança
-            </a>   
+            </a>    -->
         </div>
     </div>
 
     <div id="responsive-menu-profile" class="responsive-menu-profile d-xl-none d-block position-fixed" style="margin-left: -20rem">
         <div class="d-flex align-items-center justify-content-center" style="height:20rem">
-            <img class="user-photo my-4" data-toggle="modal" data-target="#photoModal" src="img/users/<?=$_SESSION['imagem_usuario']?>">
+            <img class="user-photo my-4" data-toggle="modal" data-target="#photoModal" src="img/users/<?=$_SESSION['imagem_usuario']?>" title="Alterar foto">
         </div>
         <h3 class="text-white text-center mt-2"><?= $_SESSION['nome'] ?></h3>
         <div class="list-group mt-5" id="list-tab" role="tablist">
@@ -59,10 +58,10 @@
                 <i class="far fa-id-card pr-2"></i>
                 Informações pessoais
             </a>
-            <a class="item-menu-profile pl-3" id="list-security-list" data-toggle="list" href="#list-security" role="tab" aria-controls="security">
+            <!-- <a class="item-menu-profile pl-3" id="list-security-list" data-toggle="list" href="#list-security" role="tab" aria-controls="security">
                 <i class="fas fa-shield-alt" style="padding-right:10.5px"></i>
                 Segurança
-            </a>   
+            </a>    -->
         </div>
     </div>
 
@@ -129,12 +128,10 @@
                                             <input type="radio" class="custom-control-input" id="masculino" value="Masculino" name="genero" required>
                                             <label class="custom-control-label text-dark" for="masculino">Masculino</label>
                                         </div>
-
                                         <div class="custom-control custom-radio d-inline-block mt-2 mr-4">
                                             <input type="radio" class="custom-control-input" id="feminino" value="Feminino" name="genero" required>
                                             <label class="custom-control-label text-dark" for="feminino">Feminino</label>
                                         </div>
-
                                         <div class="custom-control custom-radio d-inline-block mt-2">
                                             <input type="radio" class="custom-control-input" id="indefinido" value="Indefinido" name="genero" required>
                                             <label class="custom-control-label text-dark" for="indefinido">Prefiro não dizer</label>
@@ -153,7 +150,6 @@
                 <div class="row my-5 mx-auto">
                     <div class="card card-information col-md-10 col-sm-12 mr-auto ml-auto mt-5" id="accordion">
                         <h4 class="text-dark text-center m-4">Informações de contato</h4>
-
                         <div id="row-email">
                             <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseEmail" aria-expanded="false" aria-controls="collapseEmail">
                                 <div class="col-md-3 col-12 text-secondary"><b>E-mail</b></div>
@@ -161,7 +157,6 @@
                                 <div class="col-md-1 col-2 text-right"></div>
                             </div>
                         </div>
-
                         <div id="row-telefone">
                             <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseTelefone" aria-expanded="false" aria-controls="collapseTelefone">
                                 <div class="col-md-3 col-12 text-secondary"><b>Telefone</b></div>
@@ -184,14 +179,12 @@
                 </div>
             </div>
        
-            <div class="tab-pane fade bg-primary px-3" id="list-security" role="tabpanel" aria-labelledby="list-security-list">
-                <div class=" d-flex align-items-center bg-danger justify-content-center">
-                    <?=$_SESSION['cpf']?>
-                </div>
-            </div>
+            <!-- <div class="tab-pane fade px-3 bg-danger" id="list-security" role="tabpanel" aria-labelledby="list-security-list">
+                
+            </div> -->
+
         </div>
     </div>
-
 </section>
 
 <!-- Alterando foto do usuário -->

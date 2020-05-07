@@ -6,7 +6,7 @@
 }
 /* Menu lateral */
 .menu-user{
-    z-index: 999;
+    z-index: 998;
     transition: .4s;
     position: fixed;
 }
