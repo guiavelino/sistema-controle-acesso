@@ -40,6 +40,12 @@ class Route extends Bootstrap {
 			'action' => 'forgotPassword'
 		);
 
+		$routes['update_password'] = array(
+			'route' => '/update_password',
+			'controller' => 'IndexController',
+			'action' => 'updatePassword'
+		);
+
 		$routes['my_profile'] = array(
 			'route' => '/my_profile',
 			'controller' => 'UserProfileController',

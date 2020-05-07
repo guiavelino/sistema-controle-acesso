@@ -28,15 +28,6 @@
     background-size:cover;
     min-height: 100vh;
 }
-.registration-panel{
-    background-color: #FFFFFF;
-    width: 30rem;
-}
-@media(max-width:552px){
-    .bg-register{
-        background: #FFFFFF;
-    }
-}
 /*Página forgot_password.phtml*/
 .bg-forgot-password{
     background: url('../img/backgrounds/bg-forgot-password.jpg') center no-repeat;

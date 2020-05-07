@@ -26,7 +26,14 @@ class Users extends Model{
     }
 
     public function validateRegistration(){
-        if(strlen($this->nome) < 3 || strlen($this->email) < 3 || empty($this->cpf) || strlen($this->senha) < 3 || empty($this->nivel_acesso)){
+        if(strlen($this->nome) < 3 || strlen($this->email) < 3 || strlen($this->cpf) < 14 || strlen($this->senha) < 3 || empty($this->nivel_acesso)){
+            return false;
+        }
+        return true;
+    }
+
+    public function validateUpdateRegister(){
+        if(strlen($this->email) < 3 || strlen($this->cpf) < 14 || strlen($this->senha) < 3){
             return false;
         }
         return true;
@@ -64,6 +71,26 @@ class Users extends Model{
         $stmt->bindValue(":senha", $this->senha);
         $stmt->bindValue(":nivel_acesso", $this->nivel_acesso);
         $stmt->execute();
+    }
+
+    public function updateRegister(){
+        $stmt = $this->db->prepare("SELECT * FROM usuarios where email = :email AND cpf = :cpf");
+        $stmt->bindValue(":email", $this->email);
+        $stmt->bindValue(":cpf", $this->cpf);
+        $stmt->execute();
+
+        //Vinculação entre E-mail e CPF confirmada, iniciando alteração de sehna
+        if($stmt->rowCount() > 0){
+            $stmt = $this->db->prepare("UPDATE usuarios SET senha = :senha where cpf =:cpf AND email =:email");
+            $stmt->bindValue(":senha", $this->senha);
+            $stmt->bindValue(":cpf", $this->cpf);
+            $stmt->bindValue(":email", $this->email);
+            $stmt->execute();
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public function authenticate(){

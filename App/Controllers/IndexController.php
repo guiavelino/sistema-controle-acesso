@@ -71,6 +71,42 @@ class IndexController extends Action {
 		$this->render('forgot_password');
 	}
 
+	public function updatePassword(){
+		$usuario = Container::getModel('Users');
+		$usuario->email = $_POST['email'];
+		$usuario->cpf = $_POST['cpf'];
+		$usuario->senha = md5($_POST['senha']);
+		
+		if($usuario->validateUpdateRegister() && $_POST['senha'] == $_POST['confirmar_senha'] && $_POST['senha'] != '' && $_POST['confirmar_senha'] != ''){
+			if($usuario->updateRegister()){
+				echo "<script>
+					alert('Senha alterada com sucesso, realize o login para continuar!');
+					location.href = '/';
+				</script>";
+			}
+			else{
+				echo "<script>
+					alert('Erro ao alterar senha, este E-mail não está vinculado a este CPF, tente novamente!');
+					location.href = '/forgot_password';
+				</script>";
+			}
+		}
+		else{
+			if(!$usuario->validateUpdateRegister() || $_POST['senha'] == '' || $_POST['confirmar_senha'] == ''){
+				echo "<script>
+					alert('Erro ao alterar senha, verifique se os campos foram preenchidos corretamente.');
+					location.href = '/forgot_password';
+				</script>";
+			}
+			else if($_POST['senha'] != $_POST['confirmar_senha']){
+				echo "<script>
+					alert('As senhas não correspondem, digite senhas iguais para realizar a alteração.');
+					location.href = '/forgot_password';	
+				</script>";
+			}
+		}
+		
+	}
 }
 
 
