@@ -1,9 +1,14 @@
 .header{
-    height:4rem;
+    height:10vh;
     top: 0 !important;
     width: 100% !important;
     z-index: 999;
     box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+@media(min-height:920px){
+    .header{
+        height:6vh;
+    }
 }
 .button{
     width: 40px;

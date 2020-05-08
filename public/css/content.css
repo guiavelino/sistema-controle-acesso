@@ -1,8 +1,14 @@
 /* Conteúdo das páginas */
 .content{
     background-color: #F5F9FC;
-    min-height: 91vh;
-    margin-top: 4rem;
+    min-height: 90vh;
+    margin-top: 10vh;
+}
+@media(min-height:920px){
+    .content{
+        height:94vh;
+        margin-top: 6vh;
+    }
 }
 /* Menu lateral */
 .menu-user{

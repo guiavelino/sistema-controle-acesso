@@ -23,7 +23,15 @@ img.user-photo{
 /* Conteúdo */
 @media(max-width:1199px){
     .back-home{
-        margin-top:4rem !important;
+        margin-top:10vh !important;
+    }
+}
+@media(min-height:920px){
+    .back-home{
+        margin-top:6vh !important;
+    }
+    .responsive-menu-profile{
+        margin-top:6vh !important;
     }
 }
 .col-xl-9 .tab-content .tab-pane{
@@ -52,7 +60,7 @@ img.user-photo{
     min-height: 100vh;
     width:20rem;
     z-index: 998;
-    margin-top:4rem !important;
+    margin-top:10vh;
     transition: all .4s;
 }
 @media(max-height:600px){

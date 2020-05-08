@@ -5,10 +5,15 @@
 .bg-1, .bg-2, .bg-3, .bg-4{
     transition: 0.4s;
     cursor: pointer;  
-    height: 45.7vh;
+    height: 45vh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+@media(min-height:920px){
+    .bg-1, .bg-2, .bg-3, .bg-4{
+        height:47vh;
+    }
 }
 .bg-1{
     background-color: rgba(30, 163, 156, 0.5);
