@@ -87,4 +87,6 @@ input[type="search"]{
     border: 1px solid #20B2AA;  
 }
 
-
+.table td:nth-child(1), td:nth-child(2), td:nth-child(3), .odd th {
+    min-width:150px;
+}
