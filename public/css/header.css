@@ -5,6 +5,15 @@
     z-index: 999;
     box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
 }
+.header-adm{
+    height: 10vh;
+    top: 0 !important;
+    right: 0 !important;
+    width: 80% !important;
+    position: fixed;
+    z-index: 999;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
 @media(min-height:920px){
     .header{
         height:6vh;

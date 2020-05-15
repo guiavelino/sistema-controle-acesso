@@ -1,5 +1,67 @@
-<p>Essa é a página do Administrador<p>
-<p>Olá, <?= $_SESSION['nome'] ?></p>
-<p>Nível de acesso: <?=$_SESSION['nivel_acesso']?></p>
+<header id="header" class="header-adm d-flex align-items-center justify-content-between">
+    <div class="button ml-3 text-center" onclick="sidebarAdm()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="dropdown mr-3">
+        <button class="btn btn-light btn-user border-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="text-dark">
+                Olá,
+            </span>
+            <span class="text-secondary mr-1">
+                <?= $_SESSION['nome'] ?>
+            </span>
+            <img width="35" height="35" src="img/users/<?=$_SESSION['imagem_usuario']?>">
+        </button>
+        <div class="dropdown-menu drop p-0" style="margin-right: 30px !important;" aria-labelledby="dropdownMenuButton">
+            <a href="/my_profile">
+                <i class="fas fa-user-alt ml-2"></i>
+                <span class="ml-2">
+                    Meu Perfil
+                </span>
+            </a>
+            <hr class="m-0">
+            <a href="/sign_out">
+                <i class="fas fa-sign-out-alt ml-2"></i>
+                <span class="ml-2">
+                    Sair
+                </span>
+            </a>
+        </div>
+    </div> 
+</header>
 
-<a href="/sign_out">Sair</a>
+<aside id="menu-adm" class="menu-adm" style="">
+    <h4 class="pl-3 text-white logo">Access</h4>
+    <small class="pl-3 text-white subtitle-menu-adm">Menu</small>
+    <nav>
+        <ul class="menu-list">
+            <a class="d-block p-3 active" href="/dashboard">
+                <i class="fas fa-chart-line icon"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="d-block p-3" href="/residents">
+                <i class="fas fa-building icon"></i>
+                <span>Moradores</span>
+            </a>
+            <a class="d-block p-3" href="/visitors">
+                <i class="fas fa-walking icon"></i>
+                <span>Visitantes</span>
+            </a>
+            <a class="d-block p-3" href="/service_providers">
+                <i class="fas fa-toolbox icon"></i>
+                <span>Prestadores de serviços</span>
+            </a>
+            <a class="d-block p-3" href="/orders">
+                <i class="fas fa-dolly icon"></i>
+                <span>Encomendas</span>
+            </a>
+            <a class="d-block p-3" href="#">
+                <i class="fas fa-gamepad icon"></i>
+                <span>Áreas de lazer</span>
+            </a>
+        </ul>
+    </nav>
+</aside>
+    
+
+

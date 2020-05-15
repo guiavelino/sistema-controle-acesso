@@ -39,4 +39,42 @@
 .bg-4:hover{
     background-color: rgb(58, 70, 180);
 }
+/* Dashboard Administrador */
+.menu-adm{
+    height:100vh;
+    top:0;
+    left:0;
+    width: 20%;
+    position:fixed;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    background-color:#242939;
+    transition: 0.4s;
+    z-index: 999;
+}
+.logo{
+    line-height: 10vh;
+    margin: 0;
+}
+.subtitle-menu-adm{
+    line-height: 6vh;
+}
+.menu-adm>nav>ul>a{
+    color: #DCDCDC; 
+}
+ul>a:hover{
+    background-color:#1f2433;
+}
+ul>a.active{
+    background-color: #20B2AA;
+    color: #ffffff;
+}
+ul>a>.icon{
+    width: 40px;
+    font-size:18pt;
+}
+ul>a>span{
+    font-size:11pt;
+}
+
+
 
