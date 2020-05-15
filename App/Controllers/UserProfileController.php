@@ -54,9 +54,10 @@ class UserProfileController extends Action {
         }
         else if(isset($_FILES['imagem']) && $_FILES['imagem'] != ''){
             $coluna = 'imagem_usuario';
-            $valor = $_FILES['imagem']['name'];
+            $extensao = strtolower(substr($_FILES['imagem']['name'], -4));
+            $valor = md5(time()) . $extensao;
             move_uploaded_file($_FILES['imagem']['tmp_name'], "img/users/$valor");
-            $msg = 'Foto do usuário atualizada com sucesso!';
+            $msg = 'Imagem atualizada com sucesso!';
         }
         else{
             echo "<script>alert('Erro ao atualizar dados!')</script>";
