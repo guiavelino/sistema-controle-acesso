@@ -18,6 +18,8 @@ class ResidentsController extends Action {
         $this->validateAuthentication();
 
         if($_SESSION['nivel_acesso'] == 'administrador'){
+            $moradores = Container::getModel('Residents');
+            $this->view->moradores = $moradores->getAll();
             $this->render('residents_admin');
         }
         else{
@@ -28,12 +30,12 @@ class ResidentsController extends Action {
     }
 
     public function registerResidents(){
-        if($_POST['nome'] != '' &&  $_POST['cpf'] != '' && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+        if($_POST['nome'] != '' &&  $_POST['cpf'] != '' && strlen($_POST['cpf']) == 14 && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
             $moradores = Container::getModel('Residents');
             $prestadores_servicos = Container::getModel('ServiceProviders');
             $visitantes = Container::getModel('Visitors');
             
-            //Tratando duplicidade de CPF - Solução funcional, porém redundante. 
+            //Tratando duplicidade de CPF 
             foreach($moradores->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um morador ja possui este CPF!')</script>";
@@ -63,7 +65,11 @@ class ResidentsController extends Action {
             $moradores->bloco = $_POST['bloco'];
             $moradores->registerResident();
             echo "<script>alert('Morador cadastrado com sucesso!')</script>";
-        }else{
+        }
+        else if(strlen($_POST['cpf']) != 14){
+            echo "<script>alert('Digite um CPF válido para realizar o cadastro!')</script>";
+        }
+        else{
             echo "<script>alert('Preencha todos os campos para realizar o cadastro!')</script>";
         }
         echo "<script> location.href = '/residents' </script>";

@@ -1,1 +1,215 @@
-Chegamos a pagina de moradores nivel de acesso administrador
+<header id="header" class="header-adm d-flex align-items-center justify-content-between">
+    <div class="d-xl-block d-none button ml-3 text-center" onclick="sidebarAdm()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="d-xl-none d-block button ml-3 text-center" onclick="sidebarSecretAdm()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="dropdown mr-3">
+        <button class="btn btn-light btn-user border-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="text-dark">
+                Olá,
+            </span>
+            <span class="text-secondary mr-1">
+                <?= $_SESSION['nome'] ?>
+            </span>
+            <img width="35" height="35" src="img/users/<?=$_SESSION['imagem_usuario']?>">
+        </button>
+        <div class="dropdown-menu drop p-0" style="margin-right: 30px !important;" aria-labelledby="dropdownMenuButton">
+            <a href="/my_profile">
+                <i class="fas fa-user-alt ml-2"></i>
+                <span class="ml-2">
+                    Meu Perfil
+                </span>
+            </a>
+            <hr class="m-0">
+            <a href="/sign_out">
+                <i class="fas fa-sign-out-alt ml-2"></i>
+                <span class="ml-2">
+                    Sair
+                </span>
+            </a>
+        </div>
+    </div> 
+</header>
+<aside id="menu-adm" class="menu-adm" style="margin-left:0px">
+    <h4 class="pl-3 text-white logo">Access</h4>
+    <small class="pl-3 text-white subtitle-menu-adm">Menu</small>
+    <nav>
+        <ul class="menu-list">
+            <a class="d-block p-3" href="/dashboard">
+                <i class="fas fa-chart-line icon"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="d-block p-3 active" href="/residents">
+                <i class="fas fa-building icon"></i>
+                <span>Moradores</span>
+            </a>
+            <a class="d-block p-3" href="/visitors">
+                <i class="fas fa-walking icon"></i>
+                <span>Visitantes</span>
+            </a>
+            <a class="d-block p-3" href="/service_providers">
+                <i class="fas fa-toolbox icon"></i>
+                <span>Prestadores de serviços</span>
+            </a>
+            <a class="d-block p-3" href="/orders">
+                <i class="fas fa-dolly icon"></i>
+                <span>Encomendas</span>
+            </a>
+            <a class="d-block p-3" href="#">
+                <i class="fas fa-gamepad icon"></i>
+                <span>Áreas de lazer</span>
+            </a>
+        </ul>
+    </nav>
+</aside>
+<aside id="menu-secret-adm" class="menu-secret-adm" style="margin-left:-18rem">
+    <h4 class="pl-3 text-white logo">Access</h4>
+    <small class="pl-3 text-white subtitle-menu-adm">Menu</small>
+    <nav>
+        <ul class="menu-list">
+            <a class="d-block p-3" href="/dashboard">
+                <i class="fas fa-chart-line icon"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="d-block p-3 active" href="/residents">
+                <i class="fas fa-building icon"></i>
+                <span>Moradores</span>
+            </a>
+            <a class="d-block p-3" href="/visitors">
+                <i class="fas fa-walking icon"></i>
+                <span>Visitantes</span>
+            </a>
+            <a class="d-block p-3" href="/service_providers">
+                <i class="fas fa-toolbox icon"></i>
+                <span>Prestadores de serviços</span>
+            </a>
+            <a class="d-block p-3" href="/orders">
+                <i class="fas fa-dolly icon"></i>
+                <span>Encomendas</span>
+            </a>
+            <a class="d-block p-3" href="#">
+                <i class="fas fa-gamepad icon"></i>
+                <span>Áreas de lazer</span>
+            </a>
+        </ul>
+    </nav>
+</aside>
+<section class="content-adm p-3" id="content">
+    <ol class="breadcrumb mb-4 bg-dark justify-content-between">
+        <li class="breadcrumb-item active text-light">
+            <h4 class="m-0"><i class="fas fa-building mr-3 ml-2" style="font-size:28px"></i>Moradores</h4>
+        </li>
+        <button class="btn bg-transparent btn-exports px-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis-v text-white"></i>
+        </button>
+        <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
+            <h6 class="p-2" style="color: #20B2AA">Exportar</h6>
+            <a href="/export_residents" class="px-2">
+                <i class="far fa-file-excel"></i>
+                <span class="ml-1">Para Excel</span>
+            </a>
+        </div>
+    </ol>
+    <div class="card mb-4 border-0">
+        <div class="card-header text-center add" data-toggle="modal" data-target="#form-modal">
+            <h5 class="m-0"><i class="fas fa-plus-circle mr-1"></i>Adicionar</h5>
+        </div>
+        <div class="card-body table-responsive pt-1">
+            <table class="table table-bordered table-hover mb-0" id="dataTable">
+                <thead class="text-center card-header text-dark"> 
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Apartamento</th>
+                        <th>Bloco</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <?php foreach($this->view->moradores as $e){?>
+                        <tr>
+                            <td><?=$e['nome']?></td>
+                            <td><?=$e['cpf']?></td>
+                            <td><?=$e['telefone']?></td>
+                            <td><?=$e['apartamento']?></td>
+                            <td><?=$e['bloco']?></td>
+                            <th>                  
+                                <form action="/edit_residents" method="post" class="d-inline-block">          
+                                    <input type="hidden" name="id_morador" value="<?=$e['id_morador']?>">
+                                    <input type="hidden" name="nome" value="<?=$e['nome']?>">
+                                    <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
+                                    <input type="hidden" name="telefone" value="<?=$e['telefone']?>">
+                                    <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
+                                    <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
+                                    <button type="submit" class="btn btn-info btn-action">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </form>
+                                <form action="/remove_residents" method="post" class="d-inline-block"> 
+                                    <input type="hidden" name="id_morador" value="<?=$e['id_morador']?>">
+                                    <input type="hidden" name="nome" value="<?=$e['nome']?>">
+                                    <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
+                                    <input type="hidden" name="telefone" value="<?=$e['telefone']?>">
+                                    <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
+                                    <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
+                                    <button type="submit" class="btn btn-danger btn-action">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </th>
+                        </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+        </div>   
+    </div>
+</section>
+
+<!-- Modal de cadastro-->
+<div class="modal fade " id="form-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header text-center align-items-center">
+                <h4 class="modal-title font-weight-bold text-secondary">Moradores</h4>
+                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="register_residents" method="post">
+                <div class="modal-body py-4">
+                    <div class="card card-body border-0 pt-0">
+                        <div class="label-float">
+                            <input type="text" name="nome" class="form-custom form-control mt-2" size="60" placeholder="Nome" maxlength="60" required>
+                            <label>Nome</label>
+                        </div>
+                        <div class="label-float mt-4">
+                            <input type="text" name="cpf" id="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" required>
+                            <label>CPF</label>
+                        </div>
+                        <div class="label-float mt-4">
+                            <input type="text" name="telefone" id="telefone" class="form-custom form-control mt-2" size="60" placeholder="telefone" maxlength="20" required>
+                            <label>Telefone</label>
+                        </div>
+                        <div class="label-float mt-4">
+                            <input type="text" name="apartamento" class="form-custom form-control mt-2" size="60" placeholder="Apartamento" maxlength="5" required>
+                            <label>Apartamento</label>
+                        </div>
+                        <label class="mt-4 mb-0 text-secondary">Bloco</label>
+                        <select class="form-custom form-control mt-0 pt-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-register w-100 text-light">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

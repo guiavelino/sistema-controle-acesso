@@ -1,5 +1,5 @@
 /*Gráfico anual*/
-let myChartByYear = document.getElementById('myChartByYear').getContext('2d');
+let myChartByYear = document.getElementById('myChartByYear');
 let chartByYear = new Chart(myChartByYear, {
  
     type: 'line',

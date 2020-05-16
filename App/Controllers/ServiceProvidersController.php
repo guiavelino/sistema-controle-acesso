@@ -18,6 +18,8 @@ class ServiceProvidersController extends Action {
         $this->validateAuthentication();
 
         if($_SESSION['nivel_acesso'] == 'administrador'){
+            $prestadores_servicos = Container::getModel('ServiceProviders');
+            $this->view->prestadores_servicos = $prestadores_servicos->getAll();
             $this->render('service_providers_admin');
         }
         else{
@@ -28,12 +30,12 @@ class ServiceProvidersController extends Action {
     }
 
     public function registerServiceProviders(){
-        if($_POST['nome'] != '' &&  $_POST['cpf'] != '' && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+        if($_POST['nome'] != '' &&  $_POST['cpf'] != '' && strlen($_POST['cpf']) == 14 && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
             $prestadores_servicos = Container::getModel('ServiceProviders');
             $moradores = Container::getModel('Residents');
             $visitantes = Container::getModel('Visitors');
             
-            //Tratando duplicidade de CPF - Solução funcional, porém redundante. 
+            //Tratando duplicidade de CPF 
             foreach($prestadores_servicos->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um prestador de serviço ja possui este CPF!')</script>";
@@ -63,7 +65,11 @@ class ServiceProvidersController extends Action {
             $prestadores_servicos->bloco = $_POST['bloco'];
             $prestadores_servicos->registerServiceProvider();
             echo "<script>alert('Prestador de serviço cadastrado com sucesso!')</script>";
-        }else{
+        }
+        else if(strlen($_POST['cpf']) != 14){
+            echo "<script>alert('Digite um CPF válido para realizar o cadastro!')</script>";
+        }
+        else{
             echo "<script>alert('Preencha todos os campos para realizar o cadastro!')</script>";
         }
         echo "<script> location.href = '/service_providers' </script>";
