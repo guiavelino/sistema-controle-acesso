@@ -11,13 +11,18 @@ function sidebarUser(){
 function sidebarAdm(){
     let sidebar = document.getElementById('menu-adm');
     let header = document.getElementById('header');
+    let content = document.getElementById('content');
 
     if(sidebar.style.marginLeft == '0px'){
         sidebar.style.marginLeft = '-20%';
         header.style.width = '100%';
+        content.style.width = '100%';
+        content.style.marginLeft = '0%';
     }else{
         sidebar.style.marginLeft = '0px';
         header.style.width = '80%';
+        content.style.width = '80%';
+        content.style.marginLeft = '20%';
     }
 }
 

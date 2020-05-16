@@ -4,6 +4,7 @@
     width: 100% !important;
     z-index: 999;
     box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+    background-color: #FFFFFF;
 }
 .header-adm{
     height: 10vh;
@@ -14,6 +15,7 @@
     box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
     z-index: 999;
     transition: all .4s;
+    background-color: #FFFFFF;
 }
 @media(max-width:1200px){
     .header-adm{

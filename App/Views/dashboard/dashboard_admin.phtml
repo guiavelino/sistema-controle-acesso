@@ -32,7 +32,6 @@
         </div>
     </div> 
 </header>
-
 <aside id="menu-adm" class="menu-adm" style="margin-left:0px">
     <h4 class="pl-3 text-white logo">Access</h4>
     <small class="pl-3 text-white subtitle-menu-adm">Menu</small>
@@ -65,7 +64,6 @@
         </ul>
     </nav>
 </aside>
-
 <aside id="menu-secret-adm" class="menu-secret-adm" style="margin-left:-18rem">
     <h4 class="pl-3 text-white logo">Access</h4>
     <small class="pl-3 text-white subtitle-menu-adm">Menu</small>
@@ -98,6 +96,83 @@
         </ul>
     </nav>
 </aside>
-    
+
+<section class="content-adm p-1" id="content">
+    <div class="row m-auto">
+        <!-- Gráfico anual -->  
+        <div class="col-lg-9 col-md-8 p-0">
+            <div class="card m-3 shadow">
+                <div class="d-flex flex-row align-items-center justify-content-between p-3">
+                    <h6 class="m-0 text-dark">Status de entrada geral</h6>
+                    <span class="badge badge-info">Por ano</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="myChartByYear" style="height:420px;"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- Gráfico semanal -->
+        <div class="col-lg-3 col-md-4 p-0">
+            <div class="card m-3 shadow">
+                <div class="d-flex flex-row align-items-center justify-content-between p-3">
+                    <h6 class="m-0 text-dark">Status</h6>
+                    <span class="badge badge-info">Por semana</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="myWeeklyChart" style="height:420px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-auto">
+        <div class="col-md-4 p-0">
+            <div class="card m-3 shadow">
+                <div class="no-gutters align-items-center">
+                    <div class="d-flex flex-row align-items-center justify-content-between rounded-top p-2 border-bottom">
+                        <h6 class="text-dark">Visitantes</h6>
+                        <h6 class="badge badge-info">Hoje</h6>
+                    </div>
+                    <div class="d-flex flex-row align-items-center justify-content-between p-3">
+                        <i class="fas fa-walking btn text-secondary icon-card"></i>
+                        <h1 class="text-secondary">53</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 p-0">
+            <div class="card m-3 shadow">
+                <div class="no-gutters align-items-center">
+                    <div class="d-flex flex-row align-items-center justify-content-between rounded-top p-2 border-bottom">
+                        <h6 class="text-dark d-none d-lg-inline-block">Prestadores de Serviços</h6>
+                        <h6 class="text-dark d-lg-none d-inline-block">Prestadores S.</h6>
+                        <h6 class="badge badge-info">Hoje</h6>
+                    </div>
+                    <div class="d-flex flex-row align-items-center justify-content-between p-3">
+                        <i class="fas fa-toolbox btn text-secondary icon-card"></i>
+                        <h1 class="text-secondary">22</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 p-0">
+            <div class="card m-3 shadow">
+                <div class="no-gutters align-items-center">
+                    <div
+                        class="d-flex flex-row align-items-center justify-content-between rounded-top p-2 border-bottom">
+                        <h6 class="text-dark">Encomendas</h6>
+                        <h6 class="badge badge-info">Hoje</h6>
+                    </div>
+                    <div class="d-flex flex-row align-items-center justify-content-between p-3">
+                        <i class="fas fa-dolly btn text-secondary icon-card"></i>
+                        <h1 class="text-secondary">31</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 

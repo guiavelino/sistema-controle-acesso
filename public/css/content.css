@@ -10,6 +10,27 @@
         margin-top: 6vh;
     }
 }
+.content-adm{
+    background-color: #F5F9FC;
+    width: 80%;
+    min-height: 90vh;
+    margin-top: 10vh;
+    margin-left: 20%;
+    overflow-x: hidden;
+    transition: all .4s;
+}
+@media(max-width:1200px){
+    .content-adm{
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+}
+@media(min-height:920px){
+    .content-adm{
+        height:94vh;
+        margin-top: 6vh;
+    }
+}
 /* Menu lateral */
 .menu-user{
     z-index: 998;
