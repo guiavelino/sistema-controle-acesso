@@ -113,3 +113,21 @@ input[type="search"]{
 /* .table td:nth-child(1), td:nth-child(2), td:nth-child(3), .odd th {
     min-width:150px;
 } */
+
+/* padding dos campos */
+.table td, .table th{
+    padding: 0;
+}
+
+table.dataTable thead th{ 
+    padding: 10px 7px 20px;
+}
+
+tbody td{
+    padding: 15px 5px!important;
+    vertical-align: middle!important;
+}
+
+tbody th{
+    vertical-align: middle!important;
+}
