@@ -1,14 +1,8 @@
-/* Conteúdo das páginas */
+/* Conteúdo das páginas usuário e administrador */
 .content{
     background-color: #F5F9FC;
     min-height: 90vh;
     margin-top: 10vh;
-}
-@media(min-height:920px){
-    .content{
-        height:94vh;
-        margin-top: 6vh;
-    }
 }
 .content-adm{
     background-color: #F5F9FC;
@@ -19,16 +13,42 @@
     overflow-x: hidden;
     transition: all .4s;
 }
+@media(min-height:920px){
+    .content{
+        height:94vh;
+        margin-top: 6vh;
+    }
+    .content-adm{
+        height:94vh;
+        margin-top: 6vh;
+    }
+    .menu-secret-adm{
+        top:6vh !important;
+    }
+    .logo{
+        line-height: 6vh !important;
+    }
+    .subtitle-menu-adm{
+        line-height: 4vh !important;
+    }
+}
 @media(max-width:1200px){
     .content-adm{
         width: 100% !important;
         margin-left: 0px !important;
     }
+    .menu-adm{
+        left: -100%;
+    }
 }
-@media(min-height:920px){
-    .content-adm{
-        height:94vh;
-        margin-top: 6vh;
+@media(min-width:1200px){
+    .menu-secret-adm{
+        left: -18rem;
+    }
+}
+@media(max-width:769px){
+    .menu-user{
+        position: absolute !important;
     }
 }
 /* Menu lateral */
@@ -37,10 +57,50 @@
     transition: .4s;
     position: fixed;
 }
-@media(max-width:769px){
-    .menu-user{
-        position: absolute;
-    }
+/* Menu lateral Administrador */
+.menu-adm{
+    height:100%;
+    top:0;
+    width: 20%;
+    position:fixed;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    background-color:#242939;
+    z-index: 998;
+    transition: 0.4s !important;
+}
+.menu-secret-adm{
+    height:100%;
+    top:10vh;
+    width:18rem;
+    position:fixed;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    background-color:#242939;
+    z-index: 998;
+    transition: 0.4s !important;
+}
+.logo{
+    line-height: 10vh;
+    margin: 0;
+}
+.subtitle-menu-adm{
+    line-height: 6vh;
+}
+.menu-secret-adm>nav>ul>a, .menu-adm>nav>ul>a{
+    color: #DCDCDC; 
+}
+ul>a:hover{
+    background-color:#1f2433;
+}
+ul>a.active{
+    background-color: #20B2AA;
+    color: #ffffff;
+}
+ul>a>.icon{
+    width: 40px;
+    font-size:18pt;
+}
+ul>a>span{
+    font-size:11pt;
 }
 /* Botão de Exportação dos dados da tabela */
 .btn-exports{
@@ -106,28 +166,25 @@ input[type="search"]{
 .page-item.active .page-link{
     background-color: #20B2AA!important;
     border: 1px solid #20B2AA;  
+    color: #FFFFFF !important;
+}
+.page-link{
+    color: #5a5a5a !important;
 }
 .table td, .odd th {
     min-width:150px;
 }
-/* .table td:nth-child(1), td:nth-child(2), td:nth-child(3), .odd th {
-    min-width:150px;
-} */
-
-/* padding dos campos */
+/* Espaçamento interno dos campos da tabela */
 .table td, .table th{
     padding: 0;
 }
-
 table.dataTable thead th{ 
     padding: 10px 7px 20px;
 }
-
 tbody td{
     padding: 15px 5px!important;
     vertical-align: middle!important;
 }
-
 tbody th{
     vertical-align: middle!important;
 }

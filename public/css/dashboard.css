@@ -34,78 +34,16 @@
 .bg-4:hover{
     background-color: rgb(58, 70, 180);
 }
-/* Dashboard Administrador */
-.menu-adm{
-    height:100%;
-    top:0;
-    width: 20%;
-    position:fixed;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-    background-color:#242939;
-    z-index: 998;
-    transition: 0.4s !important;
-}
-@media(max-width:1200px){
-    .menu-adm{
-        left: -100%;
-    }
-}
-.menu-secret-adm{
-    height:100%;
-    top:10vh;
-    width:18rem;
-    position:fixed;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-    background-color:#242939;
-    z-index: 998;
-    transition: 0.4s !important;
-}
-@media(min-width:1200px){
-    .menu-secret-adm{
-        left: -18rem;
-    }
-}
-.logo{
-    line-height: 10vh;
-    margin: 0;
-}
-.subtitle-menu-adm{
-    line-height: 6vh;
-}
-.menu-secret-adm>nav>ul>a, .menu-adm>nav>ul>a{
-    color: #DCDCDC; 
-}
-ul>a:hover{
-    background-color:#1f2433;
-}
-ul>a.active{
-    background-color: #20B2AA;
-    color: #ffffff;
-}
-ul>a>.icon{
-    width: 40px;
-    font-size:18pt;
-}
-ul>a>span{
-    font-size:11pt;
-}
-.icon-card{
-    font-size: 36px;
-}
 @media(min-height:920px){
     .bg-1, .bg-2, .bg-3, .bg-4{
         height:47vh;
     }
-    .menu-secret-adm{
-        top:6vh !important;
-    }
-    .logo{
-        line-height: 6vh;
-    }
-    .subtitle-menu-adm{
-        line-height: 4vh;
-    }
 }
+/* Dashboard administrador */
+.icon-card{
+    font-size: 36px;
+}
+
 
 
 
