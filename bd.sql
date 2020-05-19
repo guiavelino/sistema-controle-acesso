@@ -50,5 +50,14 @@ create table encomendas(
 	apartamento varchar(5) not null,
 	bloco char(1) not null,
 	data_entrega datetime default CURRENT_TIMESTAMP
-)
+);
 
+create table eventos (
+    id_evento int primary key AUTO_INCREMENT not null,
+	nome varchar(60) not null,
+	cpf char(14) not null,
+    titulo_evento varchar(60) not null,
+    inicio_evento datetime not null,
+    fim_evento datetime not null,
+	cor varchar(10) not null
+)

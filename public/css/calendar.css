@@ -1,6 +1,32 @@
-#calendar {
+.calendar {
   background-color: #FFFFFF;
   width: 100%;
+  padding: 15px;
+}
+/* Título do calendário */
+.fc-center> h2{
+  text-transform: capitalize
+}
+/* Botões do calendário */
+.fc-button-group> button{
+  background-color:#242939 !important;
+  border: 0 !important;
+  border-radius: 26px ;
+}
+/* Botão 'Hoje' */
+.fc-left>.fc-button-primary{
+  background-color: rgb(252, 74, 74) !important;
+  border: 0 !important;
+  border-radius: 26px !important;
+  width: 82px !important
+}
+/* Campos correspondentes aos finais de semana */
+.fc-bgevent{
+  background-color: #20B2AA !important;
+}
+/* Campo correspondente ao dia atual */
+.fc-unthemed td.fc-today {
+  background: #e3f2fc;
 }
 .visevent{
   display: block;
@@ -8,3 +34,4 @@
 .formedit{
   display: none;
 }
+

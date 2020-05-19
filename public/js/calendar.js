@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
+    let calendarEl = document.getElementById('calendar');
     
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    let calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'pt-br',
         plugins: ['interaction', 'dayGrid', 'list'],
         header: {
@@ -10,12 +10,17 @@ document.addEventListener('DOMContentLoaded', function() {
             right: 'dayGridMonth,listMonth'
         },
         
-        // fixedWeekCount: false,
-        navLinks: true,
+        eventTimeFormat: { // Formatação da data do evento
+            hour: '2-digit',
+            minute: '2-digit',
+            meridiem: false
+        },
+        displayEventEnd: true, //Exibindo hora de término do evento 
         businessHours: true, 
         editable: true, 
         eventLimit: true, //Limitando visualização da quantidade de eventos por data
-        events: 'list_events.php',
+        events: '../php/list_events.php', // Eventos
+        eventTextColor: "#FFFFFF", //Cor do texto do evento
         extraParams: function () {
             return {
                 cachebuster: new Date().valueOf()
@@ -44,53 +49,52 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#cadastrar').modal('show');
         }
     });
-    
         calendar.render();
-    });
+});
     
 
-    // Animação ao clicar no botão de edição
-    $(document).ready(function () {
-        $('.btn-canc-vis').on("click", function(){
-            $('.visevent').slideToggle();
-            $('.formedit').slideToggle();
-        });
-        
-        $('.btn-canc-edit').on("click", function(){
-            $('.formedit').slideToggle();
-            $('.visevent').slideToggle();
-        });
+// Animação ao clicar no botão de edição
+$(document).ready(function () {
+    $('.btn-canc-vis').on("click", function(){
+        $('.visevent').slideToggle();
+        $('.formedit').slideToggle();
     });
     
-    //Mascara para o campo data e hora
-    function DataHora(evento, objeto) {
-      var keypress = (window.event) ? event.keyCode : evento.which;
-      campo = eval(objeto);
-      if (campo.value == '00/00/0000 00:00:00') {
-          campo.value = "";
-      }
+    $('.btn-canc-edit').on("click", function(){
+        $('.formedit').slideToggle();
+        $('.visevent').slideToggle();
+    });
+});
     
-      caracteres = '0123456789';
-      separacao1 = '/';
-      separacao2 = ' ';
-      separacao3 = ':';
-      conjunto1 = 2;
-      conjunto2 = 5;
-      conjunto3 = 10;
-      conjunto4 = 13;
-      conjunto5 = 16;
-      if ((caracteres.search(String.fromCharCode(keypress)) != -1) && campo.value.length < (19)) {
-          if (campo.value.length == conjunto1)
-              campo.value = campo.value + separacao1;
-          else if (campo.value.length == conjunto2)
-              campo.value = campo.value + separacao1;
-          else if (campo.value.length == conjunto3)
-              campo.value = campo.value + separacao2;
-          else if (campo.value.length == conjunto4)
-              campo.value = campo.value + separacao3;
-          else if (campo.value.length == conjunto5)
-              campo.value = campo.value + separacao3;
-      } else {
-          event.returnValue = false;
-      }
+//Mascara para o campo data e hora
+function DataHora(evento, objeto) {
+    var keypress = (window.event) ? event.keyCode : evento.which;
+    campo = eval(objeto);
+    if (campo.value == '00/00/0000 00:00:00') {
+        campo.value = "";
     }
+
+    caracteres = '0123456789';
+    separacao1 = '/';
+    separacao2 = ' ';
+    separacao3 = ':';
+    conjunto1 = 2;
+    conjunto2 = 5;
+    conjunto3 = 10;
+    conjunto4 = 13;
+    conjunto5 = 16;
+    if ((caracteres.search(String.fromCharCode(keypress)) != -1) && campo.value.length < (19)) {
+        if (campo.value.length == conjunto1)
+            campo.value = campo.value + separacao1;
+        else if (campo.value.length == conjunto2)
+            campo.value = campo.value + separacao1;
+        else if (campo.value.length == conjunto3)
+            campo.value = campo.value + separacao2;
+        else if (campo.value.length == conjunto4)
+            campo.value = campo.value + separacao3;
+        else if (campo.value.length == conjunto5)
+            campo.value = campo.value + separacao3;
+    } else {
+        event.returnValue = false;
+    }
+}
