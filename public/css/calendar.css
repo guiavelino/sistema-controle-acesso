@@ -1,0 +1,10 @@
+#calendar {
+  background-color: #FFFFFF;
+  width: 100%;
+}
+.visevent{
+  display: block;
+}
+.formedit{
+  display: none;
+}

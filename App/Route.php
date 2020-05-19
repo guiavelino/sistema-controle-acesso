@@ -198,6 +198,11 @@ class Route extends Bootstrap {
 			'controller' => 'ServiceProvidersController',
 			'action' => 'deleteServiceProviders'
 		);
+		$routes['leisure_areas'] = array(
+			'route' => '/leisure_areas',
+			'controller' => 'LeisureAreasController',
+			'action' => 'leisureAreas'
+		);
 		
 		$this->setRoutes($routes);
 	}

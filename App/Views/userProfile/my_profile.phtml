@@ -29,7 +29,6 @@
         </div>
     </div> 
 </header>
-
 <section class="row m-auto">
     <div class="menu-profile col-xl-3 d-xl-block d-none p-0">
         <div class="d-flex align-items-center justify-content-center" style="height:20rem">
@@ -41,13 +40,8 @@
                 <i class="far fa-id-card pr-2"></i>
                 Informações pessoais
             </a>
-            <!-- <a class="item-menu-profile pl-3" id="list-security-list" data-toggle="list" href="#list-security" role="tab" aria-controls="security">
-                <i class="fas fa-shield-alt" style="padding-right:10.5px"></i>
-                Segurança
-            </a>    -->
         </div>
     </div>
-
     <div id="responsive-menu-profile" class="responsive-menu-profile d-xl-none d-block position-fixed" style="margin-left: -20rem">
         <div class="d-flex align-items-center justify-content-center" style="height:20rem">
             <img class="user-photo my-4" data-toggle="modal" data-target="#photoModal" src="img/users/<?=$_SESSION['imagem_usuario']?>" title="Alterar foto">
@@ -58,13 +52,8 @@
                 <i class="far fa-id-card pr-2"></i>
                 Informações pessoais
             </a>
-            <!-- <a class="item-menu-profile pl-3" id="list-security-list" data-toggle="list" href="#list-security" role="tab" aria-controls="security">
-                <i class="fas fa-shield-alt" style="padding-right:10.5px"></i>
-                Segurança
-            </a>    -->
         </div>
     </div>
-
     <div class="col-xl-9 col-12 p-0">
         <div class="tab-content" id="nav-tabContent">   
             <div class="d-flex align-items-center justify-content-end back-home">
@@ -94,7 +83,6 @@
                                 </form>
                             </div>
                         </div>
-
                         <div id="row-data-nascimento">
                             <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseDataNascimento" aria-expanded="false" aria-controls="collapseDataNascimento">
                                 <div class="col-md-3 col-12 text-secondary"><b>Data de nascimento</b></div>
@@ -113,7 +101,6 @@
                                 </form>
                             </div>
                         </div>
-
                         <div id="row-genero">
                             <div class="row collapsed collapsed-item border-top align-items-center" data-toggle="collapse" data-target="#collapseGenero" aria-expanded="false" aria-controls="collapseGenero">
                                 <div class="col-md-3 col-12 text-secondary"><b>Gênero</b></div>
@@ -145,7 +132,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Informações de contato -->
                 <div class="row my-5 mx-auto">
                     <div class="card card-information col-md-10 col-sm-12 mr-auto ml-auto mt-5" id="accordion">
@@ -178,15 +164,9 @@
                     </div>
                 </div>
             </div>
-       
-            <!-- <div class="tab-pane fade px-3 bg-danger" id="list-security" role="tabpanel" aria-labelledby="list-security-list">
-                
-            </div> -->
-
         </div>
     </div>
 </section>
-
 <!-- Alterando foto do usuário -->
 <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -210,8 +190,7 @@
             </div>
         </div>
     </div>
-</div>
-		
+</div>	
 <script>
     function previewImagem(){
         var imagem = document.querySelector('input[name=imagem]').files[0];
