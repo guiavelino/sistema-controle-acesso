@@ -25,7 +25,7 @@
   background-color: #20B2AA !important;
 }
 /* Campo correspondente ao dia atual */
-.fc-unthemed td.fc-today {
+.fc-unthemed td.fc-today{
   background: #e3f2fc;
 }
 .visevent{
@@ -34,4 +34,13 @@
 .formedit{
   display: none;
 }
-
+/* header do calendario responsivo */
+.fc-header-toolbar{
+  display:flex;
+  flex-wrap: wrap;
+}
+@media(max-width:416px){
+  .fc-right{
+    padding-top:20px;
+  }
+}
