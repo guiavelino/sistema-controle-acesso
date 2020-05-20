@@ -16,8 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
             meridiem: false
         },
         displayEventEnd: true, //Exibindo hora de término do evento 
-        businessHours: true, 
+        businessHours: true, //Cor personalizada para Fins de semana
         editable: true, 
+        height: 1000, //Altura do calendário
+        selectLongPressDelay: 0, //Tempo de ação após o toque para dispositivos móveis        
         eventLimit: true, //Limitando visualização da quantidade de eventos por data
         events: '../php/list_events.php', // Eventos
         eventTextColor: "#FFFFFF", //Cor do texto do evento

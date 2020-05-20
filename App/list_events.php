@@ -1,7 +1,6 @@
 <?php
 
     require_once 'Connection.php';
-    $conn =  $_SESSION['conexao'];
     $stmt = $conn->prepare("SELECT * from eventos");
     $stmt->execute();
     $eventos = [];
