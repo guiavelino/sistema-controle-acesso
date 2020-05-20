@@ -7,7 +7,6 @@ use PDO;
 class Events extends Model{
 
     private $id_evento;
-    private $nome;
     private $cpf;
     private $titulo_evento;
     private $inicio_evento;
@@ -23,8 +22,7 @@ class Events extends Model{
     }
 
     public function registerEvent(){
-        $stmt = $this->db->prepare("INSERT INTO eventos(nome, cpf, titulo_evento, inicio_evento, fim_evento, cor) values(:nome, :cpf, :titulo_evento, :inicio_evento, :fim_evento, :cor)");
-        $stmt->bindValue(":nome", $this->nome);
+        $stmt = $this->db->prepare("INSERT INTO eventos(cpf, titulo_evento, inicio_evento, fim_evento, cor) values(:cpf, :titulo_evento, :inicio_evento, :fim_evento, :cor)");
         $stmt->bindValue(":cpf", $this->cpf);
         $stmt->bindValue(":titulo_evento", $this->titulo_evento);
         $stmt->bindValue(":inicio_evento", $this->inicio_evento);
@@ -32,7 +30,37 @@ class Events extends Model{
         $stmt->bindValue(":cor", $this->cor);
         $stmt->execute();
     }
-}
 
+    public function updateEvent(){
+        $stmt = $this->db->prepare("UPDATE eventos SET cpf = :cpf, titulo_evento = :titulo_evento, inicio_evento = :inicio_evento, fim_evento = :fim_evento where id_evento = :id_evento");
+        $stmt->bindValue(":cpf", $this->cpf);
+        $stmt->bindValue(":titulo_evento", $this->titulo_evento);
+        $stmt->bindValue(":inicio_evento", $this->inicio_evento);
+        $stmt->bindValue(":fim_evento", $this->fim_evento);
+        $stmt->bindValue(":id_evento", $this->id_evento);
+        $stmt->execute();
+    }
+
+    public function deleteEvent(){
+        $stmt = $this->db->prepare("DELETE from eventos where id_evento = :id_evento");
+        $stmt->bindValue(":id_evento", $this->id_evento);
+        $stmt->execute();
+    }
+
+    public function getAll(){
+        $stmt = $this->db->prepare("SELECT * FROM eventos where id_evento = :id_evento");
+        $stmt->bindValue(":id_evento", $this->id_evento);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllData(){
+        $stmt = $this->db->prepare("SELECT * FROM eventos INNER join moradores on eventos.id_evento = :id_evento and moradores.cpf =:cpf");
+        $stmt->bindValue(":id_evento", $this->id_evento);
+        $stmt->bindValue(":cpf", $this->cpf);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
 
 ?>

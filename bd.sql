@@ -54,7 +54,6 @@ create table encomendas(
 
 create table eventos (
     id_evento int primary key AUTO_INCREMENT not null,
-	nome varchar(60) not null,
 	cpf char(14) not null,
     titulo_evento varchar(60) not null,
     inicio_evento datetime not null,

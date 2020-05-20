@@ -21,5 +21,5 @@ class Connection {
 		}
 	}
 }
-
+$_SESSION['conexao'] = Connection::getDb();
 ?>

@@ -27,46 +27,23 @@ document.addEventListener('DOMContentLoaded', function() {
             };
         },
     
+        // Visualizando detalhes do evento
         eventClick: function (info) {
-        $("#delete_event").attr("href", "/delete_event?id=" + info.event.id);
-        info.jsEvent.preventDefault(); 
-        $('#visualizar #id').text(info.event.id);
-        $('#visualizar #id').val(info.event.id);
-        $('#visualizar #title').text(info.event.title);
-        $('#visualizar #title').val(info.event.title);
-        $('#visualizar #start').text(info.event.start.toLocaleString());
-        $('#visualizar #start').val(info.event.start.toLocaleString());
-        $('#visualizar #end').text(info.event.end.toLocaleString());
-        $('#visualizar #end').val(info.event.end.toLocaleString());
-        $('#visualizar #color').val(info.event.backgroundColor);
-        $('#visualizar').modal('show');
+            location.href = `/view_event?id_evento=${info.event.id}`
         },
 
+        // Início e fim do evento apresentados no formulário de cadastro, definidos baseados na data selecionada
         selectable: true,
         select: function (info) {
-            $('#cadastrar #start').val(info.start.toLocaleString());
-            $('#cadastrar #end').val(info.end.toLocaleString());
+            $('#cadastrar #inicio_evento').val(info.start.toLocaleString());
+            $('#cadastrar #fim_evento').val(info.start.toLocaleString());
             $('#cadastrar').modal('show');
         }
     });
         calendar.render();
 });
-    
-
-// Animação ao clicar no botão de edição
-$(document).ready(function () {
-    $('.btn-canc-vis').on("click", function(){
-        $('.visevent').slideToggle();
-        $('.formedit').slideToggle();
-    });
-    
-    $('.btn-canc-edit').on("click", function(){
-        $('.formedit').slideToggle();
-        $('.visevent').slideToggle();
-    });
-});
-    
-//Mascara para o campo data e hora
+        
+//Máscara para o campo data e hora
 function DataHora(evento, objeto) {
     var keypress = (window.event) ? event.keyCode : evento.which;
     campo = eval(objeto);

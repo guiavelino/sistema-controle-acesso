@@ -104,7 +104,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-0">
             <div class="modal-header text-center align-items-center">
-                <h4 class="modal-title font-weight-bold text-secondary">Eventos</h4>
+                <h4 class="modal-title font-weight-bold text-secondary">Agendar evento</h4>
                 <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -113,23 +113,22 @@
                 <div class="modal-body py-4">
                     <div class="card card-body border-0 pt-0">
                         <div class="label-float">
-                            <input type="text" name="nome" class="form-custom form-control mt-2" size="60" maxlength="60" placeholder="Nome" required>
-                            <label>Nome</label>
-                        </div>
-                        <div class="label-float mt-4">
                             <input type="text" name="cpf" class="form-custom form-control mt-2" size="60" maxlength="14" id="cpf"  placeholder="CPF" required>
                             <label>CPF</label>
                         </div>
+                        <label class="mt-4 mb-0 text-secondary">Local</label>
+                        <select class="form-custom form-control m-0 p-0" name="titulo_evento" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="Salão de festas">Salão de festas</option>
+                            <option value="Salão de jogos">Salão de jogos</option>
+                            <option value="Churrasqueira">Churrasqueira</option>
+                            <option value="Quadra">Quadra</option>
+                        </select>
                         <div class="label-float mt-4">
-                            <input type="text" name="titulo_evento" class="form-custom form-control mt-2" size="60" maxlength="60" id="title"  placeholder="Título do evento" required>
-                            <label>Título do evento</label>
-                        </div>
-                        <div class="label-float mt-4">
-                            <input type="text" name="inicio_evento" class="form-custom form-control mt-2" size="60" maxlength="60" id="start" onkeypress="DataHora(event, this)" placeholder="Início do evento" required>
+                            <input type="text" name="inicio_evento" class="form-custom form-control mt-2" size="60" maxlength="60" id="inicio_evento" onkeypress="DataHora(event, this)" placeholder="Início do evento" required>
                             <label>Início do evento</label>
                         </div>
                         <div class="label-float mt-4">
-                            <input type="text" name="fim_evento" class="form-custom form-control mt-2" size="60" maxlength="60" id="end" onkeypress="DataHora(event, this)" placeholder="Fim do evento" required>
+                            <input type="text" name="fim_evento" class="form-custom form-control mt-2" size="60" maxlength="60" id="fim_evento" onkeypress="DataHora(event, this)" placeholder="Fim do evento" required>
                             <label>Fim do evento</label>
                         </div>
                     </div>
@@ -144,88 +143,3 @@
 
 
 
-
-<div class="modal fade" id="visualizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header align-items-center">
-                    <h5 class="modal-title text-dark" id="exampleModalLabel">Detalhes do Evento</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body px-0">
-
-                    <!-- Excluindo dados -->
-                    <div class="visevent">
-                        <dl class="row px-3">
-                            <dt class="col-sm-6">Título do evento</dt>
-                            <dd class="col-sm-6" id="title"></dd>
-                    
-                            <dt class="col-sm-6">Início do evento</dt>
-                            <dd class="col-sm-6" id="start"></dd>
-                            
-                            <dt class="col-sm-6">Fim do evento</dt>
-                            <dd class="col-sm-6" id="end"></dd>
-                        </dl>
-                        <div class="modal-footer pb-0">
-                            <button class="btn btn-info btn-canc-vis text-white" style="width:120px">Editar</button>
-                            <form action="/delete_event" class="d-inline-block" method="post">
-                                <input type="hidden" name="id" id="id" >
-                                <button style="width:120px" type="submit" class="btn btn-danger">Excluir</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Atualizando dados -->
-                    <div class="formedit">
-                        <form action="/update_event" method="post" enctype="multipart/form-data">
-                            <div class="modal-body px-3">
-                                <input type="hidden" name="id" id="id" >
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Título</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="titulo" class="form-control" id="title" placeholder="Título do evento">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Cor</label>
-                                    <div class="col-sm-8">
-                                        <select name="cor" class="form-control" id="color">
-                                            <option value="">Selecione</option>			
-                                            <option style="color:#FFD700;" value="#FFD700">Amarelo</option>
-                                            <option style="color:#0071c5;" value="#0071c5">Azul Turquesa</option>
-                                            <option style="color:#FF4500;" value="#FF4500">Laranja</option>
-                                            <option style="color:#8B4513;" value="#8B4513">Marrom</option>	
-                                            <option style="color:#1C1C1C;" value="#1C1C1C">Preto</option>
-                                            <option style="color:#436EEE;" value="#436EEE">Royal Blue</option>
-                                            <option style="color:#A020F0;" value="#A020F0">Roxo</option>
-                                            <option style="color:#40E0D0;" value="#40E0D0">Turquesa</option>
-                                            <option style="color:#228B22;" value="#228B22">Verde</option>
-                                            <option style="color:#8B0000;" value="#8B0000">Vermelho</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Início do evento</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="inicio_evento" class="form-control" id="start" onkeypress="DataHora(event, this)">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Final do evento</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" name="fim_evento" class="form-control" id="end"  onkeypress="DataHora(event, this)">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer pb-0">           
-                                <button type="submit" style="width:120px" class="btn btn-info">Atualizar</button> 
-                                <button type="button" style="width:120px" class="btn btn-danger btn-canc-edit">Cancelar</button>                                  
-                            </div>
-                        </form>                            
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>

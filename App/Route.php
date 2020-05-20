@@ -208,8 +208,22 @@ class Route extends Bootstrap {
 			'controller' => 'LeisureAreasController',
 			'action' => 'registerEvent'
 		);
+		$routes['view_event'] = array(
+			'route' => '/view_event',
+			'controller' => 'LeisureAreasController',
+			'action' => 'Events'
+		);
+		$routes['update_event'] = array(
+			'route' => '/update_event',
+			'controller' => 'LeisureAreasController',
+			'action' => 'updateEvents'
+		);
+		$routes['delete_event'] = array(
+			'route' => '/delete_event',
+			'controller' => 'LeisureAreasController',
+			'action' => 'deleteEvents'
+		);
 
-		
 		$this->setRoutes($routes);
 	}
 
