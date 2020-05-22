@@ -55,8 +55,15 @@ class Visitors extends Model{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAllVisitors(){
-        $stmt = $this->db->prepare("SELECT count(*) as total_visitantes FROM visitantes where data_cadastro = :data_cadastro");
+    public function getAllVisitorsByDay(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_visitantes_por_dia FROM visitantes where data_cadastro = :data_cadastro");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllVisitorsByMonth(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_visitantes_por_mes FROM visitantes WHERE MONTH(data_cadastro) = MONTH(:data_cadastro) AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
         $stmt->bindValue(":data_cadastro", $this->data_cadastro);
         $stmt->execute();
         return $stmt->fetch();

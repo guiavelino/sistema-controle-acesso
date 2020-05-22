@@ -110,15 +110,15 @@
                 </div>
             </div>
         </div>
-        <!-- Gráfico semanal -->
+        <!-- Gráfico mensal -->
         <div class="col-lg-3 col-md-4 p-0">
             <div class="card m-3 shadow">
                 <div class="d-flex flex-row align-items-center justify-content-between p-3">
                     <h6 class="m-0 text-dark">Status</h6>
-                    <span class="badge badge-info">Por semana</span>
+                    <span class="badge badge-info">Por mês</span>
                 </div>
                 <div class="card-body">
-                    <canvas id="myWeeklyChart" style="height:420px"></canvas>
+                    <canvas id="myMonthChart" style="height:420px"></canvas>
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="d-flex flex-row align-items-center justify-content-between p-3">
                         <i class="fas fa-walking btn text-secondary icon-card"></i>
-                        <h1 class="text-secondary"><?=$this->view->total_visitantes?></h1>
+                        <h1 class="text-secondary"><?=$this->view->total_visitantes_por_dia?></h1>
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@
                     </div>
                     <div class="d-flex flex-row align-items-center justify-content-between p-3">
                         <i class="fas fa-toolbox btn text-secondary icon-card"></i>
-                        <h1 class="text-secondary"><?=$this->view->total_prestadores_servicos?></h1>
+                        <h1 class="text-secondary"><?=$this->view->total_prestadores_servicos_por_dia?></h1>
                     </div>
                 </div>
             </div>
@@ -163,7 +163,7 @@
                     </div>
                     <div class="d-flex flex-row align-items-center justify-content-between p-3">
                         <i class="fas fa-dolly btn text-secondary icon-card"></i>
-                        <h1 class="text-secondary"><?=$this->view->total_encomendas?></h1>
+                        <h1 class="text-secondary"><?=$this->view->total_encomendas_por_dia?></h1>
                     </div>
                 </div>
             </div>
@@ -171,4 +171,109 @@
     </div>
 </section>
 
+<script src="lib/chart.js/chart.js"></script>
+<script>
+    /*Gráfico anual*/
+    let myChartByYear = document.getElementById('myChartByYear');
+    let chartByYear = new Chart(myChartByYear, {
+    
+        type: 'line',
 
+        data: {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            datasets: [
+                {
+                    label: 'Visitantes',
+                    pointBackgroundColor:'#4e73df',
+                    pointBorderColor:'#FFF',
+                    pointHitRadius:40,
+                    borderColor:'#4e73df',
+                    backgroundColor: 'rgba(93, 120, 255,0.0)',
+                    data: [10, 20, 15, 13, 19, 35, 40, 64, 70, 65, 75, 68]
+                },
+                {
+                    label: 'Prestadores de Serviços',
+                    pointBackgroundColor:'#36b9cc',
+                    pointBorderColor:'#FFF',
+                    pointHitRadius:40,
+                    borderColor:'#36b9cc',
+                    backgroundColor: 'rgba(93, 120, 255,0.0)',
+                    data: [23, 12, 8, 22, 15, 13, 8, 7, 6, 14, 10, 20]
+                },
+                {
+                    label: 'Encomendas',
+                    pointBackgroundColor:'#20c9a6',
+                    pointBorderColor:'#FFF',
+                    pointHitRadius:40,
+                    borderColor:'#20c9a6',
+                    backgroundColor: 'rgba(93, 120, 255,0.0)',
+                    data: [ <?=$this->view->total_encomendas_janeiro?>, 
+                            <?=$this->view->total_encomendas_fevereiro?>, 
+                            <?=$this->view->total_encomendas_marco?>, 
+                            <?=$this->view->total_encomendas_abril?>,
+                            <?=$this->view->total_encomendas_maio?>,
+                            <?=$this->view->total_encomendas_junho?>,
+                            <?=$this->view->total_encomendas_julho?>,
+                            <?=$this->view->total_encomendas_agosto?>,
+                            <?=$this->view->total_encomendas_setembro?>,
+                            <?=$this->view->total_encomendas_outubro?>,
+                            <?=$this->view->total_encomendas_novembro?>,
+                            <?=$this->view->total_encomendas_dezembro?>
+                        ]
+                }
+            ]
+        },
+
+        options: {
+            maintainAspectRatio:false,
+            legend: {
+                display: true, 
+                position:'bottom',
+                align: 'start',
+                labels: {
+                    boxWidth: 12,
+                    fontSize: 16,
+                    padding: 40,	
+                },
+            },
+        }
+    });
+    
+    /*Gráfico mensal*/
+    let myMonthChart = document.getElementById('myMonthChart').getContext('2d');
+    let monthChart = new Chart(myMonthChart, {
+    
+        type: 'doughnut',
+    
+        data: {
+            labels: ['Visitantes','Prestadores s.', 'Encomendas'],	
+            datasets: [{
+                label: 'Registro de entrada por mês',
+                backgroundColor: ['#4e73df', '#36b9cc','#20c9a6'],
+                data: [<?=$this->view->total_visitantes_por_mes?>, <?=$this->view->total_prestadores_servicos_por_mes?>, <?=$this->view->total_encomendas_por_mes?>],
+            }]	
+        },
+        
+        options: {
+            maintainAspectRatio:false,	
+            cutoutPercentage: '80', 
+        
+            layout: {
+                padding: {
+                    left: 38,
+                    right: 38,
+                    bottom: 10,
+                },
+            },  
+            legend: {
+                display: true, 
+                position:'bottom',
+                align: 'start',
+                labels: {
+                    boxWidth: 12,
+                    fontSize: 16,	
+                },
+            },
+        }
+    });
+</script>

@@ -55,8 +55,15 @@ class ServiceProviders extends Model{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAllServiceProviders(){
-        $stmt = $this->db->prepare("SELECT count(*) as total_prestadores_servicos FROM prestadores_servicos where data_cadastro = :data_cadastro");
+    public function getAllServiceProvidersByDay(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_prestadores_servicos_por_dia FROM prestadores_servicos where data_cadastro = :data_cadastro");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllServiceProvidersByMonth(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_prestadores_servicos_por_mes FROM prestadores_servicos WHERE MONTH(data_cadastro) = MONTH(:data_cadastro) AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
         $stmt->bindValue(":data_cadastro", $this->data_cadastro);
         $stmt->execute();
         return $stmt->fetch();

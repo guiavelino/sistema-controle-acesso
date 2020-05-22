@@ -49,13 +49,103 @@ class Orders extends Model{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAllOrders(){
-        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas FROM encomendas where data_cadastro = :data_cadastro");
+    public function getAllOrdersByDay(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_dia FROM encomendas where data_cadastro = :data_cadastro");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByMonth(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_mes FROM encomendas WHERE MONTH(data_cadastro) = MONTH(:data_cadastro) AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByJanuary(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 01 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByFebruary(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 02 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByMarch(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 03 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByApril(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 04 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByMay(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 05 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByJune(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 06 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByJuly(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 07 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByAugust(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 08 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersBySeptember(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 09 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByOctober(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 10 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByNovember(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 11 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllOrdersByDecember(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas_por_janeiro FROM encomendas WHERE MONTH(data_cadastro) = 12 AND YEAR(data_cadastro) = YEAR(:data_cadastro)");
         $stmt->bindValue(":data_cadastro", $this->data_cadastro);
         $stmt->execute();
         return $stmt->fetch();
     }
 }
-
 
 ?>
