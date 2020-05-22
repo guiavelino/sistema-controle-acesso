@@ -31,7 +31,8 @@ create table prestadores_servicos(
 	telefone varchar(20) not null,
 	apartamento varchar(5) not null,
 	bloco char(1) not null,
-	data_de_entrada datetime default CURRENT_TIMESTAMP
+	data_de_entrada datetime default CURRENT_TIMESTAMP,
+	data_cadastro date default CURRENT_TIMESTAMP
 );
 
 create table visitantes(
@@ -41,7 +42,8 @@ create table visitantes(
 	telefone varchar(20) not null,
 	apartamento varchar(5) not null,
 	bloco char(1) not null,
-	data_de_entrada datetime default CURRENT_TIMESTAMP
+	data_de_entrada datetime default CURRENT_TIMESTAMP,
+	data_cadastro date default CURRENT_TIMESTAMP
 );
 
 create table encomendas(
@@ -49,7 +51,8 @@ create table encomendas(
 	empresa varchar(60) not null,
 	apartamento varchar(5) not null,
 	bloco char(1) not null,
-	data_entrega datetime default CURRENT_TIMESTAMP
+	data_entrega datetime default CURRENT_TIMESTAMP,
+	data_cadastro date default CURRENT_TIMESTAMP
 );
 
 create table eventos (

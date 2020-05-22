@@ -16,8 +16,25 @@ class DashboardController extends Action {
 
 	public function dashboard(){
         $this->validateAuthentication();
-
         if($_SESSION['nivel_acesso'] == 'administrador'){
+            $encomendas = Container::getModel('Orders');
+            $encomendas->data_cadastro = date('Y-m-d');
+            foreach($encomendas->getAllOrders() as $e){
+                $this->view->total_encomendas = $e[0];
+            }
+
+            $visitantes = Container::getModel('Visitors');
+            $visitantes->data_cadastro = date('Y-m-d');
+            foreach($visitantes->getAllVisitors() as $e){
+                $this->view->total_visitantes = $e[0];
+            }
+
+            $prestadores_servicos = Container::getModel('ServiceProviders');
+            $prestadores_servicos->data_cadastro = date('Y-m-d');
+            foreach($prestadores_servicos->getAllServiceProviders() as $e){
+                $this->view->total_prestadores_servicos = $e[0];
+            }
+            
             $this->render('dashboard_admin');
         }
         else{

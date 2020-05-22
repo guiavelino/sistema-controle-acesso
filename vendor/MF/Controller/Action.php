@@ -8,6 +8,7 @@ abstract class Action {
 
 	public function __construct() {
 		$this->view = new \stdClass();
+		date_default_timezone_set('America/Sao_Paulo');
 	}
 
 	protected function render($view, $layout = 'layout') {

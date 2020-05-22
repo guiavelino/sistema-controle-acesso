@@ -28,12 +28,6 @@
 .fc-unthemed td.fc-today{
   background: #e3f2fc;
 }
-.visevent{
-  display: block;
-}
-.formedit{
-  display: none;
-}
 /* header do calendario responsivo */
 .fc-header-toolbar{
   display:flex;

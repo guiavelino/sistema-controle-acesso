@@ -12,6 +12,7 @@ class Visitors extends Model{
     private $telefone;
     private $apartamento;
     private $bloco;
+    private $data_cadastro;
 
     public function __get($att){
         return $this->$att;
@@ -52,6 +53,13 @@ class Visitors extends Model{
         $stmt = $this->db->prepare("SELECT * FROM visitantes");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllVisitors(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_visitantes FROM visitantes where data_cadastro = :data_cadastro");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 }
 

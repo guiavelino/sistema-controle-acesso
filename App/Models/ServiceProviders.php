@@ -12,6 +12,7 @@ class ServiceProviders extends Model{
     private $telefone;
     private $apartamento;
     private $bloco;
+    private $data_cadastro;
 
     public function __get($att){
         return $this->$att;
@@ -52,6 +53,13 @@ class ServiceProviders extends Model{
         $stmt = $this->db->prepare("SELECT * FROM prestadores_servicos");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllServiceProviders(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_prestadores_servicos FROM prestadores_servicos where data_cadastro = :data_cadastro");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 }
 

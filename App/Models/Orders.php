@@ -10,6 +10,7 @@ class Orders extends Model{
     private $empresa;
     private $apartamento;
     private $bloco;
+    private $data_cadastro;
 
     public function __get($att){
         return $this->$att;
@@ -46,6 +47,13 @@ class Orders extends Model{
         $stmt = $this->db->prepare("SELECT * FROM encomendas");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllOrders(){
+        $stmt = $this->db->prepare("SELECT count(*) as total_encomendas FROM encomendas where data_cadastro = :data_cadastro");
+        $stmt->bindValue(":data_cadastro", $this->data_cadastro);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 }
 
