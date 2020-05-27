@@ -68,6 +68,16 @@ class Visitors extends Model{
         $stmt->execute();
         return $stmt->fetch();
     }
+
+    public function getEntry(){
+        $stmt = $this->db->prepare("INSERT INTO visitantes(nome, cpf, telefone, apartamento, bloco) values(:nome, :cpf, :telefone, :apartamento, :bloco)");
+        $stmt->bindValue(":nome", $this->nome);
+        $stmt->bindValue(":cpf", $this->cpf);
+        $stmt->bindValue(":telefone", $this->telefone);
+        $stmt->bindValue(":apartamento", $this->apartamento);
+        $stmt->bindValue(":bloco", $this->bloco);
+        $stmt->execute();
+    }
 }
 
 

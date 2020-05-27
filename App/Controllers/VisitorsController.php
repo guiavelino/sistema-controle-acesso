@@ -143,6 +143,24 @@ class VisitorsController extends Action {
         echo "<script> location.href = '/visitors' </script>";
     }
 
+    public function getEntry(){
+        if($_POST['nome'] != '' &&  $_POST['cpf'] != '' && strlen($_POST['cpf']) == 14 && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+            $visitantes = Container::getModel('Visitors');
+
+            $visitantes->nome = $_POST['nome'];
+            $visitantes->cpf = $_POST['cpf'];
+            $visitantes->telefone = $_POST['telefone'];
+            $visitantes->apartamento = $_POST['apartamento'];
+            $visitantes->bloco = $_POST['bloco'];
+            $visitantes->id_visitante = $_POST['id_visitante'];
+            $visitantes->getEntry();
+
+            echo "<script>alert('Nova entrada realizada com sucesso!')</script>";
+            header("Location: /visitors");
+            
+        }
+    }
+
     public function exportVisitors(){
         $this->validateAuthentication();
         $visitantes = Container::getModel('Visitors');

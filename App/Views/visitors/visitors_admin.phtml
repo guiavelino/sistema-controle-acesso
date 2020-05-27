@@ -140,7 +140,20 @@
                             <td><?=$e['bloco']?></td>
                             <td><?=$e['data'] = date('d/m/Y', strtotime($e['data_de_entrada']))?></td>
                             <td><?=$e['hora'] = date('H:i', strtotime($e['data_de_entrada']))?></td>
-                            <th>                  
+                            <th>       
+                                <form action="/entry" method="post" class="d-inline-block">
+                                    <input type="hidden" name="id_visitante" value="<?=$e['id_visitante']?>">
+                                    <input type="hidden" name="nome" value="<?=$e['nome']?>">
+                                    <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
+                                    <input type="hidden" name="telefone" value="<?=$e['telefone']?>">
+                                    <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
+                                    <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
+                                    <button type="submit" class="btn btn-success btn-action">
+                                        <i class="fas fa-door-open text-white"></i>
+                                    </button>    
+                                </form>
+                                      
+                                 
                                 <form action="/edit_visitors" method="post" class="d-inline-block">          
                                     <input type="hidden" name="id_visitante" value="<?=$e['id_visitante']?>">
                                     <input type="hidden" name="nome" value="<?=$e['nome']?>">
@@ -165,6 +178,7 @@
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </form>
+                                 
                             </th>
                         </tr>
                     <?php }?>
