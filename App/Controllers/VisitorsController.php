@@ -161,6 +161,25 @@ class VisitorsController extends Action {
         }
     }
 
+    public function registerEntry(){
+        if($_POST['cpf'] != '' && strlen($_POST['cpf']) == 14  && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+            $visitantes = Container::getModel('Visitors');
+
+            $register = $visitantes->getComplete($_POST['cpf']);
+
+            $visitantes->nome = $register[0]['nome'];
+            $visitantes->cpf = $_POST['cpf'];
+            $visitantes->telefone = $register[0]['telefone'];
+            $visitantes->apartamento = $_POST['apartamento'];
+            $visitantes->bloco = $_POST['bloco'];
+            $visitantes->registerEntry();
+
+            echo "<script>alert('Nova entrada realizada com sucesso!')</script>";
+            header("Location: /visitors");
+            
+        }
+    }
+
     public function exportVisitors(){
         $this->validateAuthentication();
         $visitantes = Container::getModel('Visitors');

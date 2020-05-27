@@ -55,6 +55,13 @@ class Visitors extends Model{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getComplete($cpf){
+        $stmt = $this->db->prepare("SELECT * FROM visitantes WHERE cpf = :cpf");
+        $stmt->bindValue(":cpf", $cpf);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getAllVisitorsByDay(){
         $stmt = $this->db->prepare("SELECT count(*) as total_visitantes_por_dia FROM visitantes where data_cadastro = :data_cadastro");
         $stmt->bindValue(":data_cadastro", $this->data_cadastro);
@@ -77,6 +84,18 @@ class Visitors extends Model{
         $stmt->bindValue(":apartamento", $this->apartamento);
         $stmt->bindValue(":bloco", $this->bloco);
         $stmt->execute();
+        
+    }
+    
+    public function registerEntry(){
+        $stmt = $this->db->prepare("INSERT INTO visitantes(nome,  cpf, telefone, apartamento, bloco) values(:nome, :cpf, :telefone, :apartamento, :bloco)");
+        $stmt->bindValue(":nome", $this->nome);
+        $stmt->bindValue(":cpf", $this->cpf);
+        $stmt->bindValue(":telefone", $this->telefone);
+        $stmt->bindValue(":apartamento", $this->apartamento);
+        $stmt->bindValue(":bloco", $this->bloco);
+        $stmt->execute();
+
     }
 }
 

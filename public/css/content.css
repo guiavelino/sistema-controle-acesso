@@ -121,6 +121,14 @@ ul>a>span{
     color: #FFFFFF;
     cursor: pointer;
 }
+.entry{
+    background-color: rgb(32, 178, 110);
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.h-b{
+    padding: 0 0.75rem;
+}
 /* Botões de edição e exclusão dos registros */
 .btn-action{
     text-align: center;
