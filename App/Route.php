@@ -143,6 +143,11 @@ class Route extends Bootstrap {
 			'controller' => 'VisitorsController',
 			'action' => 'registerVisitors'
 		);
+		$routes['register_exit_visitors'] = array(
+			'route' => '/register_exit_visitors',
+			'controller' => 'VisitorsController',
+			'action' => 'registerExit'
+		);
 		$routes['edit_visitors'] = array(
 			'route' => '/edit_visitors',
 			'controller' => 'VisitorsController',
@@ -177,6 +182,11 @@ class Route extends Bootstrap {
 			'route' => '/register_service_providers',
 			'controller' => 'ServiceProvidersController',
 			'action' => 'registerServiceProviders'
+		);
+		$routes['register_exit_service_providers'] = array(
+			'route' => '/register_exit_service_providers',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'registerExit'
 		);
 		$routes['edit_service_providers'] = array(
 			'route' => '/edit_service_providers',
@@ -223,17 +233,7 @@ class Route extends Bootstrap {
 			'controller' => 'LeisureAreasController',
 			'action' => 'deleteEvents'
 		);
-		$routes['entry'] = array(
-			'route' => '/entry',
-			'controller' => 'VisitorsController',
-			'action' => 'getEntry'
-		);
-		$routes['registerEntry'] = array(
-			'route' => '/registerEntry',
-			'controller' => 'VisitorsController',
-			'action' => 'registerEntry'
-		);
-
+	
 		$this->setRoutes($routes);
 	}
 

@@ -113,28 +113,19 @@
         </div>
     </ol>
     <div class="card mb-4 border-0">
-
-        <div class="row h-b">
-            <div class="card-header text-center add col-md-6" data-toggle="modal" data-target="#form-modal">
-                <h5 class="m-0"><i class="fas fa-plus-circle mr-1"></i>Adicionar</h5>
-            </div>
-            <div class="card-header text-center entry col-md-6" data-toggle="modal" data-target="#modal-entrada">
-                <h5 class="m-0"><i class="fas fa-door-open text-white mr-1"></i>Entrada/Saída</h5>
-            </div>
+        <div class="card-header text-center add" data-toggle="modal" data-target="#form-modal">
+            <h5 class="m-0"><i class="fas fa-door-open text-white mr-1"></i>Registrar Entrada</h5>
         </div>
-
-
         <div class="card-body table-responsive pt-1">
             <table class="table table-bordered table-hover mb-0" id="dataTable">
                 <thead class="text-center card-header text-dark">
                     <tr>
                         <th>Nome</th>
                         <th>CPF</th>
-                        <th>Telefone</th>
                         <th>Apartamento</th>
                         <th>Bloco</th>
-                        <th>Data de entrada</th>
-                        <th>Hora de entrada</th>
+                        <th>Entrada</th>
+                        <th>Saída</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -143,53 +134,56 @@
                         <tr>
                             <td><?= $e['nome'] ?></td>
                             <td><?= $e['cpf'] ?></td>
-                            <td><?= $e['telefone'] ?></td>
                             <td><?= $e['apartamento'] ?></td>
                             <td><?= $e['bloco'] ?></td>
-                            <td><?= $e['data'] = date('d/m/Y', strtotime($e['data_de_entrada'])) ?></td>
-                            <td><?= $e['hora'] = date('H:i', strtotime($e['data_de_entrada'])) ?></td>
+                            <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>
+                            <td>
+                                <?php 
+                                    if(!isset($e['data_saida'])){
+                                        echo 'Saída em aberto';
+                                    } 
+                                    else{
+                                        echo date('d/m/Y H:i', strtotime($e['data_saida']));
+                                    }  
+                                ?>
+                            </td>
                             <th>
-                                <form action="/entry" method="post" class="d-inline-block">
-                                    <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
-                                    <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
-                                    <input type="hidden" name="cpf" value="<?= $e['cpf'] ?>">
-                                    <input type="hidden" name="telefone" value="<?= $e['telefone'] ?>">
-                                    <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
-                                    <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
-                                    <abbr title="Entrada rápida">
-                                        <button type="submit" class="btn btn-success btn-action">
-                                            <i class="fas fa-door-open text-white"></i>
-                                        </button>
-                                    </abbr>
-
-                                </form>
-
-
+                                <?php if(!isset($e['data_saida'])){ ?> 
+                                    <form action="/register_exit_visitors" method="post" class="d-inline-block">
+                                        <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
+                                        <abbr title="Registrar saída">
+                                            <button type="submit" class="btn btn-warning btn-action">
+                                                <i class="fas fa-door-open text-white"></i>
+                                            </button>
+                                        </abbr>
+                                    </form>
+                                <?php }?> 
                                 <form action="/edit_visitors" method="post" class="d-inline-block">
                                     <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
                                     <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
                                     <input type="hidden" name="cpf" value="<?= $e['cpf'] ?>">
-                                    <input type="hidden" name="telefone" value="<?= $e['telefone'] ?>">
                                     <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
                                     <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
-                                    <button type="submit" class="btn btn-info btn-action">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
+                                    <abbr title="Editar registro">
+                                        <button type="submit" class="btn btn-info btn-action">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </abbr>
                                 </form>
                                 <form action="/remove_visitors" method="post" class="d-inline-block">
                                     <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
                                     <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
                                     <input type="hidden" name="cpf" value="<?= $e['cpf'] ?>">
-                                    <input type="hidden" name="telefone" value="<?= $e['telefone'] ?>">
                                     <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
                                     <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
-                                    <input type="hidden" name="data_entrada" value="<?= $e['data'] ?>">
-                                    <input type="hidden" name="hora_entrada" value="<?= $e['hora'] ?>">
-                                    <button type="submit" class="btn btn-danger btn-action">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    <input type="hidden" name="data_entrada" value="<?= $e['data_entrada'] ?>">
+                                    <input type="hidden" name="data_saida" value="<?= $e['data_saida'] ?>">
+                                    <abbr title="Excluir registro">
+                                        <button type="submit" class="btn btn-danger btn-action">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </abbr>
                                 </form>
-
                             </th>
                         </tr>
                     <?php } ?>
@@ -220,10 +214,6 @@
                             <label>CPF</label>
                         </div>
                         <div class="label-float mt-4">
-                            <input type="text" name="telefone" id="telefone" class="form-custom form-control mt-2" size="60" placeholder="telefone" maxlength="20" required>
-                            <label>Telefone</label>
-                        </div>
-                        <div class="label-float mt-4">
                             <input type="text" name="apartamento" class="form-custom form-control mt-2" size="60" placeholder="Apartamento" maxlength="5" required>
                             <label>Apartamento</label>
                         </div>
@@ -231,47 +221,6 @@
                         <select class="form-custom form-control m-0 p-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
                             <option value="A">A</option>
                             <option value="B">B</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-register w-100 text-light">Cadastrar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Modal de entrada/saida-->
-<div class="modal fade " id="modal-entrada" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0">
-            <div class="modal-header text-center align-items-center">
-                <h4 class="modal-title font-weight-bold text-secondary">Visitantes</h4>
-                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="/registerEntry" method="post">
-                <div class="modal-body py-4">
-                    <div class="card card-body border-0 pt-0">
-                        <div class="label-float ">
-                            <input type="text" name="cpf" id="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" required>
-                            <label>CPF</label>
-                        </div>
-                        
-                        <div class="label-float mt-4">
-                            <input type="text" name="apartamento" class="form-custom form-control mt-2" size="60" placeholder="Apartamento" maxlength="5" required>
-                            <label>Apartamento</label>
-                        </div>
-                        <label class="mt-4 mb-0 text-secondary">Bloco</label>
-                        <select class="form-custom form-control m-0 p-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                        </select>
-                        <label class="mt-4 mb-0 text-secondary">Entrada/Saída</label>
-                        <select class="form-custom form-control m-0 p-0" name="teste" style="border-bottom: 2px solid #20B2AA!important;">
-                            <option value="s">Entrada</option>
-                            <option value="n">Saída</option>
                         </select>
                     </div>
                 </div>

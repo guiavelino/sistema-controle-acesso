@@ -18,15 +18,11 @@ class DashboardController extends Action {
         $this->validateAuthentication();
         if($_SESSION['nivel_acesso'] == 'administrador'){
             $encomendas = Container::getModel('Orders');
-            $encomendas->data_cadastro = date('Y-m-d');
+            $encomendas->data_atual = date('Y-m-d');
 
-            foreach($encomendas->getAllOrdersByDay() as $e){
-                $this->view->total_encomendas_por_dia = $e;
-            }
-            foreach($encomendas->getAllOrdersByMonth() as $e){
-                $this->view->total_encomendas_por_mes = $e;
-            }
-
+            $this->view->total_encomendas_por_dia = $encomendas->getAllOrdersByDay()['encomendas_por_dia'];
+            $this->view->total_encomendas_por_mes = $encomendas->getAllOrdersByMonth()['encomendas_por_mes'];
+            
             foreach($encomendas->getAllOrdersByJanuary() as $e){
                 $this->view->total_encomendas_janeiro = $e;
             }
@@ -65,22 +61,14 @@ class DashboardController extends Action {
             }
 
             $visitantes = Container::getModel('Visitors');
-            $visitantes->data_cadastro = date('Y-m-d');
-            foreach($visitantes->getAllVisitorsByDay() as $e){
-                $this->view->total_visitantes_por_dia = $e;
-            }
-            foreach($visitantes->getAllVisitorsByMonth() as $e){
-                $this->view->total_visitantes_por_mes = $e;
-            }
+            $visitantes->data_atual = date('Y-m-d');
+            $this->view->total_visitantes_por_dia = $visitantes->getAllVisitorsByDay()['visitantes_por_dia'];
+            $this->view->total_visitantes_por_mes = $visitantes->getAllVisitorsByMonth()['visitantes_por_mes'];
 
             $prestadores_servicos = Container::getModel('ServiceProviders');
-            $prestadores_servicos->data_cadastro = date('Y-m-d');
-            foreach($prestadores_servicos->getAllServiceProvidersByDay() as $e){
-                $this->view->total_prestadores_servicos_por_dia = $e;
-            }
-            foreach($prestadores_servicos->getAllServiceProvidersByMonth() as $e){
-                $this->view->total_prestadores_servicos_por_mes = $e;
-            }
+            $prestadores_servicos->data_atual = date('Y-m-d');
+            $this->view->total_prestadores_servicos_por_dia = $prestadores_servicos->getAllServiceProvidersByDay()['prestadores_servicos_por_dia'];
+            $this->view->total_prestadores_servicos_por_mes = $prestadores_servicos->getAllServiceProvidersByMonth()['prestadores_servicos_por_mes'];
 
             $this->render('dashboard_admin');
         }

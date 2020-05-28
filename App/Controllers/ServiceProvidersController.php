@@ -30,19 +30,12 @@ class ServiceProvidersController extends Action {
     }
 
     public function registerServiceProviders(){
-        if($_POST['nome'] != '' &&  $_POST['cpf'] != '' && strlen($_POST['cpf']) == 14 && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+        $this->validateAuthentication();
+        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
             $prestadores_servicos = Container::getModel('ServiceProviders');
             $moradores = Container::getModel('Residents');
-            $visitantes = Container::getModel('Visitors');
             
             //Tratando duplicidade de CPF 
-            foreach($prestadores_servicos->getAll() as $e){
-                if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao realizar cadastro, um prestador de serviço ja possui este CPF!')</script>";
-                    echo "<script> location.href = '/service_providers' </script>";
-                    exit;
-                }
-            }
             foreach($moradores->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um morador ja possui este CPF!')</script>";
@@ -50,17 +43,9 @@ class ServiceProvidersController extends Action {
                     exit;
                 }
             }
-            foreach($visitantes->getAll() as $e){
-                if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao realizar cadastro, um visitante ja possui este CPF!')</script>";
-                    echo "<script> location.href = '/service_providers' </script>";
-                    exit;
-                }
-            }
             
             $prestadores_servicos->nome = $_POST['nome'];
             $prestadores_servicos->cpf = $_POST['cpf'];
-            $prestadores_servicos->telefone = $_POST['telefone'];
             $prestadores_servicos->apartamento = $_POST['apartamento'];
             $prestadores_servicos->bloco = $_POST['bloco'];
             $prestadores_servicos->registerServiceProvider();
@@ -75,28 +60,38 @@ class ServiceProvidersController extends Action {
         echo "<script> location.href = '/service_providers' </script>";
     }
 
+    public function registerExit(){
+        $this->validateAuthentication();
+        if(isset($_POST['id_prestador_servico'])){
+            $prestadores_servicos = Container::getModel('ServiceProviders');
+            $prestadores_servicos->id_prestador_servico = $_POST['id_prestador_servico'];
+            $prestadores_servicos->data_saida = date('Y-m-d H:i:s');
+            $prestadores_servicos->registerExit();
+            echo "<script>alert('Saída registrada!')</script>";
+        }
+        else{
+            echo "<script>alert('Selecione um registro para continuar!')</script>";
+        }
+        echo "<script> location.href = '/service_providers' </script>";
+    }
+
     public function editServiceProviders(){
+        $this->validateAuthentication();
         if(isset($_POST['id_prestador_servico'])){
             $this->render('edit_service_providers');
-        }else{
+        }
+        else{
             echo "<script>alert('Selecione um registro para continuar!')</script>";
             echo "<script> location.href = '/service_providers' </script>";
         }
     }
 
     public function updateServiceProviders(){
-        if(isset($_POST['id_prestador_servico'])){
+        $this->validateAuthentication();
+        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && isset($_POST['id_prestador_servico'])){
             $prestadores_servicos = Container::getModel('ServiceProviders');
             $moradores = Container::getModel('Residents');
-            $visitantes = Container::getModel('Visitors');
             
-            foreach($prestadores_servicos->getAll() as $e){
-                if($_POST['cpf'] == $e['cpf'] && $_POST['id_prestador_servico'] != $e['id_prestador_servico']){
-                    echo "<script>alert('Erro ao atualizar registro, um prestador de serviço ja possui este CPF!')</script>";
-                    echo "<script> location.href = '/service_providers' </script>";
-                    exit;
-                }
-            } 
             foreach($moradores->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao atualizar registro, um morador ja possui este CPF!')</script>";
@@ -104,36 +99,37 @@ class ServiceProvidersController extends Action {
                     exit;
                 }
             }
-            foreach($visitantes->getAll() as $e){
-                if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este CPF!')</script>";
-                    echo "<script> location.href = '/service_providers' </script>";
-                    exit;
-                }
-            }
             
             $prestadores_servicos->nome = $_POST['nome'];
             $prestadores_servicos->cpf = $_POST['cpf'];
-            $prestadores_servicos->telefone = $_POST['telefone'];
             $prestadores_servicos->apartamento = $_POST['apartamento'];
             $prestadores_servicos->bloco = $_POST['bloco'];
             $prestadores_servicos->id_prestador_servico = $_POST['id_prestador_servico'];
             $prestadores_servicos->updateServiceProvider();
             echo "<script>alert('Registro atualizado com sucesso!')</script>";
         }
+        else if(strlen($_POST['cpf']) != 14){
+            echo "<script>alert('Digite um CPF válido para atualizar o registro!')</script>";
+        }
+        else{
+            echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
+        }
         echo "<script> location.href = '/service_providers' </script>";
     }
 
     public function removeServiceProviders(){
+        $this->validateAuthentication();
         if(isset($_POST['id_prestador_servico'])){
             $this->render('remove_service_providers');
-        }else{
+        }
+        else{
             echo "<script>alert('Selecione um registro para continuar!')</script>";
             echo "<script> location.href = '/service_providers' </script>";
         }
     }
 
     public function deleteServiceProviders(){
+        $this->validateAuthentication();
         if(isset($_POST['id_prestador_servico'])){
             $prestadores_servicos = Container::getModel('ServiceProviders');
             $prestadores_servicos->id_prestador_servico = $_POST['id_prestador_servico'];
@@ -162,26 +158,24 @@ class ServiceProvidersController extends Action {
         $html .= '<meta charset="utf-8"/>';
 		$html .= '<table border="1">';
 		$html .= "<tr>";
-		$html .= "<td colspan='7' style='$style_first_header'><h2>Prestadores de serviços</h2></td>";
+		$html .= "<td colspan='6' style='$style_first_header'><h2>Prestadores de serviços</h2></td>";
 		$html .= "</tr>";
 		$html .= '<tr>';
 		$html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Nome</h4></td>";
 		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>CPF</h4></td>";
-		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Telefone</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data de entrada</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Hora de entrada</h4></td>";
+        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Entrada</h4></td>";
+        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Saída</h4></td>";
 		$html .= '</tr>';
         foreach($prestadores_servicos->getAll() as $prestadores_servicos){
             $html .= "<tr style='$style_content'>";
 			$html .= '<td>'.$prestadores_servicos["nome"].'</td>';
 			$html .= '<td>'.$prestadores_servicos["cpf"].'</td>';
-			$html .= '<td>'.$prestadores_servicos["telefone"].'</td>';
             $html .= '<td>'.$prestadores_servicos['apartamento'].'</td>';
             $html .= '<td>'.$prestadores_servicos['bloco'].'</td>';
-            $html .= '<td>'.date('d/m/Y', strtotime($prestadores_servicos['data_de_entrada'])).'</td>';
-            $html .= '<td>'.date('H:i', strtotime($prestadores_servicos['data_de_entrada'])).'</td>';
+            $html .= '<td>'.date('d/m/Y H:i', strtotime($prestadores_servicos['data_entrada'])).'</td>';
+            $html .= '<td>'.date('d/m/Y H:i', strtotime($prestadores_servicos['data_saida'])).'</td>';
 			$html .= '</tr>';
         }
         

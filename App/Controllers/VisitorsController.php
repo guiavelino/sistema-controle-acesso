@@ -16,7 +16,6 @@ class VisitorsController extends Action {
 
 	public function visitors(){
         $this->validateAuthentication();
-
         if($_SESSION['nivel_acesso'] == 'administrador'){
             $visitantes = Container::getModel('Visitors');
             $this->view->visitantes = $visitantes->getAll();
@@ -30,19 +29,12 @@ class VisitorsController extends Action {
     }
 
     public function registerVisitors(){
-        if($_POST['nome'] != '' &&  $_POST['cpf'] != '' && strlen($_POST['cpf']) == 14 && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+        $this->validateAuthentication();
+        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
             $visitantes = Container::getModel('Visitors');
             $moradores = Container::getModel('Residents');
-            $prestadores_servicos = Container::getModel('ServiceProviders');
             
             //Tratando duplicidade de CPF 
-            foreach($visitantes->getAll() as $e){
-                if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao realizar cadastro, um visitante ja possui este CPF!')</script>";
-                    echo "<script> location.href = '/visitors' </script>";
-                    exit;
-                }
-            }
             foreach($moradores->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um morador ja possui este CPF!')</script>";
@@ -50,17 +42,9 @@ class VisitorsController extends Action {
                     exit;
                 }
             }
-            foreach($prestadores_servicos->getAll() as $e){
-                if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao realizar cadastro, um prestador de serviço ja possui este CPF!')</script>";
-                    echo "<script> location.href = '/visitors' </script>";
-                    exit;
-                }
-            }
 
             $visitantes->nome = $_POST['nome'];
             $visitantes->cpf = $_POST['cpf'];
-            $visitantes->telefone = $_POST['telefone'];
             $visitantes->apartamento = $_POST['apartamento'];
             $visitantes->bloco = $_POST['bloco'];
             $visitantes->registerVisitor();
@@ -75,28 +59,38 @@ class VisitorsController extends Action {
         echo "<script> location.href = '/visitors' </script>";
     }
 
+    public function registerExit(){
+        $this->validateAuthentication();
+        if(isset($_POST['id_visitante'])){
+            $visitantes = Container::getModel('Visitors');
+            $visitantes->id_visitante = $_POST['id_visitante'];
+            $visitantes->data_saida = date('Y-m-d H:i:s');
+            $visitantes->registerExit();
+            echo "<script>alert('Saída registrada!')</script>";
+        }
+        else{
+            echo "<script>alert('Selecione um registro para continuar!')</script>";
+        }
+        echo "<script> location.href = '/visitors' </script>";
+    }
+
     public function editVisitors(){
+        $this->validateAuthentication();
         if(isset($_POST['id_visitante'])){
             $this->render('edit_visitors');
-        }else{
+        }
+        else{
             echo "<script>alert('Selecione um registro para continuar!')</script>";
             echo "<script> location.href = '/visitors' </script>";
         }
     }
 
     public function updateVisitors(){
-        if(isset($_POST['id_visitante'])){
+        $this->validateAuthentication();
+        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && isset($_POST['id_visitante'])){
             $visitantes = Container::getModel('Visitors');
             $moradores = Container::getModel('Residents');
-            $prestadores_servicos = Container::getModel('ServiceProviders');
-
-            foreach($visitantes->getAll() as $e){
-                if($_POST['cpf'] == $e['cpf'] && $_POST['id_visitante'] != $e['id_visitante']){
-                    echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este CPF!')</script>";
-                    echo "<script> location.href = '/visitors' </script>";
-                    exit;
-                }
-            }
+    
             foreach($moradores->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao atualizar registro, um morador ja possui este CPF!')</script>";
@@ -104,36 +98,37 @@ class VisitorsController extends Action {
                     exit;
                 }
             }
-            foreach($prestadores_servicos->getAll() as $e){
-                if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao atualizar registro, um prestador de serviço ja possui este CPF!')</script>";
-                    echo "<script> location.href = '/visitors' </script>";
-                    exit;
-                }
-            }
 
             $visitantes->nome = $_POST['nome'];
             $visitantes->cpf = $_POST['cpf'];
-            $visitantes->telefone = $_POST['telefone'];
             $visitantes->apartamento = $_POST['apartamento'];
             $visitantes->bloco = $_POST['bloco'];
             $visitantes->id_visitante = $_POST['id_visitante'];
             $visitantes->updateVisitor();
             echo "<script>alert('Registro atualizado com sucesso!')</script>";
         }
+        else if(strlen($_POST['cpf']) != 14){
+            echo "<script>alert('Digite um CPF válido para atualizar o registro!')</script>";
+        }
+        else{
+            echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
+        }
         echo "<script> location.href = '/visitors' </script>";
     }
 
     public function removeVisitors(){
+        $this->validateAuthentication();
         if(isset($_POST['id_visitante'])){
             $this->render('remove_visitors');
-        }else{
+        }
+        else{
             echo "<script>alert('Selecione um registro para continuar!')</script>";
             echo "<script> location.href = '/visitors' </script>";
         }
     }
 
     public function deleteVisitors(){
+        $this->validateAuthentication();
         if(isset($_POST['id_visitante'])){
             $visitantes = Container::getModel('Visitors');
             $visitantes->id_visitante = $_POST['id_visitante'];
@@ -141,43 +136,6 @@ class VisitorsController extends Action {
             echo "<script>alert('Registro excluído com sucesso!')</script>";
         }
         echo "<script> location.href = '/visitors' </script>";
-    }
-
-    public function getEntry(){
-        if($_POST['nome'] != '' &&  $_POST['cpf'] != '' && strlen($_POST['cpf']) == 14 && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
-            $visitantes = Container::getModel('Visitors');
-
-            $visitantes->nome = $_POST['nome'];
-            $visitantes->cpf = $_POST['cpf'];
-            $visitantes->telefone = $_POST['telefone'];
-            $visitantes->apartamento = $_POST['apartamento'];
-            $visitantes->bloco = $_POST['bloco'];
-            $visitantes->id_visitante = $_POST['id_visitante'];
-            $visitantes->getEntry();
-
-            echo "<script>alert('Nova entrada realizada com sucesso!')</script>";
-            header("Location: /visitors");
-            
-        }
-    }
-
-    public function registerEntry(){
-        if($_POST['cpf'] != '' && strlen($_POST['cpf']) == 14  && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
-            $visitantes = Container::getModel('Visitors');
-
-            $register = $visitantes->getComplete($_POST['cpf']);
-
-            $visitantes->nome = $register[0]['nome'];
-            $visitantes->cpf = $_POST['cpf'];
-            $visitantes->telefone = $register[0]['telefone'];
-            $visitantes->apartamento = $_POST['apartamento'];
-            $visitantes->bloco = $_POST['bloco'];
-            $visitantes->registerEntry();
-
-            echo "<script>alert('Nova entrada realizada com sucesso!')</script>";
-            header("Location: /visitors");
-            
-        }
     }
 
     public function exportVisitors(){
@@ -199,26 +157,24 @@ class VisitorsController extends Action {
         $html .= '<meta charset="utf-8"/>';
 		$html .= '<table border="1">';
 		$html .= "<tr>";
-		$html .= "<td colspan='7' style='$style_first_header'><h2>Visitantes</h2></td>";
+		$html .= "<td colspan='6' style='$style_first_header'><h2>Visitantes</h2></td>";
 		$html .= "</tr>";
 		$html .= '<tr>';
 		$html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Nome</h4></td>";
 		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>CPF</h4></td>";
-		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Telefone</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data de entrada</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Hora de entrada</h4></td>";
+        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Entrada</h4></td>";
+        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Saída</h4></td>";
 		$html .= '</tr>';
         foreach($visitantes->getAll() as $visitantes){
             $html .= "<tr style='$style_content'>";
 			$html .= '<td>'.$visitantes["nome"].'</td>';
 			$html .= '<td>'.$visitantes["cpf"].'</td>';
-			$html .= '<td>'.$visitantes["telefone"].'</td>';
             $html .= '<td>'.$visitantes['apartamento'].'</td>';
             $html .= '<td>'.$visitantes['bloco'].'</td>';
-            $html .= '<td>'.date('d/m/Y', strtotime($visitantes['data_de_entrada'])).'</td>';
-            $html .= '<td>'.date('H:i', strtotime($visitantes['data_de_entrada'])).'</td>';
+            $html .= '<td>'.date('d/m/Y H:i', strtotime($visitantes['data_entrada'])).'</td>';
+            $html .= '<td>'.date('d/m/Y H:i', strtotime($visitantes['data_saida'])).'</td>';
 			$html .= '</tr>';
         }
         

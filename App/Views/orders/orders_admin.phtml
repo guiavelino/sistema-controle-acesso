@@ -114,7 +114,7 @@
     </ol>
     <div class="card mb-4 border-0">
         <div class="card-header text-center add" data-toggle="modal" data-target="#form-modal">
-            <h5 class="m-0"><i class="fas fa-plus-circle mr-1"></i>Adicionar</h5>
+            <h5 class="m-0"><i class="fas fa-archive mr-1"></i>Registrar Entrega</h5>
         </div>
         <div class="card-body table-responsive pt-1">
             <table class="table table-bordered table-hover mb-0" id="dataTable">
@@ -142,9 +142,11 @@
                                     <input type="hidden" name="empresa" value="<?=$e['empresa']?>">
                                     <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
                                     <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
-                                    <button type="submit" class="btn btn-info btn-action">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
+                                    <abbr title="Editar registro">
+                                        <button type="submit" class="btn btn-info btn-action">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </abbr>
                                 </form>
                                 <form action="/remove_orders" method="post" class="d-inline-block"> 
                                     <input type="hidden" name="id_encomenda" value="<?=$e['id_encomenda']?>">
@@ -153,9 +155,11 @@
                                     <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
                                     <input type="hidden" name="data_entrega" value="<?=$e['data']?>">
                                     <input type="hidden" name="hora_entrega" value="<?=$e['hora']?>">
-                                    <button type="submit" class="btn btn-danger btn-action">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    <abbr title="Excluir registro">
+                                        <button type="submit" class="btn btn-danger btn-action">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </abbr>
                                 </form>
                             </th>
                         </tr>

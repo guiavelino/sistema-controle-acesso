@@ -16,7 +16,6 @@ class ResidentsController extends Action {
 
 	public function residents(){
         $this->validateAuthentication();
-
         if($_SESSION['nivel_acesso'] == 'administrador'){
             $moradores = Container::getModel('Residents');
             $this->view->moradores = $moradores->getAll();
@@ -30,7 +29,8 @@ class ResidentsController extends Action {
     }
 
     public function registerResidents(){
-        if($_POST['nome'] != '' &&  $_POST['cpf'] != '' && strlen($_POST['cpf']) == 14 && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+        $this->validateAuthentication();
+        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
             $moradores = Container::getModel('Residents');
             $prestadores_servicos = Container::getModel('ServiceProviders');
             $visitantes = Container::getModel('Visitors');
@@ -76,6 +76,7 @@ class ResidentsController extends Action {
     }
 
     public function editResidents(){
+        $this->validateAuthentication();
         if(isset($_POST['id_morador'])){
             $this->render('edit_residents');
         }else{
@@ -85,7 +86,8 @@ class ResidentsController extends Action {
     }
 
     public function updateResidents(){
-        if(isset($_POST['id_morador'])){
+        $this->validateAuthentication();
+        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && isset($_POST['id_morador'])){
             $moradores = Container::getModel('Residents');
             $prestadores_servicos = Container::getModel('ServiceProviders');
             $visitantes = Container::getModel('Visitors');
@@ -121,10 +123,17 @@ class ResidentsController extends Action {
             $moradores->updateResident();
             echo "<script>alert('Registro atualizado com sucesso!')</script>";
         }
+        else if(strlen($_POST['cpf']) != 14){
+            echo "<script>alert('Digite um CPF válido para atualizar o registro!')</script>";
+        }
+        else{
+            echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
+        }
         echo "<script> location.href = '/residents' </script>";
     }
 
     public function removeResidents(){
+        $this->validateAuthentication();
         if(isset($_POST['id_morador'])){
             $this->render('remove_residents');
         }else{
@@ -134,6 +143,7 @@ class ResidentsController extends Action {
     }
 
     public function deleteResidents(){
+        $this->validateAuthentication();
         if(isset($_POST['id_morador'])){
             $moradores = Container::getModel('Residents');
             $moradores->id_morador = $_POST['id_morador'];
