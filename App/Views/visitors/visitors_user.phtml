@@ -10,7 +10,7 @@
             <span class="text-secondary mr-1">
                 <?= $_SESSION['nome'] ?>
             </span>
-            <img width="35" height="35" src="img/users/<?=$_SESSION['imagem_usuario']?>">
+            <img width="35" height="35" src="img/users/<?= $_SESSION['imagem_usuario'] ?>">
         </button>
         <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
             <a href="/my_profile">
@@ -27,7 +27,7 @@
                 </span>
             </a>
         </div>
-    </div> 
+    </div>
 </header>
 <div class="container-fluid dashboard-gradient menu-user" id="menu-user" style="margin-left: -100%;">
     <div class="row dashboard-gradient">
@@ -69,7 +69,7 @@
         </div>
         <div class="card-body table-responsive pt-1">
             <table class="table table-bordered table-hover mb-0" id="dataTable">
-                <thead class="text-center card-header text-dark"> 
+                <thead class="text-center card-header text-dark">
                     <tr>
                         <th>Nome</th>
                         <th>CPF</th>
@@ -82,46 +82,46 @@
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    <?php foreach($this->view->visitantes as $e){?>
+                    <?php foreach ($this->view->visitantes as $e) { ?>
                         <tr>
-                            <td><?=$e['nome']?></td>
-                            <td><?=$e['cpf']?></td>
-                            <td><?=$e['telefone']?></td>
-                            <td><?=$e['apartamento']?></td>
-                            <td><?=$e['bloco']?></td>
-                            <td><?=$e['data'] = date('d/m/Y', strtotime($e['data_de_entrada']))?></td>
-                            <td><?=$e['hora'] = date('H:i', strtotime($e['data_de_entrada']))?></td>
-                            <th>                  
-                                <form action="/edit_visitors" method="post" class="d-inline-block">          
-                                    <input type="hidden" name="id_visitante" value="<?=$e['id_visitante']?>">
-                                    <input type="hidden" name="nome" value="<?=$e['nome']?>">
-                                    <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
-                                    <input type="hidden" name="telefone" value="<?=$e['telefone']?>">
-                                    <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
-                                    <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
+                            <td><?= $e['nome'] ?></td>
+                            <td><?= $e['cpf'] ?></td>
+                            <td><?= $e['telefone'] ?></td>
+                            <td><?= $e['apartamento'] ?></td>
+                            <td><?= $e['bloco'] ?></td>
+                            <td><?= $e['data'] = date('d/m/Y', strtotime($e['data_de_entrada'])) ?></td>
+                            <td><?= $e['hora'] = date('H:i', strtotime($e['data_de_entrada'])) ?></td>
+                            <th>
+                                <form action="/edit_visitors" method="post" class="d-inline-block">
+                                    <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
+                                    <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
+                                    <input type="hidden" name="cpf" value="<?= $e['cpf'] ?>">
+                                    <input type="hidden" name="telefone" value="<?= $e['telefone'] ?>">
+                                    <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
+                                    <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
                                     <button type="submit" class="btn btn-info btn-action">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </form>
-                                <form action="/remove_visitors" method="post" class="d-inline-block"> 
-                                    <input type="hidden" name="id_visitante" value="<?=$e['id_visitante']?>">
-                                    <input type="hidden" name="nome" value="<?=$e['nome']?>">
-                                    <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
-                                    <input type="hidden" name="telefone" value="<?=$e['telefone']?>">
-                                    <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
-                                    <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
-                                    <input type="hidden" name="data_entrada" value="<?=$e['data']?>">
-                                    <input type="hidden" name="hora_entrada" value="<?=$e['hora']?>">
+                                <form action="/remove_visitors" method="post" class="d-inline-block">
+                                    <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
+                                    <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
+                                    <input type="hidden" name="cpf" value="<?= $e['cpf'] ?>">
+                                    <input type="hidden" name="telefone" value="<?= $e['telefone'] ?>">
+                                    <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
+                                    <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
+                                    <input type="hidden" name="data_entrada" value="<?= $e['data'] ?>">
+                                    <input type="hidden" name="hora_entrada" value="<?= $e['hora'] ?>">
                                     <button type="submit" class="btn btn-danger btn-action">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </form>
                             </th>
                         </tr>
-                    <?php }?>
+                    <?php } ?>
                 </tbody>
             </table>
-        </div>   
+        </div>
     </div>
 </section>
 <!-- Modal de cadastro-->
@@ -140,6 +140,9 @@
                         <div class="label-float">
                             <input type="text" name="nome" class="form-custom form-control mt-2" size="60" placeholder="Nome" maxlength="60" required>
                             <label>Nome</label>
+                            <div class="invalid-feedback" id="invalid">
+                                CPF inválido!
+                            </div>
                         </div>
                         <div class="label-float mt-4">
                             <input type="text" name="cpf" id="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" required>

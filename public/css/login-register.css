@@ -72,7 +72,7 @@
     border-radius:0;
 }
 .label-float input:focus{
-    border-bottom: 2px solid #20B2AA!important;
+    border-bottom: 2px solid #20B2AA;
 }
 .label-float input::placeholder{
     color:transparent;

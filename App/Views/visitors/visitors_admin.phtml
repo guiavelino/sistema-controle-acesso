@@ -138,17 +138,16 @@
                             <td><?= $e['bloco'] ?></td>
                             <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>
                             <td>
-                                <?php 
-                                    if(!isset($e['data_saida'])){
-                                        echo 'Saída em aberto';
-                                    } 
-                                    else{
-                                        echo date('d/m/Y H:i', strtotime($e['data_saida']));
-                                    }  
+                                <?php
+                                if (!isset($e['data_saida'])) {
+                                    echo 'Saída em aberto';
+                                } else {
+                                    echo date('d/m/Y H:i', strtotime($e['data_saida']));
+                                }
                                 ?>
                             </td>
                             <th>
-                                <?php if(!isset($e['data_saida'])){ ?> 
+                                <?php if (!isset($e['data_saida'])) { ?>
                                     <form action="/register_exit_visitors" method="post" class="d-inline-block">
                                         <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
                                         <abbr title="Registrar saída">
@@ -157,7 +156,7 @@
                                             </button>
                                         </abbr>
                                     </form>
-                                <?php }?> 
+                                <?php } ?>
                                 <form action="/edit_visitors" method="post" class="d-inline-block">
                                     <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
                                     <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
@@ -212,6 +211,9 @@
                         <div class="label-float mt-4">
                             <input type="text" name="cpf" id="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" required>
                             <label>CPF</label>
+                            <div class="invalid-feedback" id="invalid">
+                                CPF inválido!
+                            </div>
                         </div>
                         <div class="label-float mt-4">
                             <input type="text" name="apartamento" class="form-custom form-control mt-2" size="60" placeholder="Apartamento" maxlength="5" required>
