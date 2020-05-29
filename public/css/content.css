@@ -219,6 +219,9 @@ input[type="search"]{
 table.dataTable thead th{ 
     padding: 10px 7px 20px;
 }
+table tr th::after,tr th::before{
+    opacity: 0!important
+}
 tbody td{
     padding: 15px 5px!important;
     vertical-align: middle!important;

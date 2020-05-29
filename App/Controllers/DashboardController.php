@@ -37,9 +37,9 @@ class DashboardController extends Action {
            
             // Exibindo regsitros por ano
             for($i =0; $i < 12; $i++){
-                $this->view->total_encomendas_por_ano[$i] = $encomendas->getAllOrdersByYear()[$i];
-                $this->view->total_visitantes_por_ano[$i] = $visitantes->getAllVisitorsByYear()[$i];
-                $this->view->total_prestadores_servicos_por_ano[$i] = $prestadores_servicos->getAllServiceProvidersByYear()[$i];   
+                isset($encomendas->getAllOrdersByYear()[$i]) ? $this->view->total_encomendas_por_ano[$i] = $encomendas->getAllOrdersByYear()[$i] : 0 ;
+                isset($visitantes->getAllVisitorsByYear()[$i]) ? $this->view->total_visitantes_por_ano[$i] = $visitantes->getAllVisitorsByYear()[$i] : 0;
+                isset($prestadores_servicos->getAllServiceProvidersByYear()[$i]) ? $this->view->total_prestadores_servicos_por_ano[$i] = $prestadores_servicos->getAllServiceProvidersByYear()[$i] : 0;   
             }
             
             $this->render('dashboard_admin');
