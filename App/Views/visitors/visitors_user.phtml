@@ -1,32 +1,30 @@
-<header id="header" class="header d-flex align-items-center justify-content-between position-fixed bg-white">
+<header id="header" class="header d-flex align-items-center justify-content-between position-fixed">
     <div class="button ml-3 text-center" onclick="sidebarUser()">
         <i class="fas fa-bars"></i>
     </div>
-    <div class="dropdown mr-3">
-        <button class="btn btn-light btn-user border-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="text-dark">
-                Olá,
+    <button class="btn btn-light btn-user border-0 mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="text-dark">
+            Olá,
+        </span>
+        <span class="text-secondary mr-1">
+            <?= $_SESSION['nome'] ?>
+        </span>
+        <img width="35" height="35" src="img/users/<?= $_SESSION['imagem_usuario'] ?>">
+    </button>
+    <div class="dropdown-menu drop" aria-labelledby="dropdownMenuButton">
+        <a href="/my_profile">
+            <i class="fas fa-user-alt"></i>
+            <span class="ml-2">
+                Meu Perfil
             </span>
-            <span class="text-secondary mr-1">
-                <?= $_SESSION['nome'] ?>
+        </a>
+        <hr class="m-0">
+        <a href="/sign_out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="ml-2">
+                Sair
             </span>
-            <img width="35" height="35" src="img/users/<?= $_SESSION['imagem_usuario'] ?>">
-        </button>
-        <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
-            <a href="/my_profile">
-                <i class="fas fa-user-alt ml-2"></i>
-                <span class="ml-2">
-                    Meu Perfil
-                </span>
-            </a>
-            <hr class="m-0">
-            <a href="/sign_out">
-                <i class="fas fa-sign-out-alt ml-2"></i>
-                <span class="ml-2">
-                    Sair
-                </span>
-            </a>
-        </div>
+        </a>
     </div>
 </header>
 <div class="container-fluid dashboard-gradient menu-user" id="menu-user" style="margin-left: -100%;">
@@ -56,7 +54,7 @@
             <i class="fas fa-ellipsis-v text-white"></i>
         </button>
         <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
-            <h6 class="p-2" style="color: #20B2AA">Exportar</h6>
+            <h6 class="p-2">Exportar</h6>
             <a href="/export_visitors" class="px-2">
                 <i class="far fa-file-excel"></i>
                 <span class="ml-1">Para Excel</span>
@@ -140,13 +138,14 @@
                         <div class="label-float">
                             <input type="text" name="nome" class="form-custom form-control mt-2" size="60" placeholder="Nome" maxlength="60" required>
                             <label>Nome</label>
-                            <div class="invalid-feedback" id="invalid">
-                                CPF inválido!
-                            </div>
+                            
                         </div>
                         <div class="label-float mt-4">
                             <input type="text" name="cpf" id="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" required>
                             <label>CPF</label>
+							<div class="invalid-feedback" id="invalid">
+                                CPF inválido!
+                            </div>
                         </div>
                         <div class="label-float mt-4">
                             <input type="text" name="telefone" id="telefone" class="form-custom form-control mt-2" size="60" placeholder="telefone" maxlength="20" required>

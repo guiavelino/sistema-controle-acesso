@@ -95,10 +95,16 @@ class ServiceProviders extends Model{
         return $stmt->fetch();
     }
 
-    public function getAllServiceProvidersPresents(){
+    public function getAllNumberServiceProvidersPresents(){
         $stmt = $this->db->prepare("SELECT count(*) as prestadores_servicos_presentes FROM prestadores_servicos WHERE data_saida is null");
         $stmt->execute();
         return $stmt->fetch();
+    }
+
+    public function getAllServiceProvidersPresents(){
+        $stmt = $this->db->prepare("SELECT * FROM prestadores_servicos WHERE data_saida is null");
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 }
 

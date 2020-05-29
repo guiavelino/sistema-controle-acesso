@@ -103,6 +103,10 @@ ul>a>span{
     font-size:11pt;
 }
 /* Botão de Exportação dos dados da tabela */
+.breadcrumb>.dropdown-menu>h6{
+    padding: 12px 20px !important;
+    color: #20B2AA;
+}
 .btn-exports{
     box-shadow: 0px 0px 0px !important;
 }

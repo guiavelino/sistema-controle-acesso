@@ -16,19 +16,25 @@ function cpf(cpf){
 }
 // chama a função de validação e altera as cores
 
+
 document.getElementById('cpf').addEventListener('change',
 
 function valida(){
-    inputCpf = document.getElementById('cpf').value;
-
+    var inputCpf = document.getElementById('cpf').value;
+    var btn = document.querySelector('.btn-register');
+    btn.disabled = true;
+    
     teste = cpf(inputCpf);
     if(teste){
         document.getElementById('invalid').style ="display: none";
         document.getElementById('cpf').style = "border-bottom: 2px solid #20B2AA!important;";
+        btn.disabled = false;
     }
     else{
         document.getElementById('cpf').style = "border-bottom: 2px solid red!important;";
         document.getElementById('invalid').style ="display: block";
+        btn.disabled = true;
+
     }
     
 });

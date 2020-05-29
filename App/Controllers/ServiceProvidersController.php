@@ -16,10 +16,13 @@ class ServiceProvidersController extends Action {
 
 	public function serviceProviders(){
         $this->validateAuthentication();
-
         if($_SESSION['nivel_acesso'] == 'administrador'){
             $prestadores_servicos = Container::getModel('ServiceProviders');
+            
             $this->view->prestadores_servicos = $prestadores_servicos->getAll();
+            $this->view->total_prestadores_servicos_presentes = $prestadores_servicos->getAllNumberServiceProvidersPresents()['prestadores_servicos_presentes'];
+            $this->view->prestadores_servicos_presentes = $prestadores_servicos->getAllServiceProvidersPresents();
+
             $this->render('service_providers_admin');
         }
         else{
