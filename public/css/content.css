@@ -124,10 +124,10 @@ ul>a>span{
     padding: 0 0.94rem;
 }
 .add-exit>.add{
-    border-radius: 4px 0px 0px 0px !important;
+    border-radius: 3px 0px 0px 0px !important;
 }
 .add-exit>.exit{
-    border-radius: 0px 4px 0px 0px !important;
+    border-radius: 0px 3px 0px 0px !important;
 }
 @media(max-width:767px){
     .add-exit>.add{
