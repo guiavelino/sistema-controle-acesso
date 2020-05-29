@@ -18,7 +18,11 @@ class VisitorsController extends Action {
         $this->validateAuthentication();
         if($_SESSION['nivel_acesso'] == 'administrador'){
             $visitantes = Container::getModel('Visitors');
+            
             $this->view->visitantes = $visitantes->getAll();
+            $this->view->total_visitantes_presentes = $visitantes->getAllNumberVisitorsPresents()['visitantes_presentes'];
+            $this->view->visitantes_presentes = $visitantes->getAllVisitorsPresents();
+
             $this->render('visitors_admin');
         }
         else{

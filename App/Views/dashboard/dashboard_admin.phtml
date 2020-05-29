@@ -5,61 +5,71 @@
     <div class="d-xl-none d-block button ml-3 text-center" onclick="sidebarSecretAdm()">
         <i class="fas fa-bars"></i>
     </div>
-    <div class="dropdown mr-3">
-        <button class="btn btn-light btn-user border-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="text-dark">
-                Olá,
+    <button class="btn btn-light btn-user border-0 mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="text-dark">
+            Olá,
+        </span>
+        <span class="text-secondary mr-1">
+            <?= $_SESSION['nome'] ?>
+        </span>
+        <img width="35" height="35" src="img/users/<?= $_SESSION['imagem_usuario'] ?>">
+    </button>
+    <div class="dropdown-menu drop" aria-labelledby="dropdownMenuButton">
+        <a href="/my_profile">
+            <i class="fas fa-user-alt"></i>
+            <span class="ml-2">
+                Meu Perfil
             </span>
-            <span class="text-secondary mr-1">
-                <?= $_SESSION['nome'] ?>
+        </a>
+        <hr class="m-0">
+        <a href="/sign_out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="ml-2">
+                Sair
             </span>
-            <img width="35" height="35" src="img/users/<?=$_SESSION['imagem_usuario']?>">
-        </button>
-        <div class="dropdown-menu drop p-0" style="margin-right: 30px !important;" aria-labelledby="dropdownMenuButton">
-            <a href="/my_profile">
-                <i class="fas fa-user-alt ml-2"></i>
-                <span class="ml-2">
-                    Meu Perfil
-                </span>
-            </a>
-            <hr class="m-0">
-            <a href="/sign_out">
-                <i class="fas fa-sign-out-alt ml-2"></i>
-                <span class="ml-2">
-                    Sair
-                </span>
-            </a>
-        </div>
-    </div> 
+        </a>
+    </div>
 </header>
 <aside id="menu-adm" class="menu-adm" style="margin-left:0px">
     <h4 class="pl-3 text-white logo">Access</h4>
     <small class="pl-3 text-white subtitle-menu-adm">Menu</small>
     <nav>
         <ul class="menu-list">
-            <a class="d-block p-3 active" href="/dashboard">
-                <i class="fas fa-chart-line icon"></i>
-                <span>Dashboard</span>
+            <a class="d-flex justify-content-between align-items-center p-3 active" href="/dashboard">
+                <div>
+                    <i class="fas fa-chart-line icon"></i>
+                    <span>Dashboard</span>
+                </div>
             </a>
-            <a class="d-block p-3" href="/residents">
-                <i class="fas fa-building icon"></i>
-                <span>Moradores</span>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/residents">
+                <div>
+                    <i class="fas fa-building icon"></i>
+                    <span>Moradores</span>
+                </div>
             </a>
-            <a class="d-block p-3" href="/visitors">
-                <i class="fas fa-walking icon"></i>
-                <span>Visitantes</span>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/visitors">
+                <div>
+                    <i class="fas fa-walking icon"></i>
+                    <span>Visitantes</span>
+                </div>
             </a>
-            <a class="d-block p-3" href="/service_providers">
-                <i class="fas fa-toolbox icon"></i>
-                <span>Prestadores de serviços</span>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/service_providers">
+                <div>    
+                    <i class="fas fa-toolbox icon"></i>
+                    <span>Prestadores de serviços</span>
+                </div>
             </a>
-            <a class="d-block p-3" href="/orders">
-                <i class="fas fa-dolly icon"></i>
-                <span>Encomendas</span>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/orders">
+                <div>    
+                    <i class="fas fa-dolly icon"></i>
+                    <span>Encomendas</span>
+                </div>
             </a>
-            <a class="d-block p-3" href="/leisure_areas">
-                <i class="fas fa-gamepad icon"></i>
-                <span>Áreas de lazer</span>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/leisure_areas">
+                <div>    
+                    <i class="fas fa-gamepad icon"></i>
+                    <span>Áreas de lazer</span>
+                </div>
             </a>
         </ul>
     </nav>
@@ -69,29 +79,41 @@
     <small class="pl-3 text-white subtitle-menu-adm">Menu</small>
     <nav>
         <ul class="menu-list">
-            <a class="d-block p-3 active" href="/dashboard">
-                <i class="fas fa-chart-line icon"></i>
-                <span>Dashboard</span>
+            <a class="d-flex justify-content-between align-items-center p-3 active" href="/dashboard">
+                <div>
+                    <i class="fas fa-chart-line icon"></i>
+                    <span>Dashboard</span>
+                </div>
             </a>
-            <a class="d-block p-3" href="/residents">
-                <i class="fas fa-building icon"></i>
-                <span>Moradores</span>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/residents">
+                <div>    
+                    <i class="fas fa-building icon"></i>
+                    <span>Moradores</span>
+                </div>
             </a>
-            <a class="d-block p-3" href="/visitors">
-                <i class="fas fa-walking icon"></i>
-                <span>Visitantes</span>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/visitors">
+                <div>
+                    <i class="fas fa-walking icon"></i>
+                    <span>Visitantes</span>
+                </div>
             </a>
-            <a class="d-block p-3" href="/service_providers">
-                <i class="fas fa-toolbox icon"></i>
-                <span>Prestadores de serviços</span>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/service_providers">
+                <div>
+                    <i class="fas fa-toolbox icon"></i>
+                    <span>Prestadores de serviços</span>
+                </div>
             </a>
-            <a class="d-block p-3" href="/orders">
-                <i class="fas fa-dolly icon"></i>
-                <span>Encomendas</span>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/orders">
+                <div> 
+                    <i class="fas fa-dolly icon"></i>
+                    <span>Encomendas</span>
+                </div>
             </a>
-            <a class="d-block p-3" href="/leisure_areas">
-                <i class="fas fa-gamepad icon"></i>
-                <span>Áreas de lazer</span>
+            <a class="d-flex justify-content-between align-items-center p-3" href="/leisure_areas">
+                <div>
+                    <i class="fas fa-gamepad icon"></i>
+                    <span>Áreas de lazer</span>
+                </div>
             </a>
         </ul>
     </nav>
@@ -189,7 +211,20 @@
                     pointHitRadius:40,
                     borderColor:'#4e73df',
                     backgroundColor: 'rgba(93, 120, 255,0.0)',
-                    data: [10, 20, 15, 13, 19, 35, 40, 64, 70, 65, 75, 68]
+                    data: [
+                        <?=$this->view->total_visitantes_por_ano[0]?>,
+                        <?=$this->view->total_visitantes_por_ano[1]?>,
+                        <?=$this->view->total_visitantes_por_ano[2]?>,
+                        <?=$this->view->total_visitantes_por_ano[3]?>,
+                        <?=$this->view->total_visitantes_por_ano[4]?>,
+                        <?=$this->view->total_visitantes_por_ano[5]?>,
+                        <?=$this->view->total_visitantes_por_ano[6]?>,
+                        <?=$this->view->total_visitantes_por_ano[7]?>,
+                        <?=$this->view->total_visitantes_por_ano[8]?>,
+                        <?=$this->view->total_visitantes_por_ano[9]?>,
+                        <?=$this->view->total_visitantes_por_ano[10]?>,
+                        <?=$this->view->total_visitantes_por_ano[11]?>
+                    ]
                 },
                 {
                     label: 'Prestadores de Serviços',
@@ -198,7 +233,20 @@
                     pointHitRadius:40,
                     borderColor:'#36b9cc',
                     backgroundColor: 'rgba(93, 120, 255,0.0)',
-                    data: [23, 12, 8, 22, 15, 13, 8, 7, 6, 14, 10, 20]
+                    data: [
+                        <?=$this->view->total_prestadores_servicos_por_ano[0]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[1]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[2]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[3]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[4]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[5]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[6]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[7]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[8]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[9]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[10]?>,
+                        <?=$this->view->total_prestadores_servicos_por_ano[11]?>
+                    ]
                 },
                 {
                     label: 'Encomendas',
@@ -207,19 +255,20 @@
                     pointHitRadius:40,
                     borderColor:'#20c9a6',
                     backgroundColor: 'rgba(93, 120, 255,0.0)',
-                    data: [ <?=$this->view->total_encomendas_janeiro?>, 
-                            <?=$this->view->total_encomendas_fevereiro?>, 
-                            <?=$this->view->total_encomendas_marco?>, 
-                            <?=$this->view->total_encomendas_abril?>,
-                            <?=$this->view->total_encomendas_maio?>,
-                            <?=$this->view->total_encomendas_junho?>,
-                            <?=$this->view->total_encomendas_julho?>,
-                            <?=$this->view->total_encomendas_agosto?>,
-                            <?=$this->view->total_encomendas_setembro?>,
-                            <?=$this->view->total_encomendas_outubro?>,
-                            <?=$this->view->total_encomendas_novembro?>,
-                            <?=$this->view->total_encomendas_dezembro?>
-                        ]
+                    data: [ 
+                        <?=$this->view->total_encomendas_por_ano[0]?>, 
+                        <?=$this->view->total_encomendas_por_ano[1]?>, 
+                        <?=$this->view->total_encomendas_por_ano[2]?>, 
+                        <?=$this->view->total_encomendas_por_ano[3]?>,
+                        <?=$this->view->total_encomendas_por_ano[4]?>,
+                        <?=$this->view->total_encomendas_por_ano[5]?>,
+                        <?=$this->view->total_encomendas_por_ano[6]?>,
+                        <?=$this->view->total_encomendas_por_ano[7]?>,
+                        <?=$this->view->total_encomendas_por_ano[8]?>,
+                        <?=$this->view->total_encomendas_por_ano[9]?>,
+                        <?=$this->view->total_encomendas_por_ano[10]?>,
+                        <?=$this->view->total_encomendas_por_ano[11]?>
+                    ]
                 }
             ]
         },
@@ -247,11 +296,17 @@
     
         data: {
             labels: ['Visitantes','Prestadores s.', 'Encomendas'],	
-            datasets: [{
-                label: 'Registro de entrada por mês',
-                backgroundColor: ['#4e73df', '#36b9cc','#20c9a6'],
-                data: [<?=$this->view->total_visitantes_por_mes?>, <?=$this->view->total_prestadores_servicos_por_mes?>, <?=$this->view->total_encomendas_por_mes?>],
-            }]	
+            datasets: [
+                {
+                    label: 'Registro de entrada por mês',
+                    backgroundColor: ['#4e73df', '#36b9cc','#20c9a6'],
+                    data: [
+                        <?=$this->view->total_visitantes_por_mes?>, 
+                        <?=$this->view->total_prestadores_servicos_por_mes?>, 
+                        <?=$this->view->total_encomendas_por_mes?>
+                    ]
+                }
+            ]	
         },
         
         options: {

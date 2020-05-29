@@ -17,7 +17,7 @@ class OrdersController extends Action {
 	public function orders(){
         $this->validateAuthentication();
         if($_SESSION['nivel_acesso'] == 'administrador'){
-            $encomendas = Container::getModel('Orders');
+            $encomendas = Container::getModel('Orders');   
             $this->view->encomendas = $encomendas->getAll();
             $this->render('orders_admin');
         }

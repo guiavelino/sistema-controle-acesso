@@ -63,85 +63,22 @@ class Orders extends Model{
         return $stmt->fetch();
     }
 
-    public function getAllOrdersByJanuary(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 01 AND YEAR(data_entrega) = YEAR(:data_atual)");
-        $stmt->bindValue(":data_atual", $this->data_atual);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
-    public function getAllOrdersByFebruary(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 02 AND YEAR(data_entrega) = YEAR(:data_atual)");
-        $stmt->bindValue(":data_atual", $this->data_atual);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
-    public function getAllOrdersByMarch(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 03 AND YEAR(data_entrega) = YEAR(:data_atual)");
-        $stmt->bindValue(":data_atual", $this->data_atual);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
-    public function getAllOrdersByApril(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 04 AND YEAR(data_entrega) = YEAR(:data_atual)");
-        $stmt->bindValue(":data_atual", $this->data_atual);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
-    public function getAllOrdersByMay(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 05 AND YEAR(data_entrega) = YEAR(:data_atual)");
-        $stmt->bindValue(":data_atual", $this->data_atual);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
-    public function getAllOrdersByJune(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 06 AND YEAR(data_entrega) = YEAR(:data_atual)");
-        $stmt->bindValue(":data_atual", $this->data_atual);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
-    public function getAllOrdersByJuly(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 07 AND YEAR(data_entrega) = YEAR(:data_atual)");
-        $stmt->bindValue(":data_atual", $this->data_atual);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
-    public function getAllOrdersByAugust(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 08 AND YEAR(data_entrega) = YEAR(:data_atual)");
-        $stmt->bindValue(":data_atual", $this->data_atual);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
-    public function getAllOrdersBySeptember(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 09 AND YEAR(data_entrega) = YEAR(:data_atual)");
-        $stmt->bindValue(":data_atual", $this->data_atual);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
-    public function getAllOrdersByOctober(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 10 AND YEAR(data_entrega) = YEAR(:data_atual)");
-        $stmt->bindValue(":data_atual", $this->data_atual);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
-    public function getAllOrdersByNovember(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 11 AND YEAR(data_entrega) = YEAR(:data_atual)");
-        $stmt->bindValue(":data_atual", $this->data_atual);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-
-    public function getAllOrdersByDecember(){
-        $stmt = $this->db->prepare("SELECT count(*) as encomendas_por_janeiro FROM encomendas WHERE MONTH(data_entrega) = 12 AND YEAR(data_entrega) = YEAR(:data_atual)");
+    public function getAllOrdersByYear(){
+        $stmt = $this->db->prepare("SELECT 
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 01 AND YEAR(data_entrega) = YEAR(:data_atual)) as janeiro,
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 02 AND YEAR(data_entrega) = YEAR(:data_atual)) as fevereiro,
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 03 AND YEAR(data_entrega) = YEAR(:data_atual)) as marco,
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 04 AND YEAR(data_entrega) = YEAR(:data_atual)) as abril,
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 05 AND YEAR(data_entrega) = YEAR(:data_atual)) as maio,
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 06 AND YEAR(data_entrega) = YEAR(:data_atual)) as junho,
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 07 AND YEAR(data_entrega) = YEAR(:data_atual)) as julho,
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 08 AND YEAR(data_entrega) = YEAR(:data_atual)) as agosto,
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 09 AND YEAR(data_entrega) = YEAR(:data_atual)) as setembro,
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 10 AND YEAR(data_entrega) = YEAR(:data_atual)) as outubro,
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 11 AND YEAR(data_entrega) = YEAR(:data_atual)) as novembro,
+                    (select count(*) FROM encomendas WHERE MONTH(data_entrega) = 12 AND YEAR(data_entrega) = YEAR(:data_atual)) as dezembro
+                    from encomendas
+                ");
         $stmt->bindValue(":data_atual", $this->data_atual);
         $stmt->execute();
         return $stmt->fetch();

@@ -18,58 +18,30 @@ class DashboardController extends Action {
         $this->validateAuthentication();
         if($_SESSION['nivel_acesso'] == 'administrador'){
             $encomendas = Container::getModel('Orders');
-            $encomendas->data_atual = date('Y-m-d');
-
-            $this->view->total_encomendas_por_dia = $encomendas->getAllOrdersByDay()['encomendas_por_dia'];
-            $this->view->total_encomendas_por_mes = $encomendas->getAllOrdersByMonth()['encomendas_por_mes'];
-            
-            foreach($encomendas->getAllOrdersByJanuary() as $e){
-                $this->view->total_encomendas_janeiro = $e;
-            }
-            foreach($encomendas->getAllOrdersByFebruary() as $e){
-                $this->view->total_encomendas_fevereiro = $e;
-            }
-            foreach($encomendas->getAllOrdersByMarch() as $e){
-                $this->view->total_encomendas_marco = $e;
-            }
-            foreach($encomendas->getAllOrdersByApril() as $e){
-                $this->view->total_encomendas_abril = $e;
-            }
-            foreach($encomendas->getAllOrdersByMay() as $e){
-                $this->view->total_encomendas_maio = $e;
-            }
-            foreach($encomendas->getAllOrdersByJune() as $e){
-                $this->view->total_encomendas_junho = $e;
-            }
-            foreach($encomendas->getAllOrdersByJuly() as $e){
-                $this->view->total_encomendas_julho = $e;
-            }
-            foreach($encomendas->getAllOrdersByAugust() as $e){
-                $this->view->total_encomendas_agosto = $e;
-            }
-            foreach($encomendas->getAllOrdersBySeptember() as $e){
-                $this->view->total_encomendas_setembro = $e;
-            }
-            foreach($encomendas->getAllOrdersByOctober() as $e){
-                $this->view->total_encomendas_outubro = $e;
-            }
-            foreach($encomendas->getAllOrdersByNovember() as $e){
-                $this->view->total_encomendas_novembro = $e;
-            }
-            foreach($encomendas->getAllOrdersByDecember() as $e){
-                $this->view->total_encomendas_dezembro = $e;
-            }
-
             $visitantes = Container::getModel('Visitors');
-            $visitantes->data_atual = date('Y-m-d');
-            $this->view->total_visitantes_por_dia = $visitantes->getAllVisitorsByDay()['visitantes_por_dia'];
-            $this->view->total_visitantes_por_mes = $visitantes->getAllVisitorsByMonth()['visitantes_por_mes'];
-
             $prestadores_servicos = Container::getModel('ServiceProviders');
+            
+            $encomendas->data_atual = date('Y-m-d');
+            $visitantes->data_atual = date('Y-m-d');
             $prestadores_servicos->data_atual = date('Y-m-d');
-            $this->view->total_prestadores_servicos_por_dia = $prestadores_servicos->getAllServiceProvidersByDay()['prestadores_servicos_por_dia'];
-            $this->view->total_prestadores_servicos_por_mes = $prestadores_servicos->getAllServiceProvidersByMonth()['prestadores_servicos_por_mes'];
 
+            // Exibindo regsitros por dia
+            $this->view->total_encomendas_por_dia = $encomendas->getAllOrdersByDay()['encomendas_por_dia'];
+            $this->view->total_visitantes_por_dia = $visitantes->getAllVisitorsByDay()['visitantes_por_dia'];
+            $this->view->total_prestadores_servicos_por_dia = $prestadores_servicos->getAllServiceProvidersByDay()['prestadores_servicos_por_dia'];
+            
+            // Exibindo regsitros por mês
+            $this->view->total_encomendas_por_mes = $encomendas->getAllOrdersByMonth()['encomendas_por_mes'];    
+            $this->view->total_visitantes_por_mes = $visitantes->getAllVisitorsByMonth()['visitantes_por_mes'];
+            $this->view->total_prestadores_servicos_por_mes = $prestadores_servicos->getAllServiceProvidersByMonth()['prestadores_servicos_por_mes'];
+           
+            // Exibindo regsitros por ano
+            for($i =0; $i < 12; $i++){
+                $this->view->total_encomendas_por_ano[$i] = $encomendas->getAllOrdersByYear()[$i];
+                $this->view->total_visitantes_por_ano[$i] = $visitantes->getAllVisitorsByYear()[$i];
+                $this->view->total_prestadores_servicos_por_ano[$i] = $prestadores_servicos->getAllServiceProvidersByYear()[$i];   
+            }
+            
             $this->render('dashboard_admin');
         }
         else{

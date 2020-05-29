@@ -16,8 +16,7 @@ class LeisureAreasController extends Action {
 
 	public function leisureAreas(){
         $this->validateAuthentication();
-
-        if($_SESSION['nivel_acesso'] == 'administrador'){
+        if($_SESSION['nivel_acesso'] == 'administrador'){           
             $this->render('leisure_areas');
         }
         else{

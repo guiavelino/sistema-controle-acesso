@@ -73,6 +73,33 @@ class ServiceProviders extends Model{
         $stmt->execute();
         return $stmt->fetch();
     }
+
+    public function getAllServiceProvidersByYear(){
+        $stmt = $this->db->prepare("SELECT 
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 01 AND YEAR(data_entrada) = YEAR(:data_atual)) as janeiro,
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 02 AND YEAR(data_entrada) = YEAR(:data_atual)) as fevereiro,
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 03 AND YEAR(data_entrada) = YEAR(:data_atual)) as marco,
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 04 AND YEAR(data_entrada) = YEAR(:data_atual)) as abril,
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 05 AND YEAR(data_entrada) = YEAR(:data_atual)) as maio,
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 06 AND YEAR(data_entrada) = YEAR(:data_atual)) as junho,
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 07 AND YEAR(data_entrada) = YEAR(:data_atual)) as julho,
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 08 AND YEAR(data_entrada) = YEAR(:data_atual)) as agosto,
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 09 AND YEAR(data_entrada) = YEAR(:data_atual)) as setembro,
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 10 AND YEAR(data_entrada) = YEAR(:data_atual)) as outubro,
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 11 AND YEAR(data_entrada) = YEAR(:data_atual)) as novembro,
+                    (select count(*) FROM prestadores_servicos WHERE MONTH(data_entrada) = 12 AND YEAR(data_entrada) = YEAR(:data_atual)) as dezembro
+                    from prestadores_servicos
+                ");
+        $stmt->bindValue(":data_atual", $this->data_atual);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllServiceProvidersPresents(){
+        $stmt = $this->db->prepare("SELECT count(*) as prestadores_servicos_presentes FROM prestadores_servicos WHERE data_saida is null");
+        $stmt->execute();
+        return $stmt->fetch();
+    }
 }
 
 ?>

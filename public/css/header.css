@@ -37,7 +37,7 @@
     color:#354052;
     transition: .4s;
 }
-.btn-user{
+.btn-user, .btn-notification{
     border-radius: 45px;  
 }
 .btn-user:hover {
@@ -48,20 +48,22 @@
     border-radius:50%;
 }
 .drop{
-    position: absolute;
-    background-color: white;
+    background-color: #FFFFFF;
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 999 !important;
+    padding: 0 !important;
+    border: 1px solid #e4eaf2;
+    margin-right: 30px !important;
 }
 .drop a{
-    line-height: 50px;
     text-decoration: none;
     display: block;
     font-size: 11pt;
     font-family: Arial;
-    color: gray;
+    color: #6c757d;
     transition: 0.1s ease-in-out;
+    padding: 15px 20px !important;
 }
 .drop a:hover {
     background-color: #F2F2F2;

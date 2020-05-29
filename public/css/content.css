@@ -95,7 +95,7 @@ ul>a.active{
     background-color: #20B2AA;
     color: #ffffff;
 }
-ul>a>.icon{
+ul>a>div>.icon{
     width: 40px;
     font-size:18pt;
 }
@@ -115,11 +115,45 @@ ul>a>span{
 .fa-file-excel{
     font-size: 16px !important;
 }
-/* Botão de cadastro */
+/* Botões de cadastro e registro de saída*/
+.add-exit{
+    padding: 0 0.94rem;
+}
+.add-exit>.add{
+    border-radius: 4px 0px 0px 0px !important;
+}
+.add-exit>.exit{
+    border-radius: 0px 4px 0px 0px !important;
+}
+@media(max-width:767px){
+    .add-exit>.add{
+        border-radius: 4px 4px 0px 0px !important;
+    }
+    .add-exit>.exit{
+        border-radius: 0px !important;
+    }
+}
 .add{
     background-color: #20B2AA;
     color: #FFFFFF;
     cursor: pointer;
+}
+.exit{
+    background-color: #FFC107;
+    color: #FFFFFF;
+    cursor: pointer; 
+}
+.badge-pill{
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+.badge-danger{
+    line-height: 25px;
+    width: 25px;
+    border-radius: 100% !important;
+    text-align: center !important;
+    padding: 0 !important;
+    font-size: 75% !important;
 }
 /* Botões de edição e exclusão dos registros */
 .btn-action{

@@ -73,6 +73,39 @@ class Visitors extends Model{
         $stmt->execute();
         return $stmt->fetch();
     }
+
+    public function getAllVisitorsByYear(){
+        $stmt = $this->db->prepare("SELECT 
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 01 AND YEAR(data_entrada) = YEAR(:data_atual)) as janeiro,
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 02 AND YEAR(data_entrada) = YEAR(:data_atual)) as fevereiro,
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 03 AND YEAR(data_entrada) = YEAR(:data_atual)) as marco,
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 04 AND YEAR(data_entrada) = YEAR(:data_atual)) as abril,
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 05 AND YEAR(data_entrada) = YEAR(:data_atual)) as maio,
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 06 AND YEAR(data_entrada) = YEAR(:data_atual)) as junho,
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 07 AND YEAR(data_entrada) = YEAR(:data_atual)) as julho,
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 08 AND YEAR(data_entrada) = YEAR(:data_atual)) as agosto,
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 09 AND YEAR(data_entrada) = YEAR(:data_atual)) as setembro,
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 10 AND YEAR(data_entrada) = YEAR(:data_atual)) as outubro,
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 11 AND YEAR(data_entrada) = YEAR(:data_atual)) as novembro,
+                    (select count(*) FROM visitantes WHERE MONTH(data_entrada) = 12 AND YEAR(data_entrada) = YEAR(:data_atual)) as dezembro
+                    from visitantes
+                ");
+        $stmt->bindValue(":data_atual", $this->data_atual);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllNumberVisitorsPresents(){
+        $stmt = $this->db->prepare("SELECT count(*) as visitantes_presentes FROM visitantes WHERE data_saida is null");
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getAllVisitorsPresents(){
+        $stmt = $this->db->prepare("SELECT * FROM visitantes WHERE data_saida is null");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
 
 
