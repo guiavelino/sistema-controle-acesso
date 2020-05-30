@@ -135,7 +135,7 @@
             </a>
         </div>
     </ol>
-    <div class="card mb-4 border-0">
+    <div class="card mb-4 border-0 shadow">
         <div class="row justify-content-between add-exit">
             <div class="card-header text-center add col-md-6" data-toggle="modal" data-target="#form-modal">
                 <h5 class="m-0"><i class="fas fa-door-open text-white mr-1"></i>Registrar Entrada</h5>
@@ -278,7 +278,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="card-body table-responsive pt-1">
+            <div class="card-body table-responsive pt-1"  style="overflow-x:hidden">
                 <table class="table table-bordered table-hover mb-0" id="dataTableModal">
                     <thead class="text-center card-header text-dark"> 
                         <tr>
@@ -287,7 +287,6 @@
                             <th>Apartamento</th>
                             <th>Bloco</th>
                             <th>Entrada</th>
-                            <th>Saída</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -299,28 +298,16 @@
                                 <td><?= $e['apartamento'] ?></td>
                                 <td><?= $e['bloco'] ?></td>
                                 <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>
-                                <td>
-                                    <?php 
-                                        if(!isset($e['data_saida'])){
-                                            echo 'Saída em aberto';
-                                        } 
-                                        else{
-                                            echo date('d/m/Y H:i', strtotime($e['data_saida']));
-                                        }  
-                                    ?>
-                                </td>
                                 <th>
-                                    <?php if(!isset($e['data_saida'])){ ?> 
-                                        <form action="/register_exit_service_providers" method="post" class="d-inline-block">
-                                            <input type="hidden" name="id_prestador_servico" value="<?= $e['id_prestador_servico'] ?>">
-                                            <abbr title="Registrar saída">
-                                                <button type="submit" class="btn btn-warning btn-action w-100">
-                                                    <i class="fas fa-door-open text-white"></i>
-                                                    Registrar Saída
-                                                </button>
-                                            </abbr>
-                                        </form>
-                                    <?php }?> 
+                                    <form action="/register_exit_service_providers" method="post" class="d-inline-block">
+                                        <input type="hidden" name="id_prestador_servico" value="<?= $e['id_prestador_servico'] ?>">
+                                        <abbr title="Registrar saída">
+                                            <button type="submit" class="btn btn-warning btn-action text-white w-100">
+                                                <i class="fas fa-door-open"></i>
+                                                Registrar Saída
+                                            </button>
+                                        </abbr>
+                                    </form>
                                 </th>
                             </tr>
                         <?php }?>

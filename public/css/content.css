@@ -104,7 +104,7 @@ ul>a>span{
 }
 /* Botão de Exportação dos dados da tabela */
 .breadcrumb>.dropdown-menu>h6{
-    padding: 12px 20px !important;
+    padding: 10px 20px !important;
     color: #20B2AA;
 }
 .btn-exports{
@@ -175,6 +175,7 @@ ul>a>span{
 label{
     margin: 15px 0;
 }
+/* Selecionado registros por página */
 select.custom-select{
     background-color: rgb(238, 240, 240);
     border: 0px !important;
@@ -182,6 +183,7 @@ select.custom-select{
     margin: 0 0 0 10px; 
     cursor: pointer;
 }
+/* Barra de pesquisa */
 input[type="search"]{
     height: calc(1.5em + .75rem + 2px);
     padding: .375rem .75rem;
@@ -196,6 +198,27 @@ input[type="search"]{
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     border-radius: 50px;
 }
+/* Tabela */
+table.dataTable{
+    border: 1px solid rgb(202, 202, 202) !important;
+}
+/* Cabeçalho da tabela */
+table.dataTable thead th, table.dataTable thead td {
+    background-color: rgb(238, 238, 238);
+    border-bottom: 1px solid rgb(192, 192, 192) !important;
+}
+/* Ícone de visualização (+) */
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th.dtr-control:before {
+    left: 8px;
+    height: 18px;
+    width: 18px;
+    border: 0px !important;
+    border-radius: 18px;
+    font-weight: 900;
+    line-height: 18px;
+    background-color: #20B2AA;
+}
+/* Páginação */
 .dataTables_info, .dataTables_paginate{
     margin: 10px 0px !important;
     padding-top: 0px !important;
@@ -209,6 +232,7 @@ input[type="search"]{
 .page-link{
     color: #5a5a5a !important;
 }
+/* Campos da tabela */
 .table td, .odd th {
     min-width:150px;
 }

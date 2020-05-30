@@ -36,10 +36,10 @@ class DashboardController extends Action {
             $this->view->total_prestadores_servicos_por_mes = $prestadores_servicos->getAllServiceProvidersByMonth()['prestadores_servicos_por_mes'];
            
             // Exibindo regsitros por ano
-            for($i =0; $i < 12; $i++){
-                isset($encomendas->getAllOrdersByYear()[$i]) ? $this->view->total_encomendas_por_ano[$i] = $encomendas->getAllOrdersByYear()[$i] : 0 ;
-                isset($visitantes->getAllVisitorsByYear()[$i]) ? $this->view->total_visitantes_por_ano[$i] = $visitantes->getAllVisitorsByYear()[$i] : 0;
-                isset($prestadores_servicos->getAllServiceProvidersByYear()[$i]) ? $this->view->total_prestadores_servicos_por_ano[$i] = $prestadores_servicos->getAllServiceProvidersByYear()[$i] : 0;   
+            for($i =0; $i < 12; $i++){          
+                $this->view->total_encomendas_por_ano[$i] =  isset($encomendas->getAllOrdersByYear()[$i]) ? $encomendas->getAllOrdersByYear()[$i] : 0 ;
+                $this->view->total_visitantes_por_ano[$i] = isset($visitantes->getAllVisitorsByYear()[$i]) ? $visitantes->getAllVisitorsByYear()[$i] : 0;
+                $this->view->total_prestadores_servicos_por_ano[$i] = isset($prestadores_servicos->getAllServiceProvidersByYear()[$i]) ?  $prestadores_servicos->getAllServiceProvidersByYear()[$i] : 0;  
             }
             
             $this->render('dashboard_admin');

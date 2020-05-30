@@ -1,33 +1,31 @@
-<header id="header" class="header d-xl-none d-flex align-items-center justify-content-between position-fixed bg-white">
+<header id="header" class="header d-xl-none d-flex align-items-center justify-content-between position-fixed">
     <div class="button ml-3 text-center" onclick="sidebarMyProfile()">
         <i class="fas fa-bars"></i>
     </div>
-    <div class="dropdown mr-3">
-        <button class="btn btn-light btn-user border-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="text-dark">
-                Olá,
+    <button class="btn btn-light btn-user border-0 mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="text-dark">
+            Olá,
+        </span>
+        <span class="text-secondary mr-1">
+            <?= $_SESSION['nome'] ?>
+        </span>
+        <img width="35" height="35" src="img/users/<?= $_SESSION['imagem_usuario'] ?>">
+    </button>
+    <div class="dropdown-menu drop" aria-labelledby="dropdownMenuButton">
+        <a href="/my_profile">
+            <i class="fas fa-user-alt"></i>
+            <span class="ml-2">
+                Meu Perfil
             </span>
-            <span class="text-secondary mr-1">
-                <?= $_SESSION['nome'] ?>
+        </a>
+        <hr class="m-0">
+        <a href="/sign_out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="ml-2">
+                Sair
             </span>
-            <img width="35" height="35" src="img/users/<?=$_SESSION['imagem_usuario']?>">
-        </button>
-        <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
-            <a href="/my_profile">
-                <i class="fas fa-user-alt ml-2"></i>
-                <span class="ml-2">
-                    Meu Perfil
-                </span>
-            </a>
-            <hr class="m-0">
-            <a href="/sign_out">
-                <i class="fas fa-sign-out-alt ml-2"></i>
-                <span class="ml-2">
-                    Sair
-                </span>
-            </a>
-        </div>
-    </div> 
+        </a>
+    </div>
 </header>
 <section class="row m-auto">
     <div class="menu-profile col-xl-3 d-xl-block d-none p-0">
