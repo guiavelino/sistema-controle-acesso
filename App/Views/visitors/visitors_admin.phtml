@@ -120,8 +120,10 @@
 </aside>
 <section class="content-adm p-3" id="content">
     <ol class="breadcrumb mb-4 bg-dark justify-content-between">
-        <li class="breadcrumb-item active text-light">
-            <h4 class="m-0"><i class="fas fa-walking mr-3 ml-2" style="font-size:28px"></i>Visitantes</h4>
+        <li class="breadcrumb-item active">
+            <button class="btn btn-outline-light" data-toggle="modal" data-target="#cad-modal">
+                <h4 class="m-0"><i class="fas fa-walking mr-3 ml-2" style="font-size:28px"></i>Cadastar Visitante</h4>
+            </button>
         </li>
         <button class="btn bg-transparent btn-exports px-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-ellipsis-v text-white"></i>
@@ -154,7 +156,7 @@
                 <thead class="text-center card-header text-dark">
                     <tr>
                         <th>Nome</th>
-                        <th>CPF</th>
+                        <th>Documento</th>
                         <th>Apartamento</th>
                         <th>Bloco</th>
                         <th>Entrada</th>
@@ -166,7 +168,7 @@
                     <?php foreach ($this->view->visitantes as $e) { ?>
                         <tr>
                             <td><?= $e['nome'] ?></td>
-                            <td><?= $e['cpf'] ?></td>
+                            <td><?= $e['documento'] ?></td>
                             <td><?= $e['apartamento'] ?></td>
                             <td><?= $e['bloco'] ?></td>
                             <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>
@@ -224,12 +226,12 @@
         </div>
     </div>
 </section>
-<!-- Modal de cadastro-->
-<div class="modal fade" id="form-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+<!-- Modal de cadastro -->
+<div class="modal fade" id="cad-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-0">
             <div class="modal-header text-center align-items-center">
-                <h4 class="modal-title font-weight-bold text-secondary">Visitantes</h4>
+                <h4 class="modal-title font-weight-bold text-secondary">Cadastrar Visitante</h4>
                 <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -241,12 +243,59 @@
                             <input type="text" name="nome" class="form-custom form-control mt-2" size="60" placeholder="Nome" maxlength="60" required>
                             <label>Nome</label>
                         </div>
-                        <div class="label-float mt-4">
-                            <input type="text" name="cpf" id="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" required>
+                        <label class="mt-4 mb-0 text-secondary">Documento</label>
+                        <select id="select-documento-cadastro" name="documento" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="CPF">CPF</option>
+                            <option value="RG">RG</option>
+                        </select>
+                        <div class="label-float mt-4" id="input-cpf-cadastro">
+                            <input type="text" id="cad-cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14">
                             <label>CPF</label>
                             <div class="invalid-feedback" id="invalid">
                                 CPF inválido!
                             </div>
+                        </div>
+                        <div class="label-float mt-4" id="input-rg-cadastro">
+                            <input type="text" id="cad-rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" maxlength="12">
+                            <label>RG</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-register w-100 text-light">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal de registro de entrada-->
+<div class="modal fade" id="form-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header text-center align-items-center">
+                <h4 class="modal-title font-weight-bold text-secondary">Registrar Entrada</h4>
+                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="register_entry_visitors" method="post">
+                <div class="modal-body py-4">
+                    <div class="card card-body border-0 pt-0">
+                        <label class="mt-0 mb-0 text-secondary">Documento</label>
+                        <select id="select-documento-registro" name="documento" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="CPF">CPF</option>
+                            <option value="RG">RG</option>
+                        </select>
+                        <div class="label-float mt-4" id="input-cpf-registro">
+                            <input type="text" id="cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14">
+                            <label>CPF</label>
+                            <div class="invalid-feedback" id="invalid">
+                                CPF inválido!
+                            </div>
+                        </div>
+                        <div class="label-float mt-4" id="input-rg-registro">
+                            <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" maxlength="12">
+                            <label>RG</label>
                         </div>
                         <div class="label-float mt-4">
                             <input type="text" name="apartamento" class="form-custom form-control mt-2" size="60" placeholder="Apartamento" maxlength="5" required>
@@ -260,7 +309,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-register w-100 text-light">Cadastrar</button>
+                    <button type="submit" class="btn btn-register w-100 text-light">Registrar</button>
                 </div>
             </form>
         </div>
@@ -281,7 +330,7 @@
                     <thead class="text-center card-header text-dark">
                         <tr>
                             <th>Nome</th>
-                            <th>CPF</th>
+                            <th>Documento</th>
                             <th>Apartamento</th>
                             <th>Bloco</th>
                             <th>Entrada</th>
@@ -292,7 +341,7 @@
                         <?php foreach ($this->view->visitantes_presentes as $e) { ?>
                             <tr>
                                 <td><?= $e['nome'] ?></td>
-                                <td><?= $e['cpf'] ?></td>
+                                <td><?= $e['documento'] ?></td>
                                 <td><?= $e['apartamento'] ?></td>
                                 <td><?= $e['bloco'] ?></td>
                                 <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>
@@ -315,3 +364,34 @@
         </div>
     </div>
 </div>
+
+<script src="lib/datatables/js/query-3.5.1.js"></script>
+<script>
+    $('#input-rg-cadastro').hide();
+    $("#select-documento-cadastro").change(function() {
+        if(this.value == "RG"){
+            $('#input-rg-cadastro').show();
+            $('#input-cpf-cadastro').hide()
+        }
+        else if(this.value == "CPF"){
+            $('#input-rg-cadastro').hide();
+            $('#input-cpf-cadastro').show();
+        }
+    });
+
+    $('#input-rg-registro').hide();
+    $("#select-documento-registro").change(function() {
+        if(this.value == "RG"){
+            $('#input-rg-registro').show();
+            $('#input-cpf-registro').hide()
+        }
+        else if(this.value == "CPF"){
+            $('#input-rg-registro').hide();
+            $('#input-cpf-registro').show();
+        }
+        else{
+            $('#input-rg-registro').hide();
+            $('#input-cpf-registro').hide();
+        }
+    });
+</script>

@@ -28,16 +28,23 @@ create table prestadores_servicos(
 	id_prestador_servico int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
 	cpf char(14) not null,
-	apartamento varchar(5) not null,
-	bloco char(1) not null,
+	apartamento varchar(13),
+	bloco varchar(13),
 	data_entrada datetime default CURRENT_TIMESTAMP,
 	data_saida datetime
+);
+
+create table visitantes_cadastrados(
+	id_visitante int primary key AUTO_INCREMENT not null,
+	nome varchar(60) not null,
+	cpf char(14) unique,
+	rg char(12) 
 );
 
 create table visitantes(
 	id_visitante int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
-	cpf char(14) not null,
+	documento varchar(14) not null,
 	apartamento varchar(5) not null,
 	bloco char(1) not null,
 	data_entrada datetime default CURRENT_TIMESTAMP,

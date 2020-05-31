@@ -9,6 +9,8 @@ class Visitors extends Model{
     private $id_visitante;
     private $nome;
     private $cpf;
+    private $rg;
+    private $documento;
     private $apartamento;
     private $bloco;
     private $data_saida;
@@ -23,9 +25,17 @@ class Visitors extends Model{
     }
 
     public function registerVisitor(){
-        $stmt = $this->db->prepare("INSERT INTO visitantes(nome, cpf, apartamento, bloco) values(:nome, :cpf, :apartamento, :bloco)");
+        $stmt = $this->db->prepare("INSERT INTO visitantes_cadastrados(nome, cpf, rg) values(:nome, :cpf, :rg)");
         $stmt->bindValue(":nome", $this->nome);
         $stmt->bindValue(":cpf", $this->cpf);
+        $stmt->bindValue(":rg", $this->rg);
+        $stmt->execute();
+    }
+
+    public function registerEntry(){
+        $stmt = $this->db->prepare("INSERT INTO visitantes(nome, documento, apartamento, bloco) values(:nome, :documento, :apartamento, :bloco)");
+        $stmt->bindValue(":nome", $this->nome);
+        $stmt->bindValue(":documento", $this->documento);
         $stmt->bindValue(":apartamento", $this->apartamento);
         $stmt->bindValue(":bloco", $this->bloco);
         $stmt->execute();
@@ -52,6 +62,20 @@ class Visitors extends Model{
         $stmt = $this->db->prepare("DELETE from visitantes where id_visitante = :id_visitante");
         $stmt->bindValue(":id_visitante", $this->id_visitante);
         $stmt->execute();
+    }
+
+    public function getAllVisitorsRegisters(){
+        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function selectByDocument(){
+        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados where cpf = :cpf OR rg = :rg");
+        $stmt->bindValue(":cpf", $this->cpf);
+        $stmt->bindValue(":rg", $this->rg);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getAll(){

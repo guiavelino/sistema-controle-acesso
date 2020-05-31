@@ -15,16 +15,21 @@
                 <label>CPF</label>
             </div>
             <div class="label-float mt-4">    
-                <input type="text" name="apartamento" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="5" placeholder="Apartamento" value="<?=$_POST['apartamento']?>">
+                <input type="text" name="apartamento" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="5" placeholder="Apartamento" value="<?=$_POST['apartamento'] == 'Não informado' ? '' : $_POST['apartamento']?>">
                 <label>Apartamento</label>
             </div>
             <label class="mt-4 mb-0" style="color: #20B2AA">Bloco</label>
             <select class="form-custom form-control m-0 p-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
-                <option value="<?=$_POST['bloco']?>"><?=$_POST['bloco']?></option>
-                <?php if($_POST['bloco'] == 'A'){?>
-                    <option value="B">B</option>
-                <?php } else {?>
+                <?php if($_POST['bloco'] == 'Não informado'){ ?>
+                    <option value="">Selecionar</option>
                     <option value="A">A</option>
+                    <option value="B">B</option>
+                <?php } else if($_POST['bloco'] == 'A'){?>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                <?php } else if($_POST['bloco'] == 'B') {?>
+                    <option value="B">B</option>
+                    <option value="A">A</option>  
                 <?php }?>
             </select>
             <button type="submit" class="btn btn-register text-white w-100 mt-5">Atualizar</button>   

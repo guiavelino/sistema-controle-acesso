@@ -34,7 +34,7 @@ class ServiceProvidersController extends Action {
 
     public function registerServiceProviders(){
         $this->validateAuthentication();
-        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+        if(($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != '') || ($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] == '' && $_POST['bloco'] == '')){
             $prestadores_servicos = Container::getModel('ServiceProviders');
             $moradores = Container::getModel('Residents');
             
@@ -49,8 +49,8 @@ class ServiceProvidersController extends Action {
             
             $prestadores_servicos->nome = $_POST['nome'];
             $prestadores_servicos->cpf = $_POST['cpf'];
-            $prestadores_servicos->apartamento = $_POST['apartamento'];
-            $prestadores_servicos->bloco = $_POST['bloco'];
+            $prestadores_servicos->apartamento = $_POST['apartamento'] != '' ? $_POST['apartamento'] : 'Não informado';
+            $prestadores_servicos->bloco = $_POST['bloco'] != '' ? $_POST['bloco'] : 'Não informado';
             $prestadores_servicos->registerServiceProvider();
             echo "<script>alert('Prestador de serviço cadastrado com sucesso!')</script>";
         }
@@ -91,7 +91,7 @@ class ServiceProvidersController extends Action {
 
     public function updateServiceProviders(){
         $this->validateAuthentication();
-        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && isset($_POST['id_prestador_servico'])){
+        if(($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && isset($_POST['id_prestador_servico'])) || ($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] == '' && $_POST['bloco'] == '' && isset($_POST['id_prestador_servico']))){
             $prestadores_servicos = Container::getModel('ServiceProviders');
             $moradores = Container::getModel('Residents');
             
@@ -105,8 +105,8 @@ class ServiceProvidersController extends Action {
             
             $prestadores_servicos->nome = $_POST['nome'];
             $prestadores_servicos->cpf = $_POST['cpf'];
-            $prestadores_servicos->apartamento = $_POST['apartamento'];
-            $prestadores_servicos->bloco = $_POST['bloco'];
+            $prestadores_servicos->apartamento = $_POST['apartamento'] != '' ? $_POST['apartamento'] : 'Não informado';
+            $prestadores_servicos->bloco = $_POST['bloco'] != '' ? $_POST['bloco'] : 'Não informado';
             $prestadores_servicos->id_prestador_servico = $_POST['id_prestador_servico'];
             $prestadores_servicos->updateServiceProvider();
             echo "<script>alert('Registro atualizado com sucesso!')</script>";

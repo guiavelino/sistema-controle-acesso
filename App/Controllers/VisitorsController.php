@@ -34,11 +34,11 @@ class VisitorsController extends Action {
 
     public function registerVisitors(){
         $this->validateAuthentication();
-        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+        if(($_POST['nome'] != '' && strlen($_POST['cpf']) == 14) || ($_POST['nome'] != '' && strlen($_POST['rg']) == 12)){
             $visitantes = Container::getModel('Visitors');
             $moradores = Container::getModel('Residents');
             
-            //Tratando duplicidade de CPF 
+            //Tratando duplicidade de CPF e RG
             foreach($moradores->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um morador ja possui este CPF!')</script>";
@@ -46,19 +46,75 @@ class VisitorsController extends Action {
                     exit;
                 }
             }
+            foreach($visitantes->getAllVisitorsRegisters() as $e){
+                if($_POST['cpf'] == $e['cpf'] || ($_POST['nome'] == $e['nome'] && $_POST['rg'] == $e['rg'])){
+                    echo "<script>alert('Esse visitante ja foi cadastrado, realize o registro e libere a entrada!')</script>";
+                    echo "<script> location.href = '/visitors' </script>";
+                    exit;
+                }
+            }
 
             $visitantes->nome = $_POST['nome'];
-            $visitantes->cpf = $_POST['cpf'];
-            $visitantes->apartamento = $_POST['apartamento'];
-            $visitantes->bloco = $_POST['bloco'];
+
+            // O CPF será priorizado, caso o RG e CPF sejam informados
+            if(strlen($_POST['cpf']) == 14 && strlen($_POST['rg']) == 12){
+                $visitantes->cpf = $_POST['cpf'];
+                $visitantes->rg = md5(date('Y-m-d H:i'));
+            }
+            else if(strlen($_POST['rg']) == 12){
+                $visitantes->cpf = md5(date('Y-m-d H:i')); // A coluna CPF no banco de dados utiliza o atributo unique, por isso um valor vazio não pode ser atribuído
+                $visitantes->rg = $_POST['rg'];
+            }
+            else if(strlen($_POST['cpf']) == 14){
+                $visitantes->cpf = $_POST['cpf'];
+                $visitantes->rg = md5(date('Y-m-d H:i'));
+            }
+
             $visitantes->registerVisitor();
             echo "<script>alert('Visitante cadastrado com sucesso!')</script>";
         }
-        else if(strlen($_POST['cpf']) != 14){
+        else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
             echo "<script>alert('Digite um CPF válido para realizar o cadastro!')</script>";
+        }
+        else if(strlen($_POST['rg']) != 12 && $_POST['cpf'] == ''){
+            echo "<script>alert('Digite um RG válido para realizar o cadastro!')</script>";
         }
         else{
             echo "<script>alert('Preencha todos os campos para realizar o cadastro!')</script>";
+        }
+        echo "<script> location.href = '/visitors' </script>";
+    }
+
+    public function registerEntry(){
+        $this->validateAuthentication();
+        if((strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != '') || (strlen($_POST['rg']) == 12 && $_POST['apartamento'] != '' && $_POST['bloco'] != '')){
+            $visitantes = Container::getModel('Visitors');
+
+            $visitantes->cpf = $_POST['cpf'] != '' ? $_POST['cpf'] : '';
+            $visitantes->rg = $_POST['rg'] != '' ? $_POST['rg'] : '';
+            $visitantes->apartamento = $_POST['apartamento'];
+            $visitantes->bloco = $_POST['bloco'];
+
+            if(isset($visitantes->selectByDocument()['nome'])){
+                $visitantes->nome = $visitantes->selectByDocument()['nome'];
+
+                // Verificando se o termo . está contido na string
+                $visitantes->documento = strpos($visitantes->selectByDocument()['cpf'], '.') ? $visitantes->selectByDocument()['cpf'] : $visitantes->selectByDocument()['rg'];
+                $visitantes->registerEntry();
+                echo "<script>alert('Entrada registrada com sucesso!')</script>";
+            }
+            else{
+                echo "<script>alert('Para realizar o registro é necessário que o visitante esteja cadastrado no sistema!')</script>";
+            }
+        }
+        else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
+            echo "<script>alert('Digite um CPF válido para realizar o registro!')</script>";
+        }
+        else if(strlen($_POST['rg']) != 12 && $_POST['cpf'] == ''){
+            echo "<script>alert('Digite um RG válido para realizar o registro!')</script>";
+        }
+        else{
+            echo "<script>alert('Preencha todos os campos para realizar o registro!')</script>";
         }
         echo "<script> location.href = '/visitors' </script>";
     }

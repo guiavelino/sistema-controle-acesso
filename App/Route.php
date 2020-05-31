@@ -143,6 +143,11 @@ class Route extends Bootstrap {
 			'controller' => 'VisitorsController',
 			'action' => 'registerVisitors'
 		);
+		$routes['register_entry_visitors'] = array(
+			'route' => '/register_entry_visitors',
+			'controller' => 'VisitorsController',
+			'action' => 'registerEntry'
+		);
 		$routes['register_exit_visitors'] = array(
 			'route' => '/register_exit_visitors',
 			'controller' => 'VisitorsController',
@@ -234,6 +239,10 @@ class Route extends Bootstrap {
 			'action' => 'deleteEvents'
 		);
 	
+
+		
+		
+
 		$this->setRoutes($routes);
 	}
 

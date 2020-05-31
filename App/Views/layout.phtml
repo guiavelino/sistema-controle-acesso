@@ -8,12 +8,13 @@
 	<meta name="description" content="" />
 	<meta name="author" content="Guilherme Avelino, José Alisson" />
 
-	<link rel="stylesheet" href="lib/datatables/css/query.datatable.min.css" />
-	<link rel="stylesheet" href="lib/datatables/css/responsive.datatable.min.css"/>
-	
 	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="lib/fontawesome/css/all.min.css">
+
+	<link rel="stylesheet" href="lib/datatables/css/query.datatable.min.css" />
+	<link rel="stylesheet" href="lib/datatables/css/responsive.datatable.min.css"/>
 	<link rel="stylesheet" href="lib/datatables/css/dataTables.bootstrap4.min.css" />
+
 	<link rel="stylesheet" href='lib/fullcalendar/core/main.min.css' />
 	<link rel="stylesheet" href='lib/fullcalendar/daygrid/main.min.css' />
 	<link rel="stylesheet" href='lib/fullcalendar/timegrid/main.min.css' />
@@ -32,19 +33,21 @@
 
 	<script src="lib/datatables/js/popper.js"></script>
 	<script src="lib/datatables/js/query-3.5.1.js"></script>
-	<script src="lib/datatables/js/jquery.datatable.js"></script>
-	<script src="lib/datatables/js/datatable.responsive.js"></script>
-
-	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-	<script src="lib/jquery/jquery.mask.min.js"></script>
 	<script src="lib/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="lib/datatables/js/datatable.responsive.js"></script>
 	<script src="lib/datatables/js/dataTables.bootstrap4.min.js"></script>
 	<script src="lib/datatables/js/datatable.js"></script>
 	
+	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="lib/jquery/jquery.mask.min.js"></script>
+
 	<script src="js/menu-user.js"></script>
 	<!-- <script src="js/validation.js"></script> -->
 	<script>
 		$("#cpf").mask("000.000.000-00");
+		$("#cad-cpf").mask("000.000.000-00");
+		$("#rg").mask("00.000.000-0");
+		$("#cad-rg").mask("00.000.000-0");
 		$("#telefone").mask("(00) 0000-00000");
 		$("#data_nascimento").mask("00/00/0000");
 	</script>
