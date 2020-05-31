@@ -226,48 +226,7 @@
         </div>
     </div>
 </section>
-<!-- Modal de cadastro -->
-<div class="modal fade" id="cad-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0">
-            <div class="modal-header text-center align-items-center">
-                <h4 class="modal-title font-weight-bold text-secondary">Cadastrar Visitante</h4>
-                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="register_visitors" method="post">
-                <div class="modal-body py-4">
-                    <div class="card card-body border-0 pt-0">
-                        <div class="label-float">
-                            <input type="text" name="nome" class="form-custom form-control mt-2" size="60" placeholder="Nome" maxlength="60" required>
-                            <label>Nome</label>
-                        </div>
-                        <label class="mt-4 mb-0 text-secondary">Documento</label>
-                        <select id="select-documento-cadastro" name="documento" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
-                            <option value="CPF">CPF</option>
-                            <option value="RG">RG</option>
-                        </select>
-                        <div class="label-float mt-4" id="input-cpf-cadastro">
-                            <input type="text" id="cad-cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14">
-                            <label>CPF</label>
-                            <div class="invalid-feedback" id="invalid">
-                                CPF inválido!
-                            </div>
-                        </div>
-                        <div class="label-float mt-4" id="input-rg-cadastro">
-                            <input type="text" id="cad-rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" maxlength="12">
-                            <label>RG</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-register w-100 text-light">Cadastrar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 <!-- Modal de registro de entrada-->
 <div class="modal fade" id="form-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -309,7 +268,49 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-register w-100 text-light">Registrar</button>
+                    <button type="submit"  class="btn btn-register w-100 text-light">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal de cadastro -->
+<div class="modal fade" id="cad-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header text-center align-items-center">
+                <h4 class="modal-title font-weight-bold text-secondary">Cadastrar Visitante</h4>
+                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="register_visitors" method="post">
+                <div class="modal-body py-4">
+                    <div class="card card-body border-0 pt-0">
+                        <div class="label-float">
+                            <input type="text" name="nome" class="form-custom form-control mt-2" size="60" placeholder="Nome" maxlength="60" required>
+                            <label>Nome</label>
+                        </div>
+                        <label class="mt-4 mb-0 text-secondary">Documento</label>
+                        <select id="select-documento-cadastro" name="documento" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="CPF">CPF</option>
+                            <option value="RG">RG</option>
+                        </select>
+                        <div class="label-float mt-4" id="input-cpf-cadastro">
+                            <input type="text" id="cad-cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14">
+                            <label>CPF</label>
+                            <div class="invalid-feedback" id="cad-invalid">
+                                CPF inválido!
+                            </div>
+                        </div>
+                        <div class="label-float mt-4" id="input-rg-cadastro">
+                            <input type="text" id="cad-rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" maxlength="12">
+                            <label>RG</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="registrar" class="btn btn-register w-100 text-light">Cadastrar</button>
                 </div>
             </form>
         </div>
