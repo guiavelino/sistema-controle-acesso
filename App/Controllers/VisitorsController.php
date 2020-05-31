@@ -34,7 +34,7 @@ class VisitorsController extends Action {
 
     public function registerVisitors(){
         $this->validateAuthentication();
-        if(($_POST['nome'] != '' && strlen($_POST['cpf']) == 14) || ($_POST['nome'] != '' && strlen($_POST['rg']) == 12)){
+        if((strlen($_POST['cpf']) == 14 || strlen($_POST['rg']) == 12) && ($_POST['nome'] != '')){
             $visitantes = Container::getModel('Visitors');
             $moradores = Container::getModel('Residents');
             
@@ -87,7 +87,7 @@ class VisitorsController extends Action {
 
     public function registerEntry(){
         $this->validateAuthentication();
-        if((strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != '') || (strlen($_POST['rg']) == 12 && $_POST['apartamento'] != '' && $_POST['bloco'] != '')){
+        if((strlen($_POST['cpf']) == 14 || strlen($_POST['rg']) == 12) && ($_POST['apartamento'] != '' && $_POST['bloco'] != '')){
             $visitantes = Container::getModel('Visitors');
 
             $visitantes->cpf = $_POST['cpf'] != '' ? $_POST['cpf'] : '';
@@ -145,9 +145,10 @@ class VisitorsController extends Action {
         }
     }
 
+
     public function updateVisitors(){
         $this->validateAuthentication();
-        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && isset($_POST['id_visitante'])){
+        if((strlen($_POST['cpf']) == 14 || strlen($_POST['rg']) == 12) && ($_POST['nome'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && isset($_POST['id_visitante']))){
             $visitantes = Container::getModel('Visitors');
             $moradores = Container::getModel('Residents');
     
@@ -159,22 +160,55 @@ class VisitorsController extends Action {
                 }
             }
 
-            $visitantes->nome = $_POST['nome'];
-            $visitantes->cpf = $_POST['cpf'];
-            $visitantes->apartamento = $_POST['apartamento'];
-            $visitantes->bloco = $_POST['bloco'];
-            $visitantes->id_visitante = $_POST['id_visitante'];
-            $visitantes->updateVisitor();
-            echo "<script>alert('Registro atualizado com sucesso!')</script>";
+            // $visitantes->cpf = $_POST['cpf'];
+            // $visitantes->rg = $_POST['rg'];
+            // $visitantes->apartamento = $_POST['apartamento'];
+            // $visitantes->bloco = $_POST['bloco'];
+
+            // if(isset($visitantes->selectByDocument()['nome'])){
+            //     $visitantes->nome = $visitantes->selectByDocument()['nome'];
+
+            //     // Verificando se o termo . está contido na string
+            //     $visitantes->documento = strpos($visitantes->selectByDocument()['cpf'], '.') ? $visitantes->selectByDocument()['cpf'] : $visitantes->selectByDocument()['rg'];
+            //     $visitantes->registerEntry();
+            //     echo "<script>alert('Entrada registrada com sucesso!')</script>";
+            // }
+            // else{
+            //     echo "<script>alert('Para realizar o registro é necessário que o visitante esteja cadastrado no sistema!')</script>";
+            // }
+
+            // foreach($visitantes->getAllVisitorsRegisters() as $e){
+            //     if(($_POST['cpf'] == $e['cpf'] || $_POST['rg'] == $e['rg']) && ($_POST['nome'] != $e['nome'])){
+            //         echo "<script>alert('Esse visitante ja foi cadastrado, realize o registro e libere a entrada!')</script>";
+            //         echo "<script> location.href = '/visitors' </script>";
+            //         exit;
+            //     }
+            // }
+
+        //     $visitantes->nome = $_POST['nome'];
+        //     $visitantes->cpf = $_POST['cpf'];
+        //     $visitantes->apartamento = $_POST['apartamento'];
+        //     $visitantes->bloco = $_POST['bloco'];
+        //     $visitantes->id_visitante = $_POST['id_visitante'];
+        //     $visitantes->updateVisitor();
+        //     echo "<script>alert('Registro atualizado com sucesso!')</script>";
+
+
         }
-        else if(strlen($_POST['cpf']) != 14){
+        else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
             echo "<script>alert('Digite um CPF válido para atualizar o registro!')</script>";
+        }
+        else if(strlen($_POST['rg']) != 12 && $_POST['cpf'] == ''){
+            echo "<script>alert('Digite um RG válido para atualizar o registro!')</script>";
         }
         else{
             echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
         }
         echo "<script> location.href = '/visitors' </script>";
     }
+
+
+
 
     public function removeVisitors(){
         $this->validateAuthentication();

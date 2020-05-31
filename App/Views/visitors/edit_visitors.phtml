@@ -10,9 +10,14 @@
                 <input type="text" name="nome" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?=$_POST['nome']?>">
                 <label>Nome</label>
             </div>
-            <div class="label-float mt-4">    
-                <input type="text" name="cpf" id="cpf" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="14" placeholder="CPF" value="<?=$_POST['cpf']?>">
-                <label>CPF</label>
+            <div class="label-float mt-4">   
+                <?php if(strlen($_POST['documento']) == 14){ ?>
+                    <input type="text" name="cpf" id="cpf" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="14" placeholder="CPF" value="<?=$_POST['documento']?>">
+                    <label>CPF</label>
+                <?php } else if(strlen($_POST['documento']) == 12){ ?>
+                    <input type="text" id="rg" name="rg" class="form-custom form-control mt-1 bg-transparent" size="60"  maxlength="12" placeholder="RG" value="<?=$_POST['documento']?>">
+                    <label>RG</label>
+                <?php }?>
             </div>
             <div class="label-float mt-4">    
                 <input type="text" name="apartamento" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="5" placeholder="Apartamento" value="<?=$_POST['apartamento']?>">
