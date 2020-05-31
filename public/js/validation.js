@@ -63,14 +63,21 @@ function valida(){
 
 document.getElementById('select-documento-cadastro').addEventListener('change',
     function apagaInput() {
+        var btn = document.querySelector('#registrar');
+
         document.getElementById('cad-cpf').value = "";
+        btn.disabled = false;
     }
 );
 document.getElementById('select-documento-registro').addEventListener('change',
     function apagaInput() {
+        var btn = document.querySelector('.btn-register');
+        btn.disabled = false;
+
         document.getElementById('cpf').value = "";
     }
 );
+
 // verdadeiros
 // alert(cpf(cpf = '825.566.405-02'), cpf);
 // console.log('825.566.405-02', cpf('825.566.405-02'));
