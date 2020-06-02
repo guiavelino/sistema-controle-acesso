@@ -38,7 +38,8 @@ create table visitantes_cadastrados(
 	id_visitante int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
 	cpf char(14) unique,
-	rg char(12) 
+	rg char(12),
+	uf char(2) 
 );
 
 create table visitantes(
@@ -48,9 +49,22 @@ create table visitantes(
 	apartamento varchar(5) not null,
 	bloco char(1) not null,
 	data_entrada datetime default CURRENT_TIMESTAMP,
-	data_saida datetime
+	data_saida datetime,
+	fk_id_visitante int,
+    foreign key(fk_id_visitante) references visitantes_cadastrados(id_visitante)
 );
 
+
+create table pessoa(
+    id int(4) PRIMARY KEY auto_increment
+    );
+
+create table objeto(
+    id_objeto int(4) PRIMARY KEY auto_increment,
+    fk_pessoa int(4) NOT NULL,
+    foreign key(fk_pessoa) references pessoa(id)
+    );
+	
 create table encomendas(
 	id_encomenda int primary key AUTO_INCREMENT not null,
 	empresa varchar(60) not null,

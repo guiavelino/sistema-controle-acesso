@@ -10,6 +10,7 @@ class Visitors extends Model{
     private $nome;
     private $cpf;
     private $rg;
+    private $uf;
     private $documento;
     private $apartamento;
     private $bloco;
@@ -25,10 +26,11 @@ class Visitors extends Model{
     }
 
     public function registerVisitor(){
-        $stmt = $this->db->prepare("INSERT INTO visitantes_cadastrados(nome, cpf, rg) values(:nome, :cpf, :rg)");
+        $stmt = $this->db->prepare("INSERT INTO visitantes_cadastrados(nome, cpf, rg, uf) values(:nome, :cpf, :rg, :uf)");
         $stmt->bindValue(":nome", $this->nome);
         $stmt->bindValue(":cpf", $this->cpf);
         $stmt->bindValue(":rg", $this->rg);
+        $stmt->bindValue(":uf", $this->uf);
         $stmt->execute();
     }
 

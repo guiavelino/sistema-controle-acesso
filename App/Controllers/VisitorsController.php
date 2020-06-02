@@ -34,11 +34,14 @@ class VisitorsController extends Action {
 
     public function registerVisitors(){
         $this->validateAuthentication();
-        if((strlen($_POST['cpf']) == 14 || strlen($_POST['rg']) == 12) && ($_POST['nome'] != '')){
+        if(strlen($_POST['cpf']) == 14 && strlen($_POST['rg']) == 12){
+            echo "<script>alert('Selecione apenas um documento para realizar o cadastro!')</script>";
+        }
+        else if(strlen($_POST['cpf']) == 14 && $_POST['nome'] != ''){
             $visitantes = Container::getModel('Visitors');
             $moradores = Container::getModel('Residents');
-            
-            //Tratando duplicidade de CPF e RG
+
+            //Tratando duplicidade de CPF
             foreach($moradores->getAll() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um morador ja possui este CPF!')</script>";
@@ -47,7 +50,7 @@ class VisitorsController extends Action {
                 }
             }
             foreach($visitantes->getAllVisitorsRegisters() as $e){
-                if($_POST['cpf'] == $e['cpf'] || ($_POST['nome'] == $e['nome'] && $_POST['rg'] == $e['rg'])){
+                if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Esse visitante ja foi cadastrado, realize o registro e libere a entrada!')</script>";
                     echo "<script> location.href = '/visitors' </script>";
                     exit;
@@ -55,23 +58,32 @@ class VisitorsController extends Action {
             }
 
             $visitantes->nome = $_POST['nome'];
-
-            // O CPF será priorizado, caso o RG e CPF sejam informados
-            if(strlen($_POST['cpf']) == 14 && strlen($_POST['rg']) == 12){
-                $visitantes->cpf = $_POST['cpf'];
-                $visitantes->rg = md5(date('Y-m-d H:i'));
-            }
-            else if(strlen($_POST['rg']) == 12){
-                $visitantes->cpf = md5(date('Y-m-d H:i')); // A coluna CPF no banco de dados utiliza o atributo unique, por isso um valor vazio não pode ser atribuído
-                $visitantes->rg = $_POST['rg'];
-            }
-            else if(strlen($_POST['cpf']) == 14){
-                $visitantes->cpf = $_POST['cpf'];
-                $visitantes->rg = md5(date('Y-m-d H:i'));
-            }
+            $visitantes->cpf = $_POST['cpf'];
+            $visitantes->rg = 'NA';
+            $visitantes->uf = 'NA';
 
             $visitantes->registerVisitor();
-            echo "<script>alert('Visitante cadastrado com sucesso!')</script>";
+            echo "<script>alert('Visitante cadastrado com sucesso, realize o registro e libere a entrada!')</script>";
+        }
+        else if(strlen($_POST['rg']) == 12 && $_POST['nome'] != '' && $_POST['uf'] != ''){
+            $visitantes = Container::getModel('Visitors');
+            $moradores = Container::getModel('Residents');
+
+            //Tratando duplicidade de CPF
+           foreach($visitantes->getAllVisitorsRegisters() as $e){
+                if($_POST['rg'] == $e['rg'] && $_POST['uf'] == $e['uf']){
+                    echo "<script>alert('Esse visitante ja foi cadastrado, realize o registro e libere a entrada!')</script>";
+                    echo "<script> location.href = '/visitors' </script>";
+                    exit;
+                }
+            }
+            $visitantes->nome = $_POST['nome'];
+            $visitantes->rg = $_POST['rg'];
+            $visitantes->uf = $_POST['uf'];
+            $visitantes->cpf = md5(date('Y-m-d H:i')); // A coluna CPF no banco de dados utiliza o atributo UNIQUE, por isso um valor vazio não pode ser atribuído
+
+            $visitantes->registerVisitor();
+            echo "<script>alert('Visitante cadastrado com sucesso, realize o registro e libere a entrada!')</script>";
         }
         else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
             echo "<script>alert('Digite um CPF válido para realizar o cadastro!')</script>";

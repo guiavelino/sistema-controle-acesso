@@ -307,6 +307,38 @@
                             <input type="text" id="cad-rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" maxlength="12">
                             <label>RG</label>
                         </div>
+                        <div>
+                        <label id="label-uf-cadastro" class="mt-4 mb-0 text-secondary">UF</label>
+                        <select id="select-uf-cadastro" name="uf" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="SP">SP</option> 
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AM">AM</option>
+                            <option value="AP">AP</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>      
+                            <option value="MA">MA</option>      
+                            <option value="MG">MG</option>      
+                            <option value="MS">MS</option>      
+                            <option value="MT">MT</option>      
+                            <option value="PA">PA</option>      
+                            <option value="PB">PB</option>      
+                            <option value="PI">PI</option>      
+                            <option value="PE">PE</option>      
+                            <option value="PR">PR</option>   
+                            <option value="RJ">RJ</option>   
+                            <option value="RN">RN</option>      
+                            <option value="RO">RO</option>      
+                            <option value="RR">RR</option>      
+                            <option value="RS">RS</option>      
+                            <option value="SC">SC</option>      
+                            <option value="SE">SE</option>      
+                            <option value="TO">TO</option>      
+                        </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -367,15 +399,24 @@
 </div>
 
 <script src="lib/datatables/js/query-3.5.1.js"></script>
+<script src="lib/jquery/jquery.mask.min.js"></script>
+
 <script>
     $('#input-rg-cadastro').hide();
+    $('#label-uf-cadastro').hide();
+    $('#select-uf-cadastro').hide();
+
     $("#select-documento-cadastro").change(function() {
         if(this.value == "RG"){
             $('#input-rg-cadastro').show();
+            $('#label-uf-cadastro').show();
+            $('#select-uf-cadastro').show();
             $('#input-cpf-cadastro').hide()
         }
         else if(this.value == "CPF"){
             $('#input-rg-cadastro').hide();
+            $('#label-uf-cadastro').hide();
+            $('#select-uf-cadastro').hide();
             $('#input-cpf-cadastro').show();
         }
     });
@@ -395,4 +436,78 @@
             $('#input-cpf-registro').hide();
         }
     });
+</script>
+
+<script>
+    $("#select-uf-cadastro").change(function() {
+        if(this.value == "AC" || this.value == "AM" || this.value == "RO" || this.value == "RR" || this.value == "TO"){
+            // UF: AC - AM - RO - RR - TO
+            // Máscara: 99.999.9
+            $("#cad-rg").html("");
+            $("#cad-rg").mask("99.999.9");
+            
+        }
+        else if(this.value == "AL" || this.value == "DF" || this.value == "ES" || this.value == "GO" || this.value == "MS" || this.value == "PB" || this.value == "SE" || this.value == "PI" || this.value == "RN"){
+            // UF: AL - DF - ES - GO - MS - PB - SE - PI - RN 
+            // Máscara: 99.999.99
+            $("#cad-rg").html("");
+            $("#cad-rg").mask("99.999.99");
+            
+        }
+        else if(this.value == "PE"){
+            // UF:PE
+            // Máscara: 99.999.999
+            $("#cad-rg").html("");
+            $("#cad-rg").mask("99.999.999");
+           
+        }
+        else if(this.value == "AM" || this.value == "MT" || this.value == "PR" || this.value == "SC"){
+            // UF: AM - MT - PR - SC
+            // Máscara: 99.999.99-9
+            $("#cad-rg").html("");
+            $("#cad-rg").mask("99.999.99-9");
+           
+        }
+        else if(this.value == "MA" || this.value == "RJ" || this.value == "SP"){
+            // UF: MA - RJ - SP
+            // Máscara: 99.999.999-9
+            $("#cad-rg").html("");
+            $("#cad-rg").mask("99.999.999-9");
+           
+        }
+        else if(this.value == "PA"){
+            // UF:PA
+            // Máscara: 99.999.99-99
+            $("#cad-rg").html("");
+            $("#cad-rg").mask("99.999.99-99");
+            
+        }
+        else if(this.value == "BA"){
+            // UF: BA
+            // Máscara: 99.999.999-99
+            $("#cad-rg").html("");
+            $("#cad-rg").mask("99.999.999-99");
+            
+        }
+        else if(this.value == "RS"){
+            // UF:RS
+            // Máscara: 99-99.999.99-9
+            $("#cad-rg").html("");
+            $("#cad-rg").mask("99-99.999.99-9");
+            
+        }
+    });
+
+    // Mascarás restantes
+    
+    // Amazonas e Ámapa
+
+    // UF:MG
+    // Máscara: 99.999.999 (alfanumérico) 
+
+    // UF:CE
+    // Máscara 1980<: 99-999.999.999
+    // (dois primeiros digitos referentes ao ano de emissão)
+    // Máscara 1980>: 99.999.9-99
+    // (dois ultimos digitos referentes ao ano de emissão)
 </script>
