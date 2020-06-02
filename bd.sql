@@ -38,7 +38,7 @@ create table visitantes_cadastrados(
 	id_visitante int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
 	cpf char(14) unique,
-	rg char(12),
+	rg varchar(14),
 	uf char(2) 
 );
 
@@ -51,7 +51,7 @@ create table visitantes(
 	data_entrada datetime default CURRENT_TIMESTAMP,
 	data_saida datetime,
 	fk_id_visitante int,
-    foreign key(fk_id_visitante) references visitantes_cadastrados(id_visitante)
+    foreign key(fk_id_visitante) references visitantes_cadastrados(id_visitante) on delete cascade
 );
 
 

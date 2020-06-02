@@ -115,7 +115,7 @@ class VisitorsController extends Action {
                 $visitantes->bloco = $_POST['bloco'];
                 $visitantes->fk_id_visitante = $visitantes->selectDocumentByCPF()['id_visitante'];
 
-                if($visitantes->getAllVisitorsPresentsForCondition()){
+                if($visitantes->getAllVisitorsPresentsForCondition()){ //Verifica se o visitante está com a saída em aberto
                     echo "<script>alert('Esse visitante está presente no condomínio, para realizar o registro de entrada, primeiro é necessário registrar a saída')</script>";
                 }
                 else{
@@ -128,9 +128,29 @@ class VisitorsController extends Action {
             }
         }
         else if(strlen($_POST['rg']) >= 8 && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
+            $visitantes = Container::getModel('Visitors');
+
+            $visitantes->rg = $_POST['rg'];
+            $visitantes->uf = $_POST['uf'];
+
+            if(isset($visitantes->selectDocumentByRgAndUf()['id_visitante'])){ //Verifica se o visitante possui cadastro no sistema
+                $visitantes->nome = $visitantes->selectDocumentByRgAndUf()['nome'];
+                $visitantes->documento = $visitantes->selectDocumentByRgAndUf()['rg'];
+                $visitantes->apartamento = $_POST['apartamento'];
+                $visitantes->bloco = $_POST['bloco'];
+                $visitantes->fk_id_visitante = $visitantes->selectDocumentByRgAndUf()['id_visitante'];
+
+                if($visitantes->getAllVisitorsPresentsForCondition()){ //Verifica se o visitante está com a saída em aberto
+                    echo "<script>alert('Esse visitante está presente no condomínio, para realizar o registro de entrada, primeiro é necessário registrar a saída')</script>";
+                }
+                else{
+                    $visitantes->registerEntry();
+                    echo "<script>alert('Entrada registrada com sucesso!')</script>";
+                }
+            }
+            else{
+                echo "<script>alert('Para realizar o registro de entrada, é necessário que o visitante esteja cadastrado no sistema!')</script>";
+            }
         }
         else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
             echo "<script>alert('Digite um CPF válido para realizar o registro!')</script>";
@@ -161,7 +181,16 @@ class VisitorsController extends Action {
 
     public function editVisitors(){
         $this->validateAuthentication();
-        if(isset($_POST['id_visitante'])){
+        if(isset($_POST['fk_id_visitante'])){
+            $visitantes = Container::getModel('Visitors');
+
+            $visitantes->fk_id_visitante = $_POST['fk_id_visitante'];
+
+            foreach($visitantes->getAllVisitorsRelations() as $e){
+                $this->view->nome = $e['nome'];
+                $this->view->documento = $e['documento'];
+                $this->view->uf = $e['uf'];
+            }
             $this->render('edit_visitors');
         }
         else{
@@ -170,66 +199,28 @@ class VisitorsController extends Action {
         }
     }
 
-
     public function updateVisitors(){
         $this->validateAuthentication();
-        if((strlen($_POST['cpf']) == 14 || strlen($_POST['rg']) == 12) && ($_POST['nome'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && isset($_POST['id_visitante']))){
-            $visitantes = Container::getModel('Visitors');
-            $moradores = Container::getModel('Residents');
-    
-            foreach($moradores->getAll() as $e){
-                if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao atualizar registro, um morador ja possui este CPF!')</script>";
-                    echo "<script> location.href = '/visitors' </script>";
-                    exit;
-                }
-            }
-
-            // $visitantes->cpf = $_POST['cpf'];
-            // $visitantes->rg = $_POST['rg'];
-            // $visitantes->apartamento = $_POST['apartamento'];
-            // $visitantes->bloco = $_POST['bloco'];
-
-            // if(isset($visitantes->selectByDocument()['nome'])){
-            //     $visitantes->nome = $visitantes->selectByDocument()['nome'];
-
-            //     // Verificando se o termo . está contido na string
-            //     $visitantes->documento = strpos($visitantes->selectByDocument()['cpf'], '.') ? $visitantes->selectByDocument()['cpf'] : $visitantes->selectByDocument()['rg'];
-            //     $visitantes->registerEntry();
-            //     echo "<script>alert('Entrada registrada com sucesso!')</script>";
-            // }
-            // else{
-            //     echo "<script>alert('Para realizar o registro é necessário que o visitante esteja cadastrado no sistema!')</script>";
-            // }
-
-            // foreach($visitantes->getAllVisitorsRegisters() as $e){
-            //     if(($_POST['cpf'] == $e['cpf'] || $_POST['rg'] == $e['rg']) && ($_POST['nome'] != $e['nome'])){
-            //         echo "<script>alert('Esse visitante ja foi cadastrado, realize o registro e libere a entrada!')</script>";
-            //         echo "<script> location.href = '/visitors' </script>";
-            //         exit;
-            //     }
-            // }
-
-        //     $visitantes->nome = $_POST['nome'];
-        //     $visitantes->cpf = $_POST['cpf'];
-        //     $visitantes->apartamento = $_POST['apartamento'];
-        //     $visitantes->bloco = $_POST['bloco'];
-        //     $visitantes->id_visitante = $_POST['id_visitante'];
-        //     $visitantes->updateVisitor();
-        //     echo "<script>alert('Registro atualizado com sucesso!')</script>";
-
-
+        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
+        }
+        else if($_POST['nome'] != '' && strlen($_POST['rg']) >= 8 && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
         }
         else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
             echo "<script>alert('Digite um CPF válido para atualizar o registro!')</script>";
         }
-        else if(strlen($_POST['rg']) != 12 && $_POST['cpf'] == ''){
+        else if(strlen($_POST['rg']) < 8 && $_POST['cpf'] == ''){ 
             echo "<script>alert('Digite um RG válido para atualizar o registro!')</script>";
         }
         else{
             echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
         }
-        echo "<script> location.href = '/visitors' </script>";
+        // echo "<script> location.href = '/visitors' </script>";
     }
 
 

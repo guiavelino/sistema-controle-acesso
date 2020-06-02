@@ -81,7 +81,22 @@ class Visitors extends Model{
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getAll(){
+    public function selectDocumentByRgAndUf(){
+        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados where rg = :rg AND uf = :uf");
+        $stmt->bindValue(":rg", $this->rg);
+        $stmt->bindValue(":uf", $this->uf);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllVisitorsRelations(){ // Retorna os registros relacionados de cadastro e registro
+        $stmt = $this->db->prepare("SELECT * FROM visitantes inner join visitantes_cadastrados on(visitantes.fk_id_visitante = :fk_id_visitante AND visitantes_cadastrados.id_visitante = :fk_id_visitante)");
+        $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAll(){ // Retorna os registros de entrada e saída, as informações serão exibidas na tela visitantes
         $stmt = $this->db->prepare("SELECT * FROM visitantes");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

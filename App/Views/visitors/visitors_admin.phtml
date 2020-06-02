@@ -192,18 +192,21 @@
                                         </abbr>
                                     </form>
                                 <?php } ?>
+
+
                                 <form action="/edit_visitors" method="post" class="d-inline-block">
                                     <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
-                                    <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
-                                    <input type="hidden" name="documento" value="<?= $e['documento'] ?>">
+                                    <input type="hidden" name="fk_id_visitante" value="<?= $e['fk_id_visitante'] ?>">
                                     <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
-                                    <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
+                                    <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>"> 
                                     <abbr title="Editar registro">
                                         <button type="submit" class="btn btn-info btn-action">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                     </abbr>
                                 </form>
+
+
                                 <form action="/remove_visitors" method="post" class="d-inline-block">
                                     <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
                                     <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
@@ -287,7 +290,7 @@
                             <option value="TO">TO</option>      
                         </select>
                         <div class="label-float mt-4" id="input-rg-cadastro">
-                            <input type="text" id="cad-rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" maxlength="12">
+                            <input type="text" id="cad-rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG">
                             <label>RG</label>
                         </div>
                     </div>
@@ -325,7 +328,6 @@
                                 CPF inválido!
                             </div>
                         </div>
-
                         <label id="label-uf-registro" class="mt-4 mb-0 text-secondary">UF</label>
                         <select id="select-uf-registro" name="uf" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
                             <option value="SP">SP</option> 
@@ -356,9 +358,8 @@
                             <option value="SE">SE</option>      
                             <option value="TO">TO</option>      
                         </select>
-                        
                         <div class="label-float mt-4" id="input-rg-registro">
-                            <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" maxlength="12">
+                            <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG">
                             <label>RG</label>
                         </div>
                         <div class="label-float mt-4">
@@ -370,7 +371,6 @@
                             <option value="A">A</option>
                             <option value="B">B</option>
                         </select>
-
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -433,6 +433,7 @@
 
 <script src="lib/datatables/js/query-3.5.1.js"></script>
 <script src="lib/jquery/jquery.mask.min.js"></script>
+<script src="js/mask-rg.js"></script>
 
 
 <!-- Exibição dos campos RG e CPF de acordo com o documento escolhido -->
@@ -476,127 +477,3 @@
     });
 </script>
 
-<!-- Máscaras de RG de acordo com o estado selecionado -->
-
-<script>
-    // Modal de cadastro
-    $("#select-uf-cadastro").change(function() {
-        if(this.value == "AC" || this.value == "AM" || this.value == "RO" || this.value == "RR" || this.value == "TO"){
-            // UF: AC - AM - RO - RR - TO
-            // Máscara: 99.999.9
-            $("#cad-rg").mask("99.999.9");
-            
-        }
-        else if(this.value == "AL" || this.value == "DF" || this.value == "ES" || this.value == "GO" || this.value == "MS" || this.value == "PB" || this.value == "SE" || this.value == "PI" || this.value == "RN"){
-            // UF: AL - DF - ES - GO - MS - PB - SE - PI - RN 
-            // Máscara: 99.999.99
-            $("#cad-rg").mask("99.999.99");
-            
-        }
-        else if(this.value == "PE"){
-            // UF:PE
-            // Máscara: 99.999.999
-            $("#cad-rg").mask("99.999.999");
-           
-        }
-        else if(this.value == "AM" || this.value == "MT" || this.value == "PR" || this.value == "SC"){
-            // UF: AM - MT - PR - SC
-            // Máscara: 99.999.99-9
-            $("#cad-rg").mask("99.999.99-9");
-           
-        }
-        else if(this.value == "MA" || this.value == "RJ" || this.value == "SP"){
-            // UF: MA - RJ - SP
-            // Máscara: 99.999.999-9
-            $("#cad-rg").mask("99.999.999-9");
-           
-        }
-        else if(this.value == "PA"){
-            // UF:PA
-            // Máscara: 99.999.99-99
-            $("#cad-rg").mask("99.999.99-99");
-            
-        }
-        else if(this.value == "BA"){
-            // UF: BA
-            // Máscara: 99.999.999-99
-            $("#cad-rg").mask("99.999.999-99");
-            
-        }
-        else if(this.value == "RS"){
-            // UF:RS
-            // Máscara: 99-99.999.99-9
-            $("#cad-rg").mask("99-99.999.99-9");
-            
-        }
-    });
-
-
-
-    // Máscaras restantes
-    
-    // Amazonas e Ámapa
-
-    // UF:MG
-    // Máscara: 99.999.999 (alfanumérico) 
-
-    // UF:CE
-    // Máscara 1980<: 99-999.999.999
-    // (dois primeiros digitos referentes ao ano de emissão)
-    // Máscara 1980>: 99.999.9-99
-    // (dois ultimos digitos referentes ao ano de emissão)
-
-
-
-    // Modal de registro
-    $("#select-uf-registro").change(function() {
-        if(this.value == "AC" || this.value == "AM" || this.value == "RO" || this.value == "RR" || this.value == "TO"){
-            // UF: AC - AM - RO - RR - TO
-            // Máscara: 99.999.9
-            $("#rg").mask("99.999.9");
-            
-        }
-        else if(this.value == "AL" || this.value == "DF" || this.value == "ES" || this.value == "GO" || this.value == "MS" || this.value == "PB" || this.value == "SE" || this.value == "PI" || this.value == "RN"){
-            // UF: AL - DF - ES - GO - MS - PB - SE - PI - RN 
-            // Máscara: 99.999.99
-            $("#rg").mask("99.999.99");
-            
-        }
-        else if(this.value == "PE"){
-            // UF:PE
-            // Máscara: 99.999.999
-            $("#rg").mask("99.999.999");
-           
-        }
-        else if(this.value == "AM" || this.value == "MT" || this.value == "PR" || this.value == "SC"){
-            // UF: AM - MT - PR - SC
-            // Máscara: 99.999.99-9
-            $("#rg").mask("99.999.99-9");
-           
-        }
-        else if(this.value == "MA" || this.value == "RJ" || this.value == "SP"){
-            // UF: MA - RJ - SP
-            // Máscara: 99.999.999-9
-            $("#rg").mask("99.999.999-9");
-           
-        }
-        else if(this.value == "PA"){
-            // UF:PA
-            // Máscara: 99.999.99-99
-            $("#rg").mask("99.999.99-99");
-            
-        }
-        else if(this.value == "BA"){
-            // UF: BA
-            // Máscara: 99.999.999-99
-            $("#rg").mask("99.999.999-99");
-            
-        }
-        else if(this.value == "RS"){
-            // UF:RS
-            // Máscara: 99-99.999.99-9
-            $("#rg").mask("99-99.999.99-9");
-            
-        }
-    });
-</script>
