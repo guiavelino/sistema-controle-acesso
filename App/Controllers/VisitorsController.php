@@ -201,10 +201,32 @@ class VisitorsController extends Action {
 
     public function updateVisitors(){
         $this->validateAuthentication();
-        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
+        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && $_POST['id_visitante'] != '' && $_POST['fk_id_visitante'] != ''){
+            $visitantes = Container::getModel('Visitors');
+            $moradores = Container::getModel('Residents');
+
+            //Tratando duplicidade de CPF
+            foreach($moradores->getAll() as $e){
+                if($_POST['cpf'] == $e['cpf']){
+                    echo "<script>alert('Erro ao atualizar registro, um morador ja possui este CPF!')</script>";
+                    echo "<script> location.href = '/visitors' </script>";
+                    exit;
+                }
+            }
+
+            $visitantes->id_visitante = $_POST['id_visitante'];
+            $visitantes->fk_id_visitante = $_POST['fk_id_visitante'];
+            $visitantes->nome = $_POST['nome'];
+            $visitantes->cpf = $_POST['cpf'];
+            $visitantes->rg = 'NA';
+            $visitantes->uf = 'NA';
+            $visitantes->documento = $_POST['cpf'];
+            $visitantes->apartamento = $_POST['apartamento'];
+            $visitantes->bloco = $_POST['bloco'];
+
+            $visitantes->updateVisitor();
+            $visitantes->updateVisitorRegister();
+            echo "<script>alert('Dados atualizados com sucesso!')</script>";
         }
         else if($_POST['nome'] != '' && strlen($_POST['rg']) >= 8 && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
             echo '<pre>';
@@ -220,7 +242,7 @@ class VisitorsController extends Action {
         else{
             echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
         }
-        // echo "<script> location.href = '/visitors' </script>";
+        echo "<script> location.href = '/visitors' </script>";
     }
 
 
