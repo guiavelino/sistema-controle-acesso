@@ -34,7 +34,7 @@ class VisitorsController extends Action {
 
     public function registerVisitors(){
         $this->validateAuthentication();
-        if(strlen($_POST['cpf']) == 14 && strlen($_POST['rg']) == 12){
+        if(strlen($_POST['cpf']) == 14 && strlen($_POST['rg']) >= 8){
             echo "<script>alert('Selecione apenas um documento para realizar o cadastro!')</script>";
         }
         else if(strlen($_POST['cpf']) == 14 && $_POST['nome'] != ''){
@@ -65,18 +65,19 @@ class VisitorsController extends Action {
             $visitantes->registerVisitor();
             echo "<script>alert('Visitante cadastrado com sucesso, realize o registro e libere a entrada!')</script>";
         }
-        else if(strlen($_POST['rg']) == 12 && $_POST['nome'] != '' && $_POST['uf'] != ''){
+        else if(strlen($_POST['rg']) >= 8 && $_POST['nome'] != '' && strlen($_POST['uf']) == 2){ // O número minímo de digitos em um RG são 6, mas como a string e enviada com uma máscara aplicada esse valor passa a ser 8 
             $visitantes = Container::getModel('Visitors');
             $moradores = Container::getModel('Residents');
 
-            //Tratando duplicidade de CPF
+            //Tratando duplicidade de RG
            foreach($visitantes->getAllVisitorsRegisters() as $e){
-                if($_POST['rg'] == $e['rg'] && $_POST['uf'] == $e['uf']){
+                if($_POST['rg'] == $e['rg'] && $_POST['uf'] == $e['uf']){ 
                     echo "<script>alert('Esse visitante ja foi cadastrado, realize o registro e libere a entrada!')</script>";
                     echo "<script> location.href = '/visitors' </script>";
                     exit;
                 }
             }
+
             $visitantes->nome = $_POST['nome'];
             $visitantes->rg = $_POST['rg'];
             $visitantes->uf = $_POST['uf'];
@@ -88,7 +89,7 @@ class VisitorsController extends Action {
         else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
             echo "<script>alert('Digite um CPF válido para realizar o cadastro!')</script>";
         }
-        else if(strlen($_POST['rg']) != 12 && $_POST['cpf'] == ''){
+        else if(strlen($_POST['rg']) < 8 && $_POST['cpf'] == ''){ 
             echo "<script>alert('Digite um RG válido para realizar o cadastro!')</script>";
         }
         else{
@@ -99,30 +100,42 @@ class VisitorsController extends Action {
 
     public function registerEntry(){
         $this->validateAuthentication();
-        if((strlen($_POST['cpf']) == 14 || strlen($_POST['rg']) == 12) && ($_POST['apartamento'] != '' && $_POST['bloco'] != '')){
+        if(strlen($_POST['cpf']) == 14 && strlen($_POST['rg']) >= 8){
+            echo "<script>alert('Selecione apenas um documento para realizar o cadastro!')</script>";
+        }
+        else if(strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
             $visitantes = Container::getModel('Visitors');
 
-            $visitantes->cpf = $_POST['cpf'] != '' ? $_POST['cpf'] : '';
-            $visitantes->rg = $_POST['rg'] != '' ? $_POST['rg'] : '';
-            $visitantes->apartamento = $_POST['apartamento'];
-            $visitantes->bloco = $_POST['bloco'];
+            $visitantes->cpf = $_POST['cpf'];
 
-            if(isset($visitantes->selectByDocument()['nome'])){
-                $visitantes->nome = $visitantes->selectByDocument()['nome'];
+            if(isset($visitantes->selectDocumentByCPF()['id_visitante'])){ //Verifica se o visitante possui cadastro no sistema
+                $visitantes->nome = $visitantes->selectDocumentByCPF()['nome'];
+                $visitantes->documento = $visitantes->selectDocumentByCPF()['cpf'];
+                $visitantes->apartamento = $_POST['apartamento'];
+                $visitantes->bloco = $_POST['bloco'];
+                $visitantes->fk_id_visitante = $visitantes->selectDocumentByCPF()['id_visitante'];
 
-                // Verificando se o termo . está contido na string
-                $visitantes->documento = strpos($visitantes->selectByDocument()['cpf'], '.') ? $visitantes->selectByDocument()['cpf'] : $visitantes->selectByDocument()['rg'];
-                $visitantes->registerEntry();
-                echo "<script>alert('Entrada registrada com sucesso!')</script>";
+                if($visitantes->getAllVisitorsPresentsForCondition()){
+                    echo "<script>alert('Esse visitante está presente no condomínio, para realizar o registro de entrada, primeiro é necessário registrar a saída')</script>";
+                }
+                else{
+                    $visitantes->registerEntry();
+                    echo "<script>alert('Entrada registrada com sucesso!')</script>";
+                }
             }
             else{
-                echo "<script>alert('Para realizar o registro é necessário que o visitante esteja cadastrado no sistema!')</script>";
+                echo "<script>alert('Para realizar o registro de entrada, é necessário que o visitante esteja cadastrado no sistema!')</script>";
             }
+        }
+        else if(strlen($_POST['rg']) >= 8 && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
         }
         else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
             echo "<script>alert('Digite um CPF válido para realizar o registro!')</script>";
         }
-        else if(strlen($_POST['rg']) != 12 && $_POST['cpf'] == ''){
+        else if(strlen($_POST['rg']) < 8 && $_POST['cpf'] == ''){ 
             echo "<script>alert('Digite um RG válido para realizar o registro!')</script>";
         }
         else{

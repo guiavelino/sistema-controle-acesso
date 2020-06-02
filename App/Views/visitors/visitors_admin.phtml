@@ -227,53 +227,6 @@
     </div>
 </section>
 
-<!-- Modal de registro de entrada-->
-<div class="modal fade" id="form-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0">
-            <div class="modal-header text-center align-items-center">
-                <h4 class="modal-title font-weight-bold text-secondary">Registrar Entrada</h4>
-                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="register_entry_visitors" method="post">
-                <div class="modal-body py-4">
-                    <div class="card card-body border-0 pt-0">
-                        <label class="mt-0 mb-0 text-secondary">Documento</label>
-                        <select id="select-documento-registro" name="documento" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
-                            <option value="CPF">CPF</option>
-                            <option value="RG">RG</option>
-                        </select>
-                        <div class="label-float mt-4" id="input-cpf-registro">
-                            <input type="text" id="cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14">
-                            <label>CPF</label>
-                            <div class="invalid-feedback" id="invalid">
-                                CPF inválido!
-                            </div>
-                        </div>
-                        <div class="label-float mt-4" id="input-rg-registro">
-                            <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" maxlength="12">
-                            <label>RG</label>
-                        </div>
-                        <div class="label-float mt-4">
-                            <input type="text" name="apartamento" class="form-custom form-control mt-2" size="60" placeholder="Apartamento" maxlength="5" required>
-                            <label>Apartamento</label>
-                        </div>
-                        <label class="mt-4 mb-0 text-secondary">Bloco</label>
-                        <select class="form-custom form-control m-0 p-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit"  class="btn btn-register w-100 text-light">Registrar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 <!-- Modal de cadastro -->
 <div class="modal fade" id="cad-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -303,11 +256,6 @@
                                 CPF inválido!
                             </div>
                         </div>
-                        <div class="label-float mt-4" id="input-rg-cadastro">
-                            <input type="text" id="cad-rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" maxlength="12">
-                            <label>RG</label>
-                        </div>
-                        <div>
                         <label id="label-uf-cadastro" class="mt-4 mb-0 text-secondary">UF</label>
                         <select id="select-uf-cadastro" name="uf" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
                             <option value="SP">SP</option> 
@@ -338,6 +286,9 @@
                             <option value="SE">SE</option>      
                             <option value="TO">TO</option>      
                         </select>
+                        <div class="label-float mt-4" id="input-rg-cadastro">
+                            <input type="text" id="cad-rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" maxlength="12">
+                            <label>RG</label>
                         </div>
                     </div>
                 </div>
@@ -348,6 +299,88 @@
         </div>
     </div>
 </div>
+
+<!-- Modal de registro de entrada-->
+<div class="modal fade" id="form-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header text-center align-items-center">
+                <h4 class="modal-title font-weight-bold text-secondary">Registrar Entrada</h4>
+                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="register_entry_visitors" method="post">
+                <div class="modal-body py-4">
+                    <div class="card card-body border-0 pt-0">
+                        <label class="mt-0 mb-0 text-secondary">Documento</label>
+                        <select id="select-documento-registro" name="documento" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="CPF">CPF</option>
+                            <option value="RG">RG</option>
+                        </select>
+                        <div class="label-float mt-4" id="input-cpf-registro">
+                            <input type="text" id="cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14">
+                            <label>CPF</label>
+                            <div class="invalid-feedback" id="invalid">
+                                CPF inválido!
+                            </div>
+                        </div>
+
+                        <label id="label-uf-registro" class="mt-4 mb-0 text-secondary">UF</label>
+                        <select id="select-uf-registro" name="uf" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="SP">SP</option> 
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AM">AM</option>
+                            <option value="AP">AP</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>      
+                            <option value="MA">MA</option>      
+                            <option value="MG">MG</option>      
+                            <option value="MS">MS</option>      
+                            <option value="MT">MT</option>      
+                            <option value="PA">PA</option>      
+                            <option value="PB">PB</option>      
+                            <option value="PI">PI</option>      
+                            <option value="PE">PE</option>      
+                            <option value="PR">PR</option>   
+                            <option value="RJ">RJ</option>   
+                            <option value="RN">RN</option>      
+                            <option value="RO">RO</option>      
+                            <option value="RR">RR</option>      
+                            <option value="RS">RS</option>      
+                            <option value="SC">SC</option>      
+                            <option value="SE">SE</option>      
+                            <option value="TO">TO</option>      
+                        </select>
+                        
+                        <div class="label-float mt-4" id="input-rg-registro">
+                            <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" maxlength="12">
+                            <label>RG</label>
+                        </div>
+                        <div class="label-float mt-4">
+                            <input type="text" name="apartamento" class="form-custom form-control mt-2" size="60" placeholder="Apartamento" maxlength="5" required>
+                            <label>Apartamento</label>
+                        </div>
+                        <label class="mt-4 mb-0 text-secondary">Bloco</label>
+                        <select class="form-custom form-control m-0 p-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit"  class="btn btn-register w-100 text-light">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Modal de visualização-->
 <div class="modal fade" id="view-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -401,6 +434,8 @@
 <script src="lib/datatables/js/query-3.5.1.js"></script>
 <script src="lib/jquery/jquery.mask.min.js"></script>
 
+
+<!-- Exibição dos campos RG e CPF de acordo com o documento escolhido -->
 <script>
     $('#input-rg-cadastro').hide();
     $('#label-uf-cadastro').hide();
@@ -422,83 +457,83 @@
     });
 
     $('#input-rg-registro').hide();
+    $('#label-uf-registro').hide();
+    $('#select-uf-registro').hide();
+
     $("#select-documento-registro").change(function() {
         if(this.value == "RG"){
             $('#input-rg-registro').show();
+            $('#label-uf-registro').show();
+            $('#select-uf-registro').show();
             $('#input-cpf-registro').hide()
         }
         else if(this.value == "CPF"){
             $('#input-rg-registro').hide();
+            $('#label-uf-registro').hide();
+            $('#select-uf-registro').hide();
             $('#input-cpf-registro').show();
-        }
-        else{
-            $('#input-rg-registro').hide();
-            $('#input-cpf-registro').hide();
         }
     });
 </script>
 
+<!-- Máscaras de RG de acordo com o estado selecionado -->
+
 <script>
+    // Modal de cadastro
     $("#select-uf-cadastro").change(function() {
         if(this.value == "AC" || this.value == "AM" || this.value == "RO" || this.value == "RR" || this.value == "TO"){
             // UF: AC - AM - RO - RR - TO
             // Máscara: 99.999.9
-            $("#cad-rg").html("");
             $("#cad-rg").mask("99.999.9");
             
         }
         else if(this.value == "AL" || this.value == "DF" || this.value == "ES" || this.value == "GO" || this.value == "MS" || this.value == "PB" || this.value == "SE" || this.value == "PI" || this.value == "RN"){
             // UF: AL - DF - ES - GO - MS - PB - SE - PI - RN 
             // Máscara: 99.999.99
-            $("#cad-rg").html("");
             $("#cad-rg").mask("99.999.99");
             
         }
         else if(this.value == "PE"){
             // UF:PE
             // Máscara: 99.999.999
-            $("#cad-rg").html("");
             $("#cad-rg").mask("99.999.999");
            
         }
         else if(this.value == "AM" || this.value == "MT" || this.value == "PR" || this.value == "SC"){
             // UF: AM - MT - PR - SC
             // Máscara: 99.999.99-9
-            $("#cad-rg").html("");
             $("#cad-rg").mask("99.999.99-9");
            
         }
         else if(this.value == "MA" || this.value == "RJ" || this.value == "SP"){
             // UF: MA - RJ - SP
             // Máscara: 99.999.999-9
-            $("#cad-rg").html("");
             $("#cad-rg").mask("99.999.999-9");
            
         }
         else if(this.value == "PA"){
             // UF:PA
             // Máscara: 99.999.99-99
-            $("#cad-rg").html("");
             $("#cad-rg").mask("99.999.99-99");
             
         }
         else if(this.value == "BA"){
             // UF: BA
             // Máscara: 99.999.999-99
-            $("#cad-rg").html("");
             $("#cad-rg").mask("99.999.999-99");
             
         }
         else if(this.value == "RS"){
             // UF:RS
             // Máscara: 99-99.999.99-9
-            $("#cad-rg").html("");
             $("#cad-rg").mask("99-99.999.99-9");
             
         }
     });
 
-    // Mascarás restantes
+
+
+    // Máscaras restantes
     
     // Amazonas e Ámapa
 
@@ -510,4 +545,58 @@
     // (dois primeiros digitos referentes ao ano de emissão)
     // Máscara 1980>: 99.999.9-99
     // (dois ultimos digitos referentes ao ano de emissão)
+
+
+
+    // Modal de registro
+    $("#select-uf-registro").change(function() {
+        if(this.value == "AC" || this.value == "AM" || this.value == "RO" || this.value == "RR" || this.value == "TO"){
+            // UF: AC - AM - RO - RR - TO
+            // Máscara: 99.999.9
+            $("#rg").mask("99.999.9");
+            
+        }
+        else if(this.value == "AL" || this.value == "DF" || this.value == "ES" || this.value == "GO" || this.value == "MS" || this.value == "PB" || this.value == "SE" || this.value == "PI" || this.value == "RN"){
+            // UF: AL - DF - ES - GO - MS - PB - SE - PI - RN 
+            // Máscara: 99.999.99
+            $("#rg").mask("99.999.99");
+            
+        }
+        else if(this.value == "PE"){
+            // UF:PE
+            // Máscara: 99.999.999
+            $("#rg").mask("99.999.999");
+           
+        }
+        else if(this.value == "AM" || this.value == "MT" || this.value == "PR" || this.value == "SC"){
+            // UF: AM - MT - PR - SC
+            // Máscara: 99.999.99-9
+            $("#rg").mask("99.999.99-9");
+           
+        }
+        else if(this.value == "MA" || this.value == "RJ" || this.value == "SP"){
+            // UF: MA - RJ - SP
+            // Máscara: 99.999.999-9
+            $("#rg").mask("99.999.999-9");
+           
+        }
+        else if(this.value == "PA"){
+            // UF:PA
+            // Máscara: 99.999.99-99
+            $("#rg").mask("99.999.99-99");
+            
+        }
+        else if(this.value == "BA"){
+            // UF: BA
+            // Máscara: 99.999.999-99
+            $("#rg").mask("99.999.999-99");
+            
+        }
+        else if(this.value == "RS"){
+            // UF:RS
+            // Máscara: 99-99.999.99-9
+            $("#rg").mask("99-99.999.99-9");
+            
+        }
+    });
 </script>

@@ -7,6 +7,7 @@ use PDO;
 class Visitors extends Model{
 
     private $id_visitante;
+    private $fk_id_visitante;
     private $nome;
     private $cpf;
     private $rg;
@@ -35,11 +36,12 @@ class Visitors extends Model{
     }
 
     public function registerEntry(){
-        $stmt = $this->db->prepare("INSERT INTO visitantes(nome, documento, apartamento, bloco) values(:nome, :documento, :apartamento, :bloco)");
+        $stmt = $this->db->prepare("INSERT INTO visitantes(nome, documento, apartamento, bloco, fk_id_visitante) values(:nome, :documento, :apartamento, :bloco, :fk_id_visitante)");
         $stmt->bindValue(":nome", $this->nome);
         $stmt->bindValue(":documento", $this->documento);
         $stmt->bindValue(":apartamento", $this->apartamento);
         $stmt->bindValue(":bloco", $this->bloco);
+        $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
         $stmt->execute();
     }
 
@@ -72,10 +74,9 @@ class Visitors extends Model{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function selectByDocument(){
-        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados where cpf = :cpf OR rg = :rg");
+    public function selectDocumentByCPF(){
+        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados where cpf = :cpf");
         $stmt->bindValue(":cpf", $this->cpf);
-        $stmt->bindValue(":rg", $this->rg);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -121,16 +122,27 @@ class Visitors extends Model{
         return $stmt->fetch();
     }
 
-    public function getAllNumberVisitorsPresents(){
+    public function getAllNumberVisitorsPresents(){ //Retorna o número de visitantes que estão com a saída em aberto 
         $stmt = $this->db->prepare("SELECT count(*) as visitantes_presentes FROM visitantes WHERE data_saida is null");
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getAllVisitorsPresents(){
+    public function getAllVisitorsPresents(){ //Retorna os visitantes que estão com a saída em aberto para realizar uma exibição ao usuário
         $stmt = $this->db->prepare("SELECT * FROM visitantes WHERE data_saida is null");
+        $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
         $stmt->execute();
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllVisitorsPresentsForCondition(){ //Retorna os visitantes que estão com a saída em aberto, o método é utilizado  para realizar um teste condicional, onde visitantes que não tiveram sua saída registrada não poderão realizar o registro de entrada
+        $stmt = $this->db->prepare("SELECT * FROM visitantes WHERE data_saida is null AND fk_id_visitante = :fk_id_visitante");
+        $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0){
+            return true; // Esse visitante está presente no condomínio, para realizar o registro de entrada primeiro é necessário registrar a saída
+        }
     }
 }
 
