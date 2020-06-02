@@ -74,6 +74,10 @@
 .label-float input:focus{
     border-bottom: 2px solid #20B2AA;
 }
+#registrar{
+    background: linear-gradient(90deg, rgb(30, 108, 163) 0%, rgb(30, 163, 110) 70%);
+    transition: 0.5s;
+}
 .label-float input::placeholder{
     color:transparent;
 }

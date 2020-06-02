@@ -56,15 +56,12 @@ function valida(){
         document.getElementById('cad-cpf').style = "border-bottom: 2px solid red!important;";
         document.getElementById('cad-invalid').style ="display: block";
         btn.disabled = true;
-
     }
-    
 });
 
 document.getElementById('select-documento-cadastro').addEventListener('change',
     function apagaInput() {
         var btn = document.querySelector('#registrar');
-
         document.getElementById('cad-cpf').value = "";
         btn.disabled = false;
     }
@@ -73,8 +70,17 @@ document.getElementById('select-documento-registro').addEventListener('change',
     function apagaInput() {
         var btn = document.querySelector('.btn-register');
         btn.disabled = false;
-
         document.getElementById('cpf').value = "";
+    }
+);
+document.getElementById('select-uf-registro').addEventListener('change',
+    function apagaInput() {
+        document.getElementById('rg').value = "";
+    }
+);
+document.getElementById('select-uf-cadastro').addEventListener('change',
+    function apagaInput() {
+        document.getElementById('cad-rg').value = "";
     }
 );
 
