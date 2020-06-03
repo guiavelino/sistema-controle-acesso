@@ -81,6 +81,19 @@ document.getElementById('select-uf-cadastro').addEventListener('change',
         document.getElementById('cad-rg').value = "";
     }
 );
+// teste de navegador para remoção de efeitos não suportados
+function identific_nav(){
+    var nav = navigator.userAgent.toLowerCase();
+    if(nav.indexOf("edge") != -1){
+        document.getElementsByTagName('label')[0].style = "display:none";
+        document.getElementsByTagName('label')[1].style = "display:none";
+        document.getElementsByTagName('label')[2].style = "display:none";
+        document.getElementsByTagName('label')[3].style = "display:none";
+        document.getElementsByTagName('label')[4].style = "display:none";
+        document.getElementsByTagName('label')[5].style = "display:none";
+        document.getElementsByTagName('label')[6].style = "display:none";
+    }
+}
 
 // verdadeiros
 // alert(cpf(cpf = '825.566.405-02'), cpf);
