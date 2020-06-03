@@ -15,8 +15,6 @@ function cpf(cpf){
     return result;
 }
 // chama a função de validação e altera as cores
-
-
 document.getElementById('cpf').addEventListener('change',
 
 function valida(){

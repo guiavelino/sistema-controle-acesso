@@ -3,6 +3,7 @@
     margin: 0;
     box-sizing: border-box;
     text-decoration: none !important;
+    box-shadow: none!important;
 }
 ::-webkit-scrollbar{
     width: 7px;
