@@ -1,4 +1,4 @@
- // Máscaras de RG de acordo com o estado selecionado
+ // Máscaras de RG de acordo com o estado selecionado nos formulários de cadastro e registro
 
 // Modal de cadastro
 $("#select-uf-cadastro").change(function() {
@@ -15,13 +15,13 @@ $("#select-uf-cadastro").change(function() {
         
     }
     else if(this.value == "PE"){
-        // UF:PE
+        // UF: PE
         // Máscara: 99.999.999
         $("#cad-rg").mask("99.999.999");
         
     }
-    else if(this.value == "AM" || this.value == "MT" || this.value == "PR" || this.value == "SC"){
-        // UF: AM - MT - PR - SC
+    else if(this.value == "MT" || this.value == "PR" || this.value == "SC"){
+        // UF: MT - PR - SC
         // Máscara: 99.999.99-9
         $("#cad-rg").mask("99.999.99-9");
         
@@ -33,7 +33,7 @@ $("#select-uf-cadastro").change(function() {
         
     }
     else if(this.value == "PA"){
-        // UF:PA
+        // UF: PA
         // Máscara: 99.999.99-99
         $("#cad-rg").mask("99.999.99-99");
         
@@ -45,7 +45,7 @@ $("#select-uf-cadastro").change(function() {
         
     }
     else if(this.value == "RS"){
-        // UF:RS
+        // UF: RS
         // Máscara: 99-99.999.99-9
         $("#cad-rg").mask("99-99.999.99-9");
         
@@ -56,7 +56,7 @@ $("#select-uf-cadastro").change(function() {
 
 // Máscaras restantes
 
-// Amazonas e Ámapa
+// Ámapa - AP
 
 // UF:MG
 // Máscara: 99.999.999 (alfanumérico) 
@@ -84,13 +84,13 @@ $("#select-uf-registro").change(function() {
         
     }
     else if(this.value == "PE"){
-        // UF:PE
+        // UF: PE
         // Máscara: 99.999.999
         $("#rg").mask("99.999.999");
         
     }
-    else if(this.value == "AM" || this.value == "MT" || this.value == "PR" || this.value == "SC"){
-        // UF: AM - MT - PR - SC
+    else if(this.value == "MT" || this.value == "PR" || this.value == "SC"){
+        // UF: MT - PR - SC
         // Máscara: 99.999.99-9
         $("#rg").mask("99.999.99-9");
         
@@ -102,7 +102,7 @@ $("#select-uf-registro").change(function() {
         
     }
     else if(this.value == "PA"){
-        // UF:PA
+        // UF: PA
         // Máscara: 99.999.99-99
         $("#rg").mask("99.999.99-99");
         
@@ -114,7 +114,7 @@ $("#select-uf-registro").change(function() {
         
     }
     else if(this.value == "RS"){
-        // UF:RS
+        // UF: RS
         // Máscara: 99-99.999.99-9
         $("#rg").mask("99-99.999.99-9");
         

@@ -188,8 +188,8 @@ class VisitorsController extends Action {
 
             foreach($visitantes->getAllVisitorsRelations() as $e){
                 $this->view->nome = $e['nome'];
-                $this->view->documento = $e['documento'];
                 $this->view->uf = $e['uf'];
+                $this->view->documento = $e['documento'];
             }
             $this->render('edit_visitors');
         }
@@ -224,29 +224,54 @@ class VisitorsController extends Action {
             $visitantes->apartamento = $_POST['apartamento'];
             $visitantes->bloco = $_POST['bloco'];
 
-            $visitantes->updateVisitor();
-            $visitantes->updateVisitorRegister();
-            echo "<script>alert('Dados atualizados com sucesso!')</script>";
+            if($visitantes->updateVisitor()){ //Atualização de cadastro
+                $visitantes->updateVisitorRegister(); //Atualização de registro único
+                echo "<script>alert('Dados atualizados com sucesso!')</script>";
+            }
+            else{
+                echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este CPF!')</script>";
+            }
         }
-        else if($_POST['nome'] != '' && strlen($_POST['rg']) >= 8 && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
+        else if($_POST['nome'] != '' && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+            $visitantes = Container::getModel('Visitors');
+
+            $visitantes->id_visitante = $_POST['id_visitante'];
+            $visitantes->fk_id_visitante = $_POST['fk_id_visitante'];
+            $visitantes->nome = $_POST['nome'];
+            $visitantes->cpf = md5(date('Y-m-d H:i'));
+            $visitantes->rg = $_POST['rg'];
+            $visitantes->uf = $_POST['uf'];
+            $visitantes->documento = $_POST['rg'];
+            $visitantes->apartamento = $_POST['apartamento'];
+            $visitantes->bloco = $_POST['bloco'];
+
+            // Validando RG de acordo com o estado
+            $valida_rg = false;
+            if((($_POST['uf'] == "AC" || $_POST['uf'] == "AM" || $_POST['uf'] == "RO" || $_POST['uf'] == "RR" || $_POST['uf'] == "TO") && strlen($_POST['rg']) == 8) || (($_POST['uf'] == "AL" || $_POST['uf'] == "DF" || $_POST['uf'] == "ES" || $_POST['uf'] == "GO" || $_POST['uf'] == "MS" || $_POST['uf'] == "PB" || $_POST['uf'] == "SE" || $_POST['uf'] == "PI" || $_POST['uf'] == "RN") && strlen($_POST['rg']) == 9) || ($_POST['uf'] == "PE" && strlen($_POST['rg']) == 10) || (($_POST['uf'] == "MT" || $_POST['uf'] == "PR" || $_POST['uf'] == "SC") && strlen($_POST['rg']) == 11) || (($_POST['uf'] == "RJ" || $_POST['uf'] == "MA" || $_POST['uf'] == "SP" || $_POST['uf'] == "PA") && strlen($_POST['rg']) == 12) || ($_POST['uf'] == "BA" && strlen($_POST['rg']) == 13) || ($_POST['uf'] == "RS"  && strlen($_POST['rg']) == 14)){
+                $valida_rg = true;
+            }
+            
+            if($valida_rg){
+                if($visitantes->updateVisitor()){ //Atualização de cadastro
+                    $visitantes->updateVisitorRegister(); //Atualização de registro único
+                    echo "<script>alert('Dados atualizados com sucesso!')</script>";
+                }
+                else{
+                    echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este RG!')</script>";
+                }
+            }
+            else {
+                echo "<script>alert('Digite um RG válido para atualizar o registro!')</script>";
+            }
         }
         else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
             echo "<script>alert('Digite um CPF válido para atualizar o registro!')</script>";
-        }
-        else if(strlen($_POST['rg']) < 8 && $_POST['cpf'] == ''){ 
-            echo "<script>alert('Digite um RG válido para atualizar o registro!')</script>";
         }
         else{
             echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
         }
         echo "<script> location.href = '/visitors' </script>";
     }
-
-
-
 
     public function removeVisitors(){
         $this->validateAuthentication();

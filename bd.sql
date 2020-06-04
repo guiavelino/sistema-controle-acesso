@@ -37,9 +37,10 @@ create table prestadores_servicos(
 create table visitantes_cadastrados(
 	id_visitante int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
-	cpf char(14) unique,
-	rg varchar(14),
-	uf char(2) 
+	cpf char(14) unique not null,
+	rg varchar(14) not null,
+	uf char(2) not null,
+	CONSTRAINT rg_uf UNIQUE (rg, uf)
 );
 
 create table visitantes(
@@ -54,17 +55,6 @@ create table visitantes(
     foreign key(fk_id_visitante) references visitantes_cadastrados(id_visitante) on delete cascade
 );
 
-
-create table pessoa(
-    id int(4) PRIMARY KEY auto_increment
-    );
-
-create table objeto(
-    id_objeto int(4) PRIMARY KEY auto_increment,
-    fk_pessoa int(4) NOT NULL,
-    foreign key(fk_pessoa) references pessoa(id)
-    );
-	
 create table encomendas(
 	id_encomenda int primary key AUTO_INCREMENT not null,
 	empresa varchar(60) not null,

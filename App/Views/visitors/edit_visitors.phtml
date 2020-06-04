@@ -8,17 +8,18 @@
             <input type="hidden" name="id_visitante" value="<?=$_POST['id_visitante']?>">
             <input type="hidden" name="fk_id_visitante" value="<?=$_POST['fk_id_visitante']?>">
             <div class="label-float mt-4">    
-                <input type="text" name="nome" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?=$this->view->nome?>">
+                <input type="text" name="nome" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?=$this->view->nome?>" required>
                 <label>Nome</label>
             </div>
             <?php if(strlen($this->view->documento) == 14 && $this->view->uf == 'NA'){?>
                 <div class="label-float mt-4" id="input-cpf-cadastro">
-                    <input type="text" id="cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" value="<?=$this->view->documento?>">
+                    <input type="text" id="cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" value="<?=$this->view->documento?>" required>
                     <label>CPF</label>
                     <div class="invalid-feedback" id="cad-invalid">
                         CPF inválido!
                     </div>
                 </div>
+                <input type="hidden" name="rg">
             <?php } else {?>
                 <label id="label-uf-registro" class="mt-4 mb-0 text-secondary">UF</label>
                 <select id="select-uf-registro" name="uf" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
@@ -52,13 +53,13 @@
                     <option value="TO">TO</option>      
                 </select>
                 <div class="label-float mt-4" id="input-rg-registro">
-                    <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" value="<?=$this->view->documento?>">
+                    <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" value="<?=$this->view->documento?>" required>
                     <label>RG</label>
                 </div>
                 <input type="hidden" name="cpf">
             <?php }?>
             <div class="label-float mt-4">    
-                <input type="text" name="apartamento" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="5" placeholder="Apartamento" value="<?=$_POST['apartamento']?>">
+                <input type="text" name="apartamento" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="5" placeholder="Apartamento" value="<?=$_POST['apartamento']?>" required>
                 <label>Apartamento</label>
             </div>
             <label class="mt-4 mb-0" style="color: #20B2AA">Bloco</label>

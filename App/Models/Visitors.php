@@ -53,25 +53,23 @@ class Visitors extends Model{
     }
 
     public function updateVisitor(){
-        $stmt = $this->db->prepare("UPDATE visitantes_cadastrados SET nome = :nome, cpf = :cpf, rg = :rg, uf = :uf where id_visitante = :fk_id_visitante");
+        $stmt = $this->db->prepare("UPDATE visitantes_cadastrados inner join visitantes on(visitantes_cadastrados.id_visitante = :fk_id_visitante AND visitantes.fk_id_visitante = :fk_id_visitante) SET visitantes_cadastrados.nome = :nome, visitantes_cadastrados.cpf = :cpf, visitantes_cadastrados.rg = :rg, visitantes_cadastrados.uf = :uf, visitantes.nome = :nome, visitantes.documento = :documento");
+        $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
         $stmt->bindValue(":nome", $this->nome);
         $stmt->bindValue(":cpf", $this->cpf);
         $stmt->bindValue(":rg", $this->rg);
         $stmt->bindValue(":uf", $this->uf);
-        $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
-        $stmt->execute();
+        $stmt->bindValue(":documento", $this->documento);
+
+        if($stmt->execute()){
+            return true;
+        }
     }
 
     public function updateVisitorRegister(){
-        $stmt = $this->db->prepare(" UPDATE visitantes SET nome = :nome, documento = :documento where fk_id_visitante = :fk_id_visitante 
-            -- (UPDATE visitantes SET apartamento = :apartamento, bloco = :bloco where id_visitante = :id_visitante)
-        ");
-
-        $stmt->bindValue(":nome", $this->nome);
-        $stmt->bindValue(":documento", $this->documento);
+        $stmt = $this->db->prepare("UPDATE visitantes SET apartamento = :apartamento, bloco = :bloco where id_visitante = :id_visitante");;
         $stmt->bindValue(":apartamento", $this->apartamento);
         $stmt->bindValue(":bloco", $this->bloco);
-        $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
         $stmt->bindValue(":id_visitante", $this->id_visitante); 
         $stmt->execute();
     }
