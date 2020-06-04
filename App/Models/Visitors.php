@@ -32,7 +32,9 @@ class Visitors extends Model{
         $stmt->bindValue(":cpf", $this->cpf);
         $stmt->bindValue(":rg", $this->rg);
         $stmt->bindValue(":uf", $this->uf);
-        $stmt->execute();
+        if($stmt->execute()){
+            return true;
+        }
     }
 
     public function registerEntry(){
@@ -42,7 +44,9 @@ class Visitors extends Model{
         $stmt->bindValue(":apartamento", $this->apartamento);
         $stmt->bindValue(":bloco", $this->bloco);
         $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
-        $stmt->execute();
+        if($stmt->execute()){
+            return true;
+        }
     }
 
     public function registerExit(){

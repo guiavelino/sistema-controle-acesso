@@ -39,8 +39,7 @@ create table visitantes_cadastrados(
 	nome varchar(60) not null,
 	cpf char(14) unique not null,
 	rg varchar(14) not null,
-	uf char(2) not null,
-	CONSTRAINT rg_uf UNIQUE (rg, uf)
+	uf varchar(2) not null
 );
 
 create table visitantes(

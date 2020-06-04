@@ -34,7 +34,7 @@ class VisitorsController extends Action {
 
     public function registerVisitors(){
         $this->validateAuthentication();
-        if(strlen($_POST['cpf']) == 14 && strlen($_POST['rg']) >= 8){
+        if(strlen($_POST['cpf']) == 14 && strlen($_POST['rg']) > 0){
             echo "<script>alert('Selecione apenas um documento para realizar o cadastro!')</script>";
         }
         else if(strlen($_POST['cpf']) == 14 && $_POST['nome'] != ''){
@@ -65,12 +65,12 @@ class VisitorsController extends Action {
             $visitantes->registerVisitor();
             echo "<script>alert('Visitante cadastrado com sucesso, realize o registro e libere a entrada!')</script>";
         }
-        else if(strlen($_POST['rg']) >= 8 && $_POST['nome'] != '' && strlen($_POST['uf']) == 2){ // O número minímo de digitos em um RG são 6, mas como a string e enviada com uma máscara aplicada esse valor passa a ser 8 
+        else if(strlen($_POST['rg']) > 0 && $_POST['nome'] != '' && strlen($_POST['uf']) == 2){
             $visitantes = Container::getModel('Visitors');
             $moradores = Container::getModel('Residents');
 
             //Tratando duplicidade de RG
-           foreach($visitantes->getAllVisitorsRegisters() as $e){
+            foreach($visitantes->getAllVisitorsRegisters() as $e){
                 if($_POST['rg'] == $e['rg'] && $_POST['uf'] == $e['uf']){ 
                     echo "<script>alert('Esse visitante ja foi cadastrado, realize o registro e libere a entrada!')</script>";
                     echo "<script> location.href = '/visitors' </script>";
@@ -79,18 +79,30 @@ class VisitorsController extends Action {
             }
 
             $visitantes->nome = $_POST['nome'];
+            $visitantes->cpf = md5(date('Y-m-d H:i')); // A coluna CPF no banco de dados utiliza o atributo UNIQUE, por isso um valor vazio não pode ser atribuído
             $visitantes->rg = $_POST['rg'];
             $visitantes->uf = $_POST['uf'];
-            $visitantes->cpf = md5(date('Y-m-d H:i')); // A coluna CPF no banco de dados utiliza o atributo UNIQUE, por isso um valor vazio não pode ser atribuído
 
-            $visitantes->registerVisitor();
-            echo "<script>alert('Visitante cadastrado com sucesso, realize o registro e libere a entrada!')</script>";
+            // Validando RG de acordo com o estado
+            $valida_rg = false;
+            if((($_POST['uf'] == "AC" || $_POST['uf'] == "AM" || $_POST['uf'] == "RO" || $_POST['uf'] == "RR" || $_POST['uf'] == "TO") && strlen($_POST['rg']) == 8) || (($_POST['uf'] == "AL" || $_POST['uf'] == "DF" || $_POST['uf'] == "ES" || $_POST['uf'] == "GO" || $_POST['uf'] == "MS" || $_POST['uf'] == "PB" || $_POST['uf'] == "SE" || $_POST['uf'] == "PI" || $_POST['uf'] == "RN") && strlen($_POST['rg']) == 9) || ($_POST['uf'] == "PE" && strlen($_POST['rg']) == 10) || (($_POST['uf'] == "MT" || $_POST['uf'] == "PR" || $_POST['uf'] == "SC") && strlen($_POST['rg']) == 11) || (($_POST['uf'] == "RJ" || $_POST['uf'] == "MA" || $_POST['uf'] == "SP" || $_POST['uf'] == "PA") && strlen($_POST['rg']) == 12) || ($_POST['uf'] == "BA" && strlen($_POST['rg']) == 13) || ($_POST['uf'] == "RS"  && strlen($_POST['rg']) == 14)){
+                $valida_rg = true;
+            }
+
+            if($valida_rg){
+                if($visitantes->registerVisitor()){
+                    echo "<script>alert('Visitante cadastrado com sucesso, realize o registro e libere a entrada!')</script>";
+                }
+                else{
+                    echo "<script>alert('Erro ao relizar cadastro, tente novamente!')</script>";
+                }
+            }
+            else {
+                echo "<script>alert('Digite um RG válido para realizar o cadastro!')</script>";
+            }
         }
         else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
             echo "<script>alert('Digite um CPF válido para realizar o cadastro!')</script>";
-        }
-        else if(strlen($_POST['rg']) < 8 && $_POST['cpf'] == ''){ 
-            echo "<script>alert('Digite um RG válido para realizar o cadastro!')</script>";
         }
         else{
             echo "<script>alert('Preencha todos os campos para realizar o cadastro!')</script>";
@@ -100,7 +112,7 @@ class VisitorsController extends Action {
 
     public function registerEntry(){
         $this->validateAuthentication();
-        if(strlen($_POST['cpf']) == 14 && strlen($_POST['rg']) >= 8){
+        if(strlen($_POST['cpf']) == 14 && strlen($_POST['rg']) > 0){
             echo "<script>alert('Selecione apenas um documento para realizar o cadastro!')</script>";
         }
         else if(strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
@@ -127,36 +139,43 @@ class VisitorsController extends Action {
                 echo "<script>alert('Para realizar o registro de entrada, é necessário que o visitante esteja cadastrado no sistema!')</script>";
             }
         }
-        else if(strlen($_POST['rg']) >= 8 && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+        else if(strlen($_POST['rg']) > 0 && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
             $visitantes = Container::getModel('Visitors');
-
             $visitantes->rg = $_POST['rg'];
             $visitantes->uf = $_POST['uf'];
 
-            if(isset($visitantes->selectDocumentByRgAndUf()['id_visitante'])){ //Verifica se o visitante possui cadastro no sistema
-                $visitantes->nome = $visitantes->selectDocumentByRgAndUf()['nome'];
-                $visitantes->documento = $visitantes->selectDocumentByRgAndUf()['rg'];
-                $visitantes->apartamento = $_POST['apartamento'];
-                $visitantes->bloco = $_POST['bloco'];
-                $visitantes->fk_id_visitante = $visitantes->selectDocumentByRgAndUf()['id_visitante'];
+            // Validando RG de acordo com o estado
+            $valida_rg = false;
+            if((($_POST['uf'] == "AC" || $_POST['uf'] == "AM" || $_POST['uf'] == "RO" || $_POST['uf'] == "RR" || $_POST['uf'] == "TO") && strlen($_POST['rg']) == 8) || (($_POST['uf'] == "AL" || $_POST['uf'] == "DF" || $_POST['uf'] == "ES" || $_POST['uf'] == "GO" || $_POST['uf'] == "MS" || $_POST['uf'] == "PB" || $_POST['uf'] == "SE" || $_POST['uf'] == "PI" || $_POST['uf'] == "RN") && strlen($_POST['rg']) == 9) || ($_POST['uf'] == "PE" && strlen($_POST['rg']) == 10) || (($_POST['uf'] == "MT" || $_POST['uf'] == "PR" || $_POST['uf'] == "SC") && strlen($_POST['rg']) == 11) || (($_POST['uf'] == "RJ" || $_POST['uf'] == "MA" || $_POST['uf'] == "SP" || $_POST['uf'] == "PA") && strlen($_POST['rg']) == 12) || ($_POST['uf'] == "BA" && strlen($_POST['rg']) == 13) || ($_POST['uf'] == "RS"  && strlen($_POST['rg']) == 14)){
+                $valida_rg = true;
+            }
 
-                if($visitantes->getAllVisitorsPresentsForCondition()){ //Verifica se o visitante está com a saída em aberto
-                    echo "<script>alert('Esse visitante está presente no condomínio, para realizar o registro de entrada, primeiro é necessário registrar a saída')</script>";
+            if($valida_rg){
+                if(isset($visitantes->selectDocumentByRgAndUf()['id_visitante'])){ //Verifica se o visitante possui cadastro no sistema
+                    $visitantes->nome = $visitantes->selectDocumentByRgAndUf()['nome'];
+                    $visitantes->documento = $visitantes->selectDocumentByRgAndUf()['rg'];
+                    $visitantes->apartamento = $_POST['apartamento'];
+                    $visitantes->bloco = $_POST['bloco'];
+                    $visitantes->fk_id_visitante = $visitantes->selectDocumentByRgAndUf()['id_visitante'];
+    
+                    if($visitantes->getAllVisitorsPresentsForCondition()){ //Verifica se o visitante está com a saída em aberto
+                        echo "<script>alert('Esse visitante está presente no condomínio, para realizar o registro de entrada, primeiro é necessário registrar a saída')</script>";
+                    }
+                    else{
+                        $visitantes->registerEntry();
+                        echo "<script>alert('Entrada registrada com sucesso!')</script>";
+                    }
                 }
                 else{
-                    $visitantes->registerEntry();
-                    echo "<script>alert('Entrada registrada com sucesso!')</script>";
+                    echo "<script>alert('Para realizar o registro de entrada, é necessário que o visitante esteja cadastrado no sistema!')</script>";
                 }
             }
-            else{
-                echo "<script>alert('Para realizar o registro de entrada, é necessário que o visitante esteja cadastrado no sistema!')</script>";
+            else {
+                echo "<script>alert('Digite um RG válido para realizar o registro!')</script>";
             }
         }
         else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
             echo "<script>alert('Digite um CPF válido para realizar o registro!')</script>";
-        }
-        else if(strlen($_POST['rg']) < 8 && $_POST['cpf'] == ''){ 
-            echo "<script>alert('Digite um RG válido para realizar o registro!')</script>";
         }
         else{
             echo "<script>alert('Preencha todos os campos para realizar o registro!')</script>";
@@ -232,7 +251,7 @@ class VisitorsController extends Action {
                 echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este CPF!')</script>";
             }
         }
-        else if($_POST['nome'] != '' && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+        else if(strlen($_POST['rg']) > 0 && $_POST['nome'] != '' && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
             $visitantes = Container::getModel('Visitors');
 
             $visitantes->id_visitante = $_POST['id_visitante'];
