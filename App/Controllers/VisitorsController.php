@@ -337,7 +337,7 @@ class VisitorsController extends Action {
 		$html .= "</tr>";
 		$html .= '<tr>';
 		$html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Nome</h4></td>";
-		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>CPF</h4></td>";
+		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Documento</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Entrada</h4></td>";
@@ -346,7 +346,7 @@ class VisitorsController extends Action {
         foreach($visitantes->getAll() as $visitantes){
             $html .= "<tr style='$style_content'>";
 			$html .= '<td>'.$visitantes["nome"].'</td>';
-			$html .= '<td>'.$visitantes["cpf"].'</td>';
+			$html .= '<td>'.$visitantes["documento"].'</td>';
             $html .= '<td>'.$visitantes['apartamento'].'</td>';
             $html .= '<td>'.$visitantes['bloco'].'</td>';
             $html .= '<td>'.date('d/m/Y H:i', strtotime($visitantes['data_entrada'])).'</td>';
