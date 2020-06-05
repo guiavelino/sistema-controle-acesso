@@ -11,8 +11,8 @@ class Visitors extends Model{
     private $nome;
     private $cpf;
     private $rg;
+    private $cpf_rg;
     private $uf;
-    private $documento;
     private $apartamento;
     private $bloco;
     private $data_saida;
@@ -38,9 +38,10 @@ class Visitors extends Model{
     }
 
     public function registerEntry(){
-        $stmt = $this->db->prepare("INSERT INTO visitantes(nome, documento, apartamento, bloco, fk_id_visitante) values(:nome, :documento, :apartamento, :bloco, :fk_id_visitante)");
+        $stmt = $this->db->prepare("INSERT INTO visitantes(nome, cpf_rg, uf, apartamento, bloco, fk_id_visitante) values(:nome, :cpf_rg, :uf, :apartamento, :bloco, :fk_id_visitante)");
         $stmt->bindValue(":nome", $this->nome);
-        $stmt->bindValue(":documento", $this->documento);
+        $stmt->bindValue(":cpf_rg", $this->cpf_rg);
+        $stmt->bindValue(":uf", $this->uf);
         $stmt->bindValue(":apartamento", $this->apartamento);
         $stmt->bindValue(":bloco", $this->bloco);
         $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
@@ -57,13 +58,13 @@ class Visitors extends Model{
     }
 
     public function updateVisitor(){
-        $stmt = $this->db->prepare("UPDATE visitantes_cadastrados inner join visitantes on(visitantes_cadastrados.id_visitante = :fk_id_visitante AND visitantes.fk_id_visitante = :fk_id_visitante) SET visitantes_cadastrados.nome = :nome, visitantes_cadastrados.cpf = :cpf, visitantes_cadastrados.rg = :rg, visitantes_cadastrados.uf = :uf, visitantes.nome = :nome, visitantes.documento = :documento");
+        $stmt = $this->db->prepare("UPDATE visitantes_cadastrados inner join visitantes on(visitantes_cadastrados.id_visitante = :fk_id_visitante AND visitantes.fk_id_visitante = :fk_id_visitante) SET visitantes_cadastrados.nome = :nome, visitantes_cadastrados.cpf = :cpf, visitantes_cadastrados.rg = :rg, visitantes_cadastrados.uf = :uf, visitantes.nome = :nome, visitantes.cpf_rg = :cpf_rg, visitantes.uf = :uf");
         $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
         $stmt->bindValue(":nome", $this->nome);
         $stmt->bindValue(":cpf", $this->cpf);
         $stmt->bindValue(":rg", $this->rg);
         $stmt->bindValue(":uf", $this->uf);
-        $stmt->bindValue(":documento", $this->documento);
+        $stmt->bindValue(":cpf_rg", $this->cpf_rg);
 
         if($stmt->execute()){
             return true;
@@ -84,21 +85,15 @@ class Visitors extends Model{
         $stmt->execute();
     }
 
-    public function getAllVisitorsRegisters(){
+    public function getAllVisitorsRegisters(){ // Utilizado para verificar se o visitante ja possui cadastro no sistema
         $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function selectDocumentByCPF(){
-        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados where cpf = :cpf");
+    public function selectDocumentByCpfRgAndUF(){
+        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados where cpf = :cpf OR  rg = :rg AND uf = :uf");
         $stmt->bindValue(":cpf", $this->cpf);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function selectDocumentByRgAndUf(){
-        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados where rg = :rg AND uf = :uf");
         $stmt->bindValue(":rg", $this->rg);
         $stmt->bindValue(":uf", $this->uf);
         $stmt->execute();

@@ -59,8 +59,8 @@ class VisitorsController extends Action {
 
             $visitantes->nome = $_POST['nome'];
             $visitantes->cpf = $_POST['cpf'];
-            $visitantes->rg = 'NA';
-            $visitantes->uf = 'NA';
+            $visitantes->rg = '--';
+            $visitantes->uf = '--';
 
             $visitantes->registerVisitor();
             echo "<script>alert('Visitante cadastrado com sucesso, realize o registro e libere a entrada!')</script>";
@@ -117,15 +117,15 @@ class VisitorsController extends Action {
         }
         else if(strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
             $visitantes = Container::getModel('Visitors');
-
             $visitantes->cpf = $_POST['cpf'];
-
-            if(isset($visitantes->selectDocumentByCPF()['id_visitante'])){ //Verifica se o visitante possui cadastro no sistema
-                $visitantes->nome = $visitantes->selectDocumentByCPF()['nome'];
-                $visitantes->documento = $visitantes->selectDocumentByCPF()['cpf'];
+            
+            if(isset($visitantes->selectDocumentByCpfRgAndUF()['id_visitante'])){ //Verifica se o visitante possui cadastro no sistema
+                $visitantes->nome = $visitantes->selectDocumentByCpfRgAndUF()['nome'];
+                $visitantes->cpf_rg = $visitantes->selectDocumentByCpfRgAndUF()['cpf'];
+                $visitantes->uf = '--';
                 $visitantes->apartamento = $_POST['apartamento'];
                 $visitantes->bloco = $_POST['bloco'];
-                $visitantes->fk_id_visitante = $visitantes->selectDocumentByCPF()['id_visitante'];
+                $visitantes->fk_id_visitante = $visitantes->selectDocumentByCpfRgAndUF()['id_visitante'];
 
                 if($visitantes->getAllVisitorsPresentsForCondition()){ //Verifica se o visitante está com a saída em aberto
                     echo "<script>alert('Esse visitante está presente no condomínio, para realizar o registro de entrada, primeiro é necessário registrar a saída')</script>";
@@ -151,12 +151,12 @@ class VisitorsController extends Action {
             }
 
             if($valida_rg){
-                if(isset($visitantes->selectDocumentByRgAndUf()['id_visitante'])){ //Verifica se o visitante possui cadastro no sistema
-                    $visitantes->nome = $visitantes->selectDocumentByRgAndUf()['nome'];
-                    $visitantes->documento = $visitantes->selectDocumentByRgAndUf()['rg'];
+                if(isset($visitantes->selectDocumentByCpfRgAndUF()['id_visitante'])){ //Verifica se o visitante possui cadastro no sistema
+                    $visitantes->nome = $visitantes->selectDocumentByCpfRgAndUF()['nome'];
+                    $visitantes->cpf_rg = $visitantes->selectDocumentByCpfRgAndUF()['rg'];
                     $visitantes->apartamento = $_POST['apartamento'];
                     $visitantes->bloco = $_POST['bloco'];
-                    $visitantes->fk_id_visitante = $visitantes->selectDocumentByRgAndUf()['id_visitante'];
+                    $visitantes->fk_id_visitante = $visitantes->selectDocumentByCpfRgAndUF()['id_visitante'];
     
                     if($visitantes->getAllVisitorsPresentsForCondition()){ //Verifica se o visitante está com a saída em aberto
                         echo "<script>alert('Esse visitante está presente no condomínio, para realizar o registro de entrada, primeiro é necessário registrar a saída')</script>";
@@ -208,7 +208,7 @@ class VisitorsController extends Action {
             foreach($visitantes->getAllVisitorsRelations() as $e){
                 $this->view->nome = $e['nome'];
                 $this->view->uf = $e['uf'];
-                $this->view->documento = $e['documento'];
+                $this->view->cpf_rg = $e['cpf_rg'];
             }
             $this->render('edit_visitors');
         }
@@ -237,9 +237,9 @@ class VisitorsController extends Action {
             $visitantes->fk_id_visitante = $_POST['fk_id_visitante'];
             $visitantes->nome = $_POST['nome'];
             $visitantes->cpf = $_POST['cpf'];
-            $visitantes->rg = 'NA';
-            $visitantes->uf = 'NA';
-            $visitantes->documento = $_POST['cpf'];
+            $visitantes->rg = '--';
+            $visitantes->uf = '--';
+            $visitantes->cpf_rg = $_POST['cpf'];
             $visitantes->apartamento = $_POST['apartamento'];
             $visitantes->bloco = $_POST['bloco'];
 
@@ -251,7 +251,7 @@ class VisitorsController extends Action {
                 echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este CPF!')</script>";
             }
         }
-        else if(strlen($_POST['rg']) > 0 && $_POST['nome'] != '' && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+        else if(strlen($_POST['rg']) > 0 && $_POST['nome'] != '' && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && $_POST['id_visitante'] != '' && $_POST['fk_id_visitante'] != ''){
             $visitantes = Container::getModel('Visitors');
 
             $visitantes->id_visitante = $_POST['id_visitante'];
@@ -260,7 +260,7 @@ class VisitorsController extends Action {
             $visitantes->cpf = md5(date('Y-m-d H:i'));
             $visitantes->rg = $_POST['rg'];
             $visitantes->uf = $_POST['uf'];
-            $visitantes->documento = $_POST['rg'];
+            $visitantes->cpf_rg = $_POST['rg'];
             $visitantes->apartamento = $_POST['apartamento'];
             $visitantes->bloco = $_POST['bloco'];
 
@@ -333,11 +333,12 @@ class VisitorsController extends Action {
         $html .= '<meta charset="utf-8"/>';
 		$html .= '<table border="1">';
 		$html .= "<tr>";
-		$html .= "<td colspan='6' style='$style_first_header'><h2>Visitantes</h2></td>";
+		$html .= "<td colspan='7' style='$style_first_header'><h2>Visitantes</h2></td>";
 		$html .= "</tr>";
 		$html .= '<tr>';
 		$html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Nome</h4></td>";
-		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Documento</h4></td>";
+        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>CPF / RG</h4></td>";
+        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>UF</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Entrada</h4></td>";
@@ -346,7 +347,8 @@ class VisitorsController extends Action {
         foreach($visitantes->getAll() as $visitantes){
             $html .= "<tr style='$style_content'>";
 			$html .= '<td>'.$visitantes["nome"].'</td>';
-			$html .= '<td>'.$visitantes["documento"].'</td>';
+            $html .= '<td>'.$visitantes["cpf_rg"].'</td>';
+            $html .= '<td>'.$visitantes["uf"].'</td>';
             $html .= '<td>'.$visitantes['apartamento'].'</td>';
             $html .= '<td>'.$visitantes['bloco'].'</td>';
             $html .= '<td>'.date('d/m/Y H:i', strtotime($visitantes['data_entrada'])).'</td>';

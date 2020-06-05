@@ -45,7 +45,8 @@ create table visitantes_cadastrados(
 create table visitantes(
 	id_visitante int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
-	documento varchar(14) not null,
+	cpf_rg varchar(14) not null,
+	uf varchar(2) not null,
 	apartamento varchar(5) not null,
 	bloco char(1) not null,
 	data_entrada datetime default CURRENT_TIMESTAMP,

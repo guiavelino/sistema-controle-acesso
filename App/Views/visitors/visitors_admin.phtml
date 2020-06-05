@@ -156,7 +156,8 @@
                 <thead class="text-center card-header text-dark">
                     <tr>
                         <th>Nome</th>
-                        <th>Documento</th>
+                        <th>CPF / RG</th>
+                        <th>UF</th>
                         <th>Apartamento</th>
                         <th>Bloco</th>
                         <th>Entrada</th>
@@ -168,7 +169,8 @@
                     <?php foreach ($this->view->visitantes as $e) { ?>
                         <tr>
                             <td><?= $e['nome'] ?></td>
-                            <td><?= $e['documento'] ?></td>
+                            <td><?= $e['cpf_rg'] ?></td>
+                            <td><?= $e['uf'] ?></td>
                             <td><?= $e['apartamento'] ?></td>
                             <td><?= $e['bloco'] ?></td>
                             <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>
@@ -203,12 +205,11 @@
                                         </button>
                                     </abbr>
                                 </form>
-
-
                                 <form action="/remove_visitors" method="post" class="d-inline-block">
                                     <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
                                     <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
-                                    <input type="hidden" name="documento" value="<?= $e['documento'] ?>">
+                                    <input type="hidden" name="cpf_rg" value="<?= $e['cpf_rg'] ?>">
+                                    <input type="hidden" name="uf" value="<?= $e['uf'] ?>">
                                     <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
                                     <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
                                     <input type="hidden" name="data_entrada" value="<?= $e['data_entrada'] ?>">
@@ -394,7 +395,8 @@
                     <thead class="text-center card-header text-dark">
                         <tr>
                             <th>Nome</th>
-                            <th>Documento</th>
+                            <th>CPF / RG</th>
+                            <th>UF</th>
                             <th>Apartamento</th>
                             <th>Bloco</th>
                             <th>Entrada</th>
@@ -405,7 +407,8 @@
                         <?php foreach ($this->view->visitantes_presentes as $e) { ?>
                             <tr>
                                 <td><?= $e['nome'] ?></td>
-                                <td><?= $e['documento'] ?></td>
+                                <td><?= $e['cpf_rg'] ?></td>
+                                <td><?= $e['uf'] ?></td>
                                 <td><?= $e['apartamento'] ?></td>
                                 <td><?= $e['bloco'] ?></td>
                                 <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>

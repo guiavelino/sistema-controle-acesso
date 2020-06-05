@@ -11,9 +11,9 @@
                 <input type="text" name="nome" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?=$this->view->nome?>" required>
                 <label>Nome</label>
             </div>
-            <?php if(strlen($this->view->documento) == 14 && $this->view->uf == 'NA'){?>
+            <?php if(strlen($this->view->cpf_rg) == 14 && $this->view->uf == '--'){?>
                 <div class="label-float mt-4" id="input-cpf-cadastro">
-                    <input type="text" id="cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" value="<?=$this->view->documento?>" required>
+                    <input type="text" id="cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" value="<?=$this->view->cpf_rg?>" required>
                     <label>CPF</label>
                     <div class="invalid-feedback" id="cad-invalid">
                         CPF inválido!
@@ -53,7 +53,7 @@
                     <option value="TO">TO</option>      
                 </select>
                 <div class="label-float mt-4" id="input-rg-registro">
-                    <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" value="<?=$this->view->documento?>" required>
+                    <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" value="<?=$this->view->cpf_rg?>" required>
                     <label>RG</label>
                 </div>
                 <input type="hidden" name="cpf">

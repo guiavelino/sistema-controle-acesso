@@ -8,10 +8,21 @@
             <h5 class="text-dark font-weight-bold">Nome</h5>
             <h5 class="text-secondary font-weight-bold"><?=$_POST['nome']?></h5>
         </div>
+        <?php if(strlen($_POST['cpf_rg']) == 14 && $_POST['uf'] == '--'){?> 
         <div class="d-flex justify-content-between mt-4">
-            <h5 class="text-dark font-weight-bold">Documento</h5>
-            <h5 class="text-secondary font-weight-bold"><?=$_POST['documento']?></h5>
+            <h5 class="text-dark font-weight-bold">CPF</h5>
+            <h5 class="text-secondary font-weight-bold"><?=$_POST['cpf_rg']?></h5>
         </div>
+        <? } else {?>
+        <div class="d-flex justify-content-between mt-4">
+            <h5 class="text-dark font-weight-bold">RG</h5>
+            <h5 class="text-secondary font-weight-bold"><?=$_POST['cpf_rg']?></h5>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+            <h5 class="text-dark font-weight-bold">UF</h5>
+            <h5 class="text-secondary font-weight-bold"><?=$_POST['uf']?></h5>
+        </div>
+        <? } ?>
         <div class="d-flex justify-content-between mt-4">
             <h5 class="text-dark font-weight-bold">Apartamento</h5>
             <h5 class="text-secondary font-weight-bold"><?=$_POST['apartamento']?></h5>
