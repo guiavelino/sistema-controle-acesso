@@ -85,13 +85,9 @@ document.getElementById('select-uf-cadastro').addEventListener('change',
 function identific_nav(){
     var nav = navigator.userAgent.toLowerCase();
     if(nav.indexOf("edge") != -1){
-        document.getElementsByTagName('label')[0].style = "display:none";
-        document.getElementsByTagName('label')[1].style = "display:none";
-        document.getElementsByTagName('label')[2].style = "display:none";
-        document.getElementsByTagName('label')[3].style = "display:none";
-        document.getElementsByTagName('label')[4].style = "display:none";
-        document.getElementsByTagName('label')[5].style = "display:none";
-        document.getElementsByTagName('label')[6].style = "display:none";
+        for (let i = 0; i < 30; i++) {
+            document.getElementsByTagName('label')[i].style = "color: transparent";
+        }
     }
 }
 
