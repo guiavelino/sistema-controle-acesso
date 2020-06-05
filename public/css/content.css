@@ -257,3 +257,12 @@ tbody td{
 tbody th{
     vertical-align: middle!important;
 }
+.tabelas{
+    margin-top:20px;
+    text-decoration-color: none!important;
+    background-color: #242939;
+    color:white;
+}
+.tabelas:hover{
+    color:white;
+}

@@ -20,6 +20,7 @@ class VisitorsController extends Action {
             $visitantes = Container::getModel('Visitors');
             
             $this->view->visitantes = $visitantes->getAll();
+            $this->view->cadastrados = $visitantes->getAllVisitorsRegisters();
             $this->view->total_visitantes_presentes = $visitantes->getAllNumberVisitorsPresents()['visitantes_presentes'];
             $this->view->visitantes_presentes = $visitantes->getAllVisitorsPresents();
 

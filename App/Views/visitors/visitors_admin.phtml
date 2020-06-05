@@ -15,7 +15,7 @@
         <img width="35" height="35" src="img/users/<?= $_SESSION['imagem_usuario'] ?>">
     </button>
     <div class="dropdown-menu drop" aria-labelledby="dropdownMenuButton">
-        <a href="/my_profile">
+        <a href="/my_cadastrados">
             <i class="fas fa-user-alt"></i>
             <span class="ml-2">
                 Meu Perfil
@@ -54,19 +54,19 @@
                 </div>
             </a>
             <a class="d-flex justify-content-between align-items-center p-3" href="/service_providers">
-                <div>    
+                <div>
                     <i class="fas fa-toolbox icon"></i>
                     <span>Prestadores de serviços</span>
                 </div>
             </a>
             <a class="d-flex justify-content-between align-items-center p-3" href="/orders">
-                <div>    
+                <div>
                     <i class="fas fa-dolly icon"></i>
                     <span>Encomendas</span>
                 </div>
             </a>
             <a class="d-flex justify-content-between align-items-center p-3" href="/leisure_areas">
-                <div>    
+                <div>
                     <i class="fas fa-gamepad icon"></i>
                     <span>Áreas de lazer</span>
                 </div>
@@ -86,7 +86,7 @@
                 </div>
             </a>
             <a class="d-flex justify-content-between align-items-center p-3" href="/residents">
-                <div>    
+                <div>
                     <i class="fas fa-building icon"></i>
                     <span>Moradores</span>
                 </div>
@@ -104,7 +104,7 @@
                 </div>
             </a>
             <a class="d-flex justify-content-between align-items-center p-3" href="/orders">
-                <div> 
+                <div>
                     <i class="fas fa-dolly icon"></i>
                     <span>Encomendas</span>
                 </div>
@@ -145,86 +145,152 @@
                 <h5 class="m-0">
                     <i class="fas fa-door-open text-white mr-1"></i>
                     Registrar Saída
-                    <?php  if($this->view->total_visitantes_presentes){ ?>
-                        <span class="badge badge-pill badge-danger" title="Total de visitantes presentes no condomínio"><?=$this->view->total_visitantes_presentes?></span>
-                    <?php }?> 
+                    <?php if ($this->view->total_visitantes_presentes) { ?>
+                        <span class="badge badge-pill badge-danger" title="Total de visitantes presentes no condomínio"><?= $this->view->total_visitantes_presentes ?></span>
+                    <?php } ?>
                 </h5>
             </div>
         </div>
-        <div class="card-body table-responsive pt-1">
-            <table class="table-bordered table-hover mb-0 display responsive nowrap" style="width:100%" id="dataTable" style="width:100%">
-                <thead class="text-center card-header text-dark">
-                    <tr>
-                        <th>Nome</th>
-                        <th>CPF / RG</th>
-                        <th>UF</th>
-                        <th>Apartamento</th>
-                        <th>Bloco</th>
-                        <th>Entrada</th>
-                        <th>Saída</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    <?php foreach ($this->view->visitantes as $e) { ?>
-                        <tr>
-                            <td><?= $e['nome'] ?></td>
-                            <td><?= $e['cpf_rg'] ?></td>
-                            <td><?= $e['uf'] ?></td>
-                            <td><?= $e['apartamento'] ?></td>
-                            <td><?= $e['bloco'] ?></td>
-                            <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>
-                            <td>
-                                <?php
-                                if (!isset($e['data_saida'])) {
-                                    echo 'Saída em aberto';
-                                } else {
-                                    echo date('d/m/Y H:i', strtotime($e['data_saida']));
-                                }
-                                ?>
-                            </td>
-                            <th>
-                                <?php if (!isset($e['data_saida'])) { ?>
-                                    <form action="/register_exit_visitors" method="post" class="d-inline-block">
-                                        <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
-                                        <abbr title="Registrar saída">
-                                            <button type="submit" class="btn btn-warning btn-action">
-                                                <i class="fas fa-door-open text-white"></i>
-                                            </button>
-                                        </abbr>
-                                    </form>
-                                <?php } ?>
-                                <form action="/edit_visitors" method="post" class="d-inline-block">
-                                    <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
-                                    <input type="hidden" name="fk_id_visitante" value="<?= $e['fk_id_visitante'] ?>">
-                                    <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
-                                    <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>"> 
-                                    <abbr title="Editar registro">
-                                        <button type="submit" class="btn btn-info btn-action">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                    </abbr>
-                                </form>
-                                <form action="/remove_visitors" method="post" class="d-inline-block">
-                                    <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
-                                    <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
-                                    <input type="hidden" name="cpf_rg" value="<?= $e['cpf_rg'] ?>">
-                                    <input type="hidden" name="uf" value="<?= $e['uf'] ?>">
-                                    <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
-                                    <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
-                                    <input type="hidden" name="data_entrada" value="<?= $e['data_entrada'] ?>">
-                                    <input type="hidden" name="data_saida" value="<?= $e['data_saida'] ?>">
-                                    <abbr title="Excluir registro">
-                                        <button type="submit" class="btn btn-danger btn-action">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </abbr>
-                                </form>
-                            </th>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link tabelas active" id="visitante-tab" data-toggle="tab" href="#visitante" role="tab" aria-controls="visitante" aria-selected="true">
+                    Entradas
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link tabelas" id="cadastrados-tab" data-toggle="tab" href="#cadastrados" role="tab" aria-controls="cadastrados" aria-selected="false">
+                    Cadastros
+                </a>
+            </li>
+        </ul>
+
+        <div class="card-body table-responsive pt-1 ">
+            <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="visitante" role="tabpanel" aria-labelledby="visitante-tab">
+                    <table class="table-bordered table-hover mb-0 display responsive nowrap" style="width:100%" id="dataTable" role="tabpanel" aria-labelledby="dataTable-tab">
+                        <thead class="text-center card-header text-dark">
+                            <tr>
+                                <th>Nome</th>
+                                <th>CPF / RG</th>
+                                <th>UF</th>
+                                <th>Apartamento</th>
+                                <th>Bloco</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <?php foreach ($this->view->visitantes as $e) { ?>
+                                <tr>
+                                    <td><?= $e['nome'] ?></td>
+                                    <td><?= $e['cpf_rg'] ?></td>
+                                    <td><?= $e['uf'] ?></td>
+                                    <td><?= $e['apartamento'] ?></td>
+                                    <td><?= $e['bloco'] ?></td>
+                                    <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>
+                                    <td>
+                                        <?php
+                                        if (!isset($e['data_saida'])) {
+                                            echo 'Saída em aberto';
+                                        } else {
+                                            echo date('d/m/Y H:i', strtotime($e['data_saida']));
+                                        }
+                                        ?>
+                                    </td>
+                                    <th>
+                                        <?php if (!isset($e['data_saida'])) { ?>
+                                            <form action="/register_exit_visitors" method="post" class="d-inline-block">
+                                                <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
+                                                <abbr title="Registrar saída">
+                                                    <button type="submit" class="btn btn-warning btn-action">
+                                                        <i class="fas fa-door-open text-white"></i>
+                                                    </button>
+                                                </abbr>
+                                            </form>
+                                        <?php } ?>
+                                        <form action="/edit_visitors" method="post" class="d-inline-block">
+                                            <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
+                                            <input type="hidden" name="fk_id_visitante" value="<?= $e['fk_id_visitante'] ?>">
+                                            <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
+                                            <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
+                                            <abbr title="Editar registro">
+                                                <button type="submit" class="btn btn-info btn-action">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </abbr>
+                                        </form>
+                                        <form action="/remove_visitors" method="post" class="d-inline-block">
+                                            <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
+                                            <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
+                                            <input type="hidden" name="cpf_rg" value="<?= $e['cpf_rg'] ?>">
+                                            <input type="hidden" name="uf" value="<?= $e['uf'] ?>">
+                                            <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
+                                            <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
+                                            <input type="hidden" name="data_entrada" value="<?= $e['data_entrada'] ?>">
+                                            <input type="hidden" name="data_saida" value="<?= $e['data_saida'] ?>">
+                                            <abbr title="Excluir registro">
+                                                <button type="submit" class="btn btn-danger btn-action">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </abbr>
+                                        </form>
+                                    </th>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane fade" id="cadastrados" role="tabpanel" aria-labelledby="cadastrados-tab">
+                    <table class="table-bordered table-hover mb-0 display responsive nowrap" style="width:100%" id="dataTable2" role="tabpanel" aria-labelledby="dataTable-tab">
+                        <thead class="text-center card-header text-dark">
+                            <tr>
+                                <th>Código</th>
+                                <th>Nome</th>
+                                <th>CPF / RG</th>
+                                <th>UF</th>
+                                <!-- <th>Ações</th> -->
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <?php foreach ($this->view->cadastrados as $e) { ?>
+                                <tr>
+                                    <td><?= $e['id_visitante'] ?></td>
+                                    <td><?= $e['nome'] ?></td>
+                                    <td><?php if ($e['rg'] == "--") {
+                                            echo $e['cpf'];
+                                        } else {
+                                            echo $e['rg'];
+                                        } ?></td>
+                                    <td><?= $e['uf']; ?></td>
+                                    
+                                    <!-- <th>
+                                        <form action="/edit_visitors" method="post" class="d-inline-block">
+                                            <abbr title="Editar registro">
+                                                <button type="submit" class="btn btn-info btn-action">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </abbr>
+                                        </form>
+                                        <form action="/remove_visitors" method="post" class="d-inline-block">
+
+                                                <button type="submit" class="btn btn-danger btn-action">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </abbr>
+                                        </form>
+                                    </th>
+                                </tr> -->
+                            <?php } ?>
+
+                                
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -260,7 +326,7 @@
                         </div>
                         <label id="label-uf-cadastro" class="mt-4 mb-0 text-secondary">UF</label>
                         <select id="select-uf-cadastro" name="uf" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
-                            <option value="SP">SP</option> 
+                            <option value="SP">SP</option>
                             <option value="AC">AC</option>
                             <option value="AL">AL</option>
                             <option value="AM">AM</option>
@@ -269,24 +335,24 @@
                             <option value="CE">CE</option>
                             <option value="DF">DF</option>
                             <option value="ES">ES</option>
-                            <option value="GO">GO</option>      
-                            <option value="MA">MA</option>      
-                            <option value="MG">MG</option>      
-                            <option value="MS">MS</option>      
-                            <option value="MT">MT</option>      
-                            <option value="PA">PA</option>      
-                            <option value="PB">PB</option>      
-                            <option value="PI">PI</option>      
-                            <option value="PE">PE</option>      
-                            <option value="PR">PR</option>   
-                            <option value="RJ">RJ</option>   
-                            <option value="RN">RN</option>      
-                            <option value="RO">RO</option>      
-                            <option value="RR">RR</option>      
-                            <option value="RS">RS</option>      
-                            <option value="SC">SC</option>      
-                            <option value="SE">SE</option>      
-                            <option value="TO">TO</option>      
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MG">MG</option>
+                            <option value="MS">MS</option>
+                            <option value="MT">MT</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PI">PI</option>
+                            <option value="PE">PE</option>
+                            <option value="PR">PR</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="RS">RS</option>
+                            <option value="SC">SC</option>
+                            <option value="SE">SE</option>
+                            <option value="TO">TO</option>
                         </select>
                         <div class="label-float mt-4" id="input-rg-cadastro">
                             <input type="text" id="cad-rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG">
@@ -329,7 +395,7 @@
                         </div>
                         <label id="label-uf-registro" class="mt-4 mb-0 text-secondary">UF</label>
                         <select id="select-uf-registro" name="uf" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
-                            <option value="SP">SP</option> 
+                            <option value="SP">SP</option>
                             <option value="AC">AC</option>
                             <option value="AL">AL</option>
                             <option value="AM">AM</option>
@@ -338,24 +404,24 @@
                             <option value="CE">CE</option>
                             <option value="DF">DF</option>
                             <option value="ES">ES</option>
-                            <option value="GO">GO</option>      
-                            <option value="MA">MA</option>      
-                            <option value="MG">MG</option>      
-                            <option value="MS">MS</option>      
-                            <option value="MT">MT</option>      
-                            <option value="PA">PA</option>      
-                            <option value="PB">PB</option>      
-                            <option value="PI">PI</option>      
-                            <option value="PE">PE</option>      
-                            <option value="PR">PR</option>   
-                            <option value="RJ">RJ</option>   
-                            <option value="RN">RN</option>      
-                            <option value="RO">RO</option>      
-                            <option value="RR">RR</option>      
-                            <option value="RS">RS</option>      
-                            <option value="SC">SC</option>      
-                            <option value="SE">SE</option>      
-                            <option value="TO">TO</option>      
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MG">MG</option>
+                            <option value="MS">MS</option>
+                            <option value="MT">MT</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PI">PI</option>
+                            <option value="PE">PE</option>
+                            <option value="PR">PR</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="RS">RS</option>
+                            <option value="SC">SC</option>
+                            <option value="SE">SE</option>
+                            <option value="TO">TO</option>
                         </select>
                         <div class="label-float mt-4" id="input-rg-registro">
                             <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG">
@@ -373,7 +439,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit"  class="btn btn-register w-100 text-light">Registrar</button>
+                    <button type="submit" class="btn btn-register w-100 text-light">Registrar</button>
                 </div>
             </form>
         </div>
@@ -390,7 +456,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="card-body table-responsive pt-1" >
+            <div class="card-body table-responsive pt-1">
                 <table class="display responsive nowrap table-bordered table-hover mb-0" id="dataTableModal" style="width: 100%;">
                     <thead class="text-center card-header text-dark">
                         <tr>
@@ -444,13 +510,12 @@
     $('#select-uf-cadastro').hide();
 
     $("#select-documento-cadastro").change(function() {
-        if(this.value == "RG"){
+        if (this.value == "RG") {
             $('#input-rg-cadastro').show();
             $('#label-uf-cadastro').show();
             $('#select-uf-cadastro').show();
             $('#input-cpf-cadastro').hide()
-        }
-        else if(this.value == "CPF"){
+        } else if (this.value == "CPF") {
             $('#input-rg-cadastro').hide();
             $('#label-uf-cadastro').hide();
             $('#select-uf-cadastro').hide();
@@ -463,13 +528,12 @@
     $('#select-uf-registro').hide();
 
     $("#select-documento-registro").change(function() {
-        if(this.value == "RG"){
+        if (this.value == "RG") {
             $('#input-rg-registro').show();
             $('#label-uf-registro').show();
             $('#select-uf-registro').show();
             $('#input-cpf-registro').hide()
-        }
-        else if(this.value == "CPF"){
+        } else if (this.value == "CPF") {
             $('#input-rg-registro').hide();
             $('#label-uf-registro').hide();
             $('#select-uf-registro').hide();
@@ -477,4 +541,3 @@
         }
     });
 </script>
-
