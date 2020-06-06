@@ -1,4 +1,4 @@
-// Call the dataTables jQuery plugin
+// Tabelas de registros de entrada
 $(document).ready(function() {
   $('#dataTable').DataTable();
 });
@@ -38,7 +38,7 @@ $('#dataTable').DataTable( {
     }
 } );
 
-// Modal
+// Modal - tabelas de registros de saída
 $(document).ready(function() {
     $('#dataTableModal').DataTable();
   });
@@ -77,23 +77,23 @@ $(document).ready(function() {
     }
 } );
 
-// visitantes
+// Tabelas de registros de cadastros
 $(document).ready(function() {
-    $('#dataTable2').DataTable();
+    $('#dataTableCad').DataTable();
   });
 
-  $('#dataTable2').DataTable( {
+  $('#dataTableCad').DataTable( {
     language: {
-        "sEmptyTable": "Nenhum registro encontrado",
-        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-        "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros",
-        "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+        "sEmptyTable": "Nenhum cadastro encontrado",
+        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ cadastros",
+        "sInfoEmpty": "Mostrando de 0 até 0 de 0 cadastros",
+        "sInfoFiltered": "(Filtrados de _MAX_ cadastros)",
         "sInfoPostFix": "",
         "sInfoThousands": ".",
-        "sLengthMenu": "Registros por página _MENU_",
+        "sLengthMenu": "Cadastros por página _MENU_",
         "sLoadingRecords": "Carregando...",
         "sProcessing": "Processando...",
-        "sZeroRecords": "Nenhum registro encontrado",
+        "sZeroRecords": "Nenhum cadastros encontrado",
         "sSearch": "",
         "searchPlaceholder": "Pesquisar",
         "oPaginate": {

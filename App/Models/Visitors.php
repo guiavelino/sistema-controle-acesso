@@ -58,8 +58,8 @@ class Visitors extends Model{
     }
 
     public function updateVisitor(){
-        $stmt = $this->db->prepare("UPDATE visitantes_cadastrados inner join visitantes on(visitantes_cadastrados.id_visitante = :fk_id_visitante AND visitantes.fk_id_visitante = :fk_id_visitante) SET visitantes_cadastrados.nome = :nome, visitantes_cadastrados.cpf = :cpf, visitantes_cadastrados.rg = :rg, visitantes_cadastrados.uf = :uf, visitantes.nome = :nome, visitantes.cpf_rg = :cpf_rg, visitantes.uf = :uf");
-        $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
+        $stmt = $this->db->prepare("UPDATE visitantes_cadastrados inner join visitantes on(visitantes_cadastrados.id_visitante = :id_visitante AND visitantes.fk_id_visitante = :id_visitante) SET visitantes_cadastrados.nome = :nome, visitantes_cadastrados.cpf = :cpf, visitantes_cadastrados.rg = :rg, visitantes_cadastrados.uf = :uf, visitantes.nome = :nome, visitantes.cpf_rg = :cpf_rg, visitantes.uf = :uf");
+        $stmt->bindValue(":id_visitante", $this->id_visitante);
         $stmt->bindValue(":nome", $this->nome);
         $stmt->bindValue(":cpf", $this->cpf);
         $stmt->bindValue(":rg", $this->rg);
@@ -71,7 +71,7 @@ class Visitors extends Model{
         }
     }
 
-    public function updateVisitorRegister(){
+    public function updateVisitorEntry(){ 
         $stmt = $this->db->prepare("UPDATE visitantes SET apartamento = :apartamento, bloco = :bloco where id_visitante = :id_visitante");;
         $stmt->bindValue(":apartamento", $this->apartamento);
         $stmt->bindValue(":bloco", $this->bloco);
@@ -80,13 +80,25 @@ class Visitors extends Model{
     }
 
     public function deleteVisitor(){
+        $stmt = $this->db->prepare("DELETE from visitantes_cadastrados where id_visitante = :id_visitante");
+        $stmt->bindValue(":id_visitante", $this->id_visitante);
+        $stmt->execute();
+    }
+
+    public function deleteVisitorEntry(){
         $stmt = $this->db->prepare("DELETE from visitantes where id_visitante = :id_visitante");
         $stmt->bindValue(":id_visitante", $this->id_visitante);
         $stmt->execute();
     }
 
-    public function getAllVisitorsRegisters(){ // Utilizado para verificar se o visitante ja possui cadastro no sistema
-        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados");
+    public function getAllVisitorsRegisters(){ 
+        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados ORDER BY id_visitante desc");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllRegistersEntry(){ 
+        $stmt = $this->db->prepare("SELECT * FROM visitantes ORDER BY data_entrada desc");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -98,20 +110,7 @@ class Visitors extends Model{
         $stmt->bindValue(":uf", $this->uf);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function getAllVisitorsRelations(){ // Retorna os registros relacionados de cadastro e registro
-        $stmt = $this->db->prepare("SELECT * FROM visitantes inner join visitantes_cadastrados on(visitantes.fk_id_visitante = :fk_id_visitante AND visitantes_cadastrados.id_visitante = :fk_id_visitante)");
-        $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function getAll(){ // Retorna os registros de entrada e saída, as informações serão exibidas na tela visitantes
-        $stmt = $this->db->prepare("SELECT * FROM visitantes");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    }    
 
     public function getAllVisitorsByDay(){
         $stmt = $this->db->prepare("SELECT count(*) as visitantes_por_dia FROM visitantes where Date(data_entrada) = :data_atual");
@@ -162,8 +161,9 @@ class Visitors extends Model{
     }
 
     public function getAllVisitorsPresentsForCondition(){ //Retorna os visitantes que estão com a saída em aberto, o método é utilizado  para realizar um teste condicional, onde visitantes que não tiveram sua saída registrada não poderão realizar o registro de entrada
-        $stmt = $this->db->prepare("SELECT * FROM visitantes WHERE data_saida is null AND fk_id_visitante = :fk_id_visitante");
-        $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
+        $stmt = $this->db->prepare("SELECT * FROM visitantes WHERE data_saida is null AND cpf_rg = :cpf_rg AND uf = :uf");
+        $stmt->bindValue(":cpf_rg", $this->cpf_rg);
+        $stmt->bindValue(":uf", $this->uf);
         $stmt->execute();
 
         if($stmt->rowCount() > 0){

@@ -19,8 +19,8 @@ class VisitorsController extends Action {
         if($_SESSION['nivel_acesso'] == 'administrador'){
             $visitantes = Container::getModel('Visitors');
             
-            $this->view->visitantes = $visitantes->getAll();
-            $this->view->cadastrados = $visitantes->getAllVisitorsRegisters();
+            $this->view->registros_entrada = $visitantes->getAllRegistersEntry();
+            $this->view->visitantes_cadastrados = $visitantes->getAllVisitorsRegisters();
             $this->view->total_visitantes_presentes = $visitantes->getAllNumberVisitorsPresents()['visitantes_presentes'];
             $this->view->visitantes_presentes = $visitantes->getAllVisitorsPresents();
 
@@ -28,12 +28,12 @@ class VisitorsController extends Action {
         }
         else{
             $visitantes = Container::getModel('Visitors');
-            $this->view->visitantes = $visitantes->getAll();
+            $this->view->visitantes = $visitantes->getAllRegistersEntry();
             $this->render('visitors_user');
         }  
     }
 
-    public function registerVisitors(){
+    public function registerVisitor(){
         $this->validateAuthentication();
         if(strlen($_POST['cpf']) == 14 && strlen($_POST['rg']) > 0){
             echo "<script>alert('Selecione apenas um documento para realizar o cadastro!')</script>";
@@ -123,7 +123,7 @@ class VisitorsController extends Action {
             if(isset($visitantes->selectDocumentByCpfRgAndUF()['id_visitante'])){ //Verifica se o visitante possui cadastro no sistema
                 $visitantes->nome = $visitantes->selectDocumentByCpfRgAndUF()['nome'];
                 $visitantes->cpf_rg = $visitantes->selectDocumentByCpfRgAndUF()['cpf'];
-                $visitantes->uf = '--';
+                $visitantes->uf = $visitantes->selectDocumentByCpfRgAndUF()['uf'];
                 $visitantes->apartamento = $_POST['apartamento'];
                 $visitantes->bloco = $_POST['bloco'];
                 $visitantes->fk_id_visitante = $visitantes->selectDocumentByCpfRgAndUF()['id_visitante'];
@@ -199,19 +199,11 @@ class VisitorsController extends Action {
         echo "<script> location.href = '/visitors' </script>";
     }
 
-    public function editVisitors(){
+    // Visitantes cadastrados
+    public function editVisitor(){
         $this->validateAuthentication();
-        if(isset($_POST['fk_id_visitante'])){
-            $visitantes = Container::getModel('Visitors');
-
-            $visitantes->fk_id_visitante = $_POST['fk_id_visitante'];
-
-            foreach($visitantes->getAllVisitorsRelations() as $e){
-                $this->view->nome = $e['nome'];
-                $this->view->uf = $e['uf'];
-                $this->view->cpf_rg = $e['cpf_rg'];
-            }
-            $this->render('edit_visitors');
+        if(isset($_POST['id_visitante'])){
+            $this->render('edit_visitor');
         }
         else{
             echo "<script>alert('Selecione um registro para continuar!')</script>";
@@ -219,9 +211,9 @@ class VisitorsController extends Action {
         }
     }
 
-    public function updateVisitors(){
+    public function updateVisitor(){
         $this->validateAuthentication();
-        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && $_POST['id_visitante'] != '' && $_POST['fk_id_visitante'] != ''){
+        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['id_visitante'] != ''){
             $visitantes = Container::getModel('Visitors');
             $moradores = Container::getModel('Residents');
 
@@ -235,35 +227,37 @@ class VisitorsController extends Action {
             }
 
             $visitantes->id_visitante = $_POST['id_visitante'];
-            $visitantes->fk_id_visitante = $_POST['fk_id_visitante'];
             $visitantes->nome = $_POST['nome'];
             $visitantes->cpf = $_POST['cpf'];
             $visitantes->rg = '--';
             $visitantes->uf = '--';
             $visitantes->cpf_rg = $_POST['cpf'];
-            $visitantes->apartamento = $_POST['apartamento'];
-            $visitantes->bloco = $_POST['bloco'];
 
-            if($visitantes->updateVisitor()){ //Atualização de cadastro
-                $visitantes->updateVisitorRegister(); //Atualização de registro único
+            if($visitantes->updateVisitor()){ 
                 echo "<script>alert('Dados atualizados com sucesso!')</script>";
             }
             else{
                 echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este CPF!')</script>";
             }
         }
-        else if(strlen($_POST['rg']) > 0 && $_POST['nome'] != '' && strlen($_POST['uf']) == 2 && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && $_POST['id_visitante'] != '' && $_POST['fk_id_visitante'] != ''){
+        else if($_POST['nome'] != '' && strlen($_POST['rg']) > 0 && strlen($_POST['uf']) == 2 && $_POST['id_visitante'] != ''){
             $visitantes = Container::getModel('Visitors');
 
+            //Tratando duplicidade de RG
+            foreach($visitantes->getAllVisitorsRegisters() as $e){
+                if($_POST['rg'] == $e['rg'] && $_POST['uf'] == $e['uf'] && $_POST['id_visitante'] != $e['id_visitante']){ 
+                    echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este RG!')</script>";
+                    echo "<script> location.href = '/visitors' </script>";
+                    exit;
+                }
+            }
+
             $visitantes->id_visitante = $_POST['id_visitante'];
-            $visitantes->fk_id_visitante = $_POST['fk_id_visitante'];
             $visitantes->nome = $_POST['nome'];
             $visitantes->cpf = md5(date('Y-m-d H:i'));
             $visitantes->rg = $_POST['rg'];
             $visitantes->uf = $_POST['uf'];
             $visitantes->cpf_rg = $_POST['rg'];
-            $visitantes->apartamento = $_POST['apartamento'];
-            $visitantes->bloco = $_POST['bloco'];
 
             // Validando RG de acordo com o estado
             $valida_rg = false;
@@ -272,13 +266,8 @@ class VisitorsController extends Action {
             }
             
             if($valida_rg){
-                if($visitantes->updateVisitor()){ //Atualização de cadastro
-                    $visitantes->updateVisitorRegister(); //Atualização de registro único
-                    echo "<script>alert('Dados atualizados com sucesso!')</script>";
-                }
-                else{
-                    echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este RG!')</script>";
-                }
+                $visitantes->updateVisitor();
+                echo "<script>alert('Dados atualizados com sucesso!')</script>";
             }
             else {
                 echo "<script>alert('Digite um RG válido para atualizar o registro!')</script>";
@@ -293,10 +282,11 @@ class VisitorsController extends Action {
         echo "<script> location.href = '/visitors' </script>";
     }
 
-    public function removeVisitors(){
+    // Registros de entrada
+    public function editVisitorEntry(){
         $this->validateAuthentication();
         if(isset($_POST['id_visitante'])){
-            $this->render('remove_visitors');
+            $this->render('edit_visitor_entry');
         }
         else{
             echo "<script>alert('Selecione um registro para continuar!')</script>";
@@ -304,16 +294,70 @@ class VisitorsController extends Action {
         }
     }
 
-    public function deleteVisitors(){
+    public function updateVisitorEntry(){
+        $this->validateAuthentication();
+        if($_POST['id_visitante'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+            $visitantes = Container::getModel('Visitors');
+
+            $visitantes->id_visitante = $_POST['id_visitante'];
+            $visitantes->apartamento = $_POST['apartamento'];
+            $visitantes->bloco = $_POST['bloco'];
+
+            $visitantes->updateVisitorEntry();
+            echo "<script>alert('Dados atualizados com sucesso!')</script>";
+        }
+        else{
+            echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
+        }
+        echo "<script> location.href = '/visitors' </script>";
+    }
+
+    // Visitantes cadastrados
+    public function removeVisitor(){
+        $this->validateAuthentication();
+        if(isset($_POST['id_visitante'])){
+            $this->render('remove_visitor');
+        }
+        else{
+            echo "<script>alert('Selecione um registro para continuar!')</script>";
+            echo "<script> location.href = '/visitors' </script>";
+        }
+    }
+
+    public function deleteVisitor(){
         $this->validateAuthentication();
         if(isset($_POST['id_visitante'])){
             $visitantes = Container::getModel('Visitors');
             $visitantes->id_visitante = $_POST['id_visitante'];
             $visitantes->deleteVisitor();
+            echo "<script>alert('Cadastro excluído com sucesso!')</script>";
+        }
+        echo "<script> location.href = '/visitors' </script>";
+    }
+
+    // Registros de  entrada
+    public function removeVisitorEntry(){
+        $this->validateAuthentication();
+        if(isset($_POST['id_visitante'])){
+            $this->render('remove_visitor_entry');
+        }
+        else{
+            echo "<script>alert('Selecione um registro para continuar!')</script>";
+            echo "<script> location.href = '/visitors' </script>";
+        }
+    }
+
+    public function deleteVisitorEntry(){
+        $this->validateAuthentication();
+        if(isset($_POST['id_visitante'])){
+            $visitantes = Container::getModel('Visitors');
+            $visitantes->id_visitante = $_POST['id_visitante'];
+            $visitantes->deleteVisitorEntry();
             echo "<script>alert('Registro excluído com sucesso!')</script>";
         }
         echo "<script> location.href = '/visitors' </script>";
     }
+
 
     public function exportVisitors(){
         $this->validateAuthentication();

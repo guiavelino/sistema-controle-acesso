@@ -151,24 +151,21 @@
                 </h5>
             </div>
         </div>
-
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link tabelas active" id="visitante-tab" data-toggle="tab" href="#visitante" role="tab" aria-controls="visitante" aria-selected="true">
-                    Entradas
+                <a class="nav-link tabelas active" id="registros-tab" data-toggle="tab" href="#registros" role="tab" aria-controls="registros" aria-selected="true">
+                    Registros de entrada
                 </a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link tabelas" id="cadastrados-tab" data-toggle="tab" href="#cadastrados" role="tab" aria-controls="cadastrados" aria-selected="false">
-                    Cadastros
+                <a class="nav-link tabelas" id="cadastros-tab" data-toggle="tab" href="#cadastros" role="tab" aria-controls="cadastros" aria-selected="false">
+                    Visitantes cadastrados 
                 </a>
             </li>
         </ul>
-
         <div class="card-body table-responsive pt-1 ">
             <div class="tab-content" id="myTabContent">
-
-                <div class="tab-pane fade show active" id="visitante" role="tabpanel" aria-labelledby="visitante-tab">
+                <div class="tab-pane fade show active" id="registros" role="tabpanel" aria-labelledby="registros-tab">
                     <table class="table-bordered table-hover mb-0 display responsive nowrap" style="width:100%" id="dataTable" role="tabpanel" aria-labelledby="dataTable-tab">
                         <thead class="text-center card-header text-dark">
                             <tr>
@@ -183,7 +180,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            <?php foreach ($this->view->visitantes as $e) { ?>
+                            <?php foreach ($this->view->registros_entrada as $e) { ?>
                                 <tr>
                                     <td><?= $e['nome'] ?></td>
                                     <td><?= $e['cpf_rg'] ?></td>
@@ -192,17 +189,16 @@
                                     <td><?= $e['bloco'] ?></td>
                                     <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>
                                     <td>
-                                        <?php
-                                        if (!isset($e['data_saida'])) {
-                                            echo 'Saída em aberto';
-                                        } else {
-                                            echo date('d/m/Y H:i', strtotime($e['data_saida']));
-                                        }
+                                        <?php if (!isset($e['data_saida'])) {
+                                                echo 'Saída em aberto';
+                                            } else {
+                                                echo date('d/m/Y H:i', strtotime($e['data_saida']));
+                                            }
                                         ?>
                                     </td>
                                     <th>
                                         <?php if (!isset($e['data_saida'])) { ?>
-                                            <form action="/register_exit_visitors" method="post" class="d-inline-block">
+                                            <form action="/register_exit_visitor" method="post" class="d-inline-block">
                                                 <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
                                                 <abbr title="Registrar saída">
                                                     <button type="submit" class="btn btn-warning btn-action">
@@ -211,9 +207,11 @@
                                                 </abbr>
                                             </form>
                                         <?php } ?>
-                                        <form action="/edit_visitors" method="post" class="d-inline-block">
+                                        <form action="/edit_visitor_entry" method="post" class="d-inline-block">
                                             <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
-                                            <input type="hidden" name="fk_id_visitante" value="<?= $e['fk_id_visitante'] ?>">
+                                            <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
+                                            <input type="hidden" name="cpf_rg" value="<?= $e['cpf_rg'] ?>">
+                                            <input type="hidden" name="uf" value="<?= $e['uf'] ?>">
                                             <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
                                             <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
                                             <abbr title="Editar registro">
@@ -222,7 +220,7 @@
                                                 </button>
                                             </abbr>
                                         </form>
-                                        <form action="/remove_visitors" method="post" class="d-inline-block">
+                                        <form action="/remove_visitor_entry" method="post" class="d-inline-block">
                                             <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
                                             <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
                                             <input type="hidden" name="cpf_rg" value="<?= $e['cpf_rg'] ?>">
@@ -243,50 +241,56 @@
                         </tbody>
                     </table>
                 </div>
-
-                <div class="tab-pane fade" id="cadastrados" role="tabpanel" aria-labelledby="cadastrados-tab">
-                    <table class="table-bordered table-hover mb-0 display responsive nowrap" style="width:100%" id="dataTable2" role="tabpanel" aria-labelledby="dataTable-tab">
+                <div class="tab-pane fade" id="cadastros" role="tabpanel" aria-labelledby="cadastros-tab">
+                    <table class="table-bordered table-hover mb-0 display responsive nowrap" style="width:100%" id="dataTableCad" role="tabpanel" aria-labelledby="dataTable-tab">
                         <thead class="text-center card-header text-dark">
                             <tr>
-                                <th>Código</th>
                                 <th>Nome</th>
                                 <th>CPF / RG</th>
                                 <th>UF</th>
-                                <!-- <th>Ações</th> -->
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            <?php foreach ($this->view->cadastrados as $e) { ?>
+                            <?php foreach ($this->view->visitantes_cadastrados as $e) { ?>
                                 <tr>
-                                    <td><?= $e['id_visitante'] ?></td>
                                     <td><?= $e['nome'] ?></td>
-                                    <td><?php if ($e['rg'] == "--") {
+                                    <td>
+                                        <?php if ($e['rg'] == "--") {
                                             echo $e['cpf'];
                                         } else {
                                             echo $e['rg'];
-                                        } ?></td>
+                                        } ?>
+                                    </td>
                                     <td><?= $e['uf']; ?></td>
-                                    
-                                    <!-- <th>
-                                        <form action="/edit_visitors" method="post" class="d-inline-block">
+                                    <th>
+                                        <form action="/edit_visitor" method="post" class="d-inline-block">
+                                            <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
+                                            <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
+                                            <input type="hidden" name="cpf" value="<?= $e['cpf'] ?>">
+                                            <input type="hidden" name="rg" value="<?= $e['rg'] ?>">
+                                            <input type="hidden" name="uf" value="<?= $e['uf'] ?>">
                                             <abbr title="Editar registro">
                                                 <button type="submit" class="btn btn-info btn-action">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                             </abbr>
                                         </form>
-                                        <form action="/remove_visitors" method="post" class="d-inline-block">
-
+                                        <form action="/remove_visitor" method="post" class="d-inline-block">
+                                            <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
+                                            <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
+                                            <input type="hidden" name="cpf" value="<?= $e['cpf'] ?>">
+                                            <input type="hidden" name="rg" value="<?= $e['rg'] ?>">
+                                            <input type="hidden" name="uf" value="<?= $e['uf'] ?>">
+                                            <abbr title="Excluir registro">
                                                 <button type="submit" class="btn btn-danger btn-action">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </abbr>
                                         </form>
                                     </th>
-                                </tr> -->
-                            <?php } ?>
-
-                                
+                                </tr>
+                            <?php } ?> 
                         </tbody>
                     </table>
                 </div>
@@ -305,7 +309,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="register_visitors" method="post">
+            <form action="register_visitor" method="post">
                 <div class="modal-body py-4">
                     <div class="card card-body border-0 pt-0">
                         <div class="label-float">
@@ -378,7 +382,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="register_entry_visitors" method="post">
+            <form action="register_entry_visitor" method="post">
                 <div class="modal-body py-4">
                     <div class="card card-body border-0 pt-0">
                         <label class="mt-0 mb-0 text-secondary">Documento</label>
@@ -479,7 +483,7 @@
                                 <td><?= $e['bloco'] ?></td>
                                 <td><?= date('d/m/Y H:i', strtotime($e['data_entrada'])) ?></td>
                                 <th>
-                                    <form action="/register_exit_visitors" method="post" class="d-inline-block">
+                                    <form action="/register_exit_visitor" method="post" class="d-inline-block">
                                         <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">
                                         <abbr title="Registrar saída">
                                             <button type="submit" class="btn btn-warning btn-action text-white w-100">

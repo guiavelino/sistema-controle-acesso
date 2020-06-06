@@ -128,51 +128,89 @@ class Route extends Bootstrap {
 			'controller' => 'ResidentsController',
 			'action' => 'deleteResidents'
 		);
+
 		$routes['visitors'] = array(
 			'route' => '/visitors',
 			'controller' => 'VisitorsController',
 			'action' => 'visitors'
 		);
+
 		$routes['export_visitors'] = array(
 			'route' => '/export_visitors',
 			'controller' => 'VisitorsController',
 			'action' => 'exportVisitors'
 		);
-		$routes['register_visitors'] = array(
-			'route' => '/register_visitors',
+
+		$routes['register_visitor'] = array(
+			'route' => '/register_visitor',
 			'controller' => 'VisitorsController',
-			'action' => 'registerVisitors'
+			'action' => 'registerVisitor'
 		);
-		$routes['register_entry_visitors'] = array(
-			'route' => '/register_entry_visitors',
+		$routes['register_entry_visitor'] = array(
+			'route' => '/register_entry_visitor',
 			'controller' => 'VisitorsController',
 			'action' => 'registerEntry'
 		);
-		$routes['register_exit_visitors'] = array(
-			'route' => '/register_exit_visitors',
+		$routes['register_exit_visitor'] = array(
+			'route' => '/register_exit_visitor',
 			'controller' => 'VisitorsController',
 			'action' => 'registerExit'
 		);
-		$routes['edit_visitors'] = array(
-			'route' => '/edit_visitors',
+		$routes['edit_visitor'] = array(
+			'route' => '/edit_visitor',
 			'controller' => 'VisitorsController',
-			'action' => 'editVisitors'
+			'action' => 'editVisitor'
 		);
-		$routes['update_visitors'] = array(
-			'route' => '/update_visitors',
+		$routes['update_visitor'] = array(
+			'route' => '/update_visitor',
 			'controller' => 'VisitorsController',
-			'action' => 'updateVisitors'
+			'action' => 'updateVisitor'
 		);
-		$routes['remove_visitors'] = array(
-			'route' => '/remove_visitors',
+		$routes['edit_visitor_entry'] = array(
+			'route' => '/edit_visitor_entry',
 			'controller' => 'VisitorsController',
-			'action' => 'removeVisitors'
+			'action' => 'editVisitorEntry'
 		);
-		$routes['delete_visitors'] = array(
-			'route' => '/delete_visitors',
+		$routes['update_visitor_entry'] = array(
+			'route' => '/update_visitor_entry',
 			'controller' => 'VisitorsController',
-			'action' => 'deleteVisitors'
+			'action' => 'updateVisitorEntry'
 		);
+		$routes['remove_visitor'] = array(
+			'route' => '/remove_visitor',
+			'controller' => 'VisitorsController',
+			'action' => 'removeVisitor'
+		);
+		$routes['delete_visitor'] = array(
+			'route' => '/delete_visitor',
+			'controller' => 'VisitorsController',
+			'action' => 'deleteVisitor'
+		);
+		$routes['remove_visitor'] = array(
+			'route' => '/remove_visitor',
+			'controller' => 'VisitorsController',
+			'action' => 'removeVisitor'
+		);
+		$routes['delete_visitor'] = array(
+			'route' => '/delete_visitor',
+			'controller' => 'VisitorsController',
+			'action' => 'deleteVisitor'
+		);
+		$routes['remove_visitor_entry'] = array(
+			'route' => '/remove_visitor_entry',
+			'controller' => 'VisitorsController',
+			'action' => 'removeVisitorEntry'
+		);
+		$routes['delete_visitor_entry'] = array(
+			'route' => '/delete_visitor_entry',
+			'controller' => 'VisitorsController',
+			'action' => 'deleteVisitorEntry'
+		);
+
+
+
+
+
 		$routes['service_providers'] = array(
 			'route' => '/service_providers',
 			'controller' => 'ServiceProvidersController',

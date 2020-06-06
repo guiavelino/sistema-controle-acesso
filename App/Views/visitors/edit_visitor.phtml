@@ -1,19 +1,18 @@
 <div class="nav navbar align-items-center justify-content-between bg-dark" style="height:4rem">
-    <h4 class="m-0 text-light">Editar registro</h4>
+    <h4 class="m-0 text-light">Editar cadastro</h4>
     <h4 class="m-0 text-white"><i class="fas fa-walking mr-2" style="font-size:28px"></i></h4>
 </div>
 <div class="d-flex align-items-center justify-content-center px-1" style="min-height: 91vh">
     <div class="py-4 px-3 card" style="width:30rem">
-        <form action="/update_visitors" method="post">
+        <form action="/update_visitor" method="post">
             <input type="hidden" name="id_visitante" value="<?=$_POST['id_visitante']?>">
-            <input type="hidden" name="fk_id_visitante" value="<?=$_POST['fk_id_visitante']?>">
             <div class="label-float mt-4">    
-                <input type="text" name="nome" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?=$this->view->nome?>" required>
+                <input type="text" name="nome" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?=$_POST['nome']?>" required>
                 <label>Nome</label>
             </div>
-            <?php if(strlen($this->view->cpf_rg) == 14 && $this->view->uf == '--'){?>
+            <?php if($_POST['uf'] ==  '--'){?>
                 <div class="label-float mt-4" id="input-cpf-cadastro">
-                    <input type="text" id="cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" value="<?=$this->view->cpf_rg?>" required>
+                    <input type="text" id="cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" value="<?=$_POST['cpf']?>" required>
                     <label>CPF</label>
                     <div class="invalid-feedback" id="cad-invalid">
                         CPF inválido!
@@ -23,7 +22,7 @@
             <?php } else {?>
                 <label id="label-uf-registro" class="mt-4 mb-0 text-secondary">UF</label>
                 <select id="select-uf-registro" name="uf" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
-                    <option value="<?=$this->view->uf?>"><?=$this->view->uf?></option>
+                    <option value="<?=$_POST['uf']?>"><?=$_POST['uf']?></option>
                     <option value="SP">SP</option> 
                     <option value="AC">AC</option>
                     <option value="AL">AL</option>
@@ -53,24 +52,11 @@
                     <option value="TO">TO</option>      
                 </select>
                 <div class="label-float mt-4" id="input-rg-registro">
-                    <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" value="<?=$this->view->cpf_rg?>" required>
+                    <input type="text" id="rg" name="rg" class="form-custom form-control mt-2" size="60" placeholder="RG" value="<?=$_POST['rg']?>" required>
                     <label>RG</label>
                 </div>
                 <input type="hidden" name="cpf">
             <?php }?>
-            <div class="label-float mt-4">    
-                <input type="text" name="apartamento" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="5" placeholder="Apartamento" value="<?=$_POST['apartamento']?>" required>
-                <label>Apartamento</label>
-            </div>
-            <label class="mt-4 mb-0" style="color: #20B2AA">Bloco</label>
-            <select class="form-custom form-control m-0 p-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
-                <option value="<?=$_POST['bloco']?>"><?=$_POST['bloco']?></option>
-                <?php if($_POST['bloco'] == 'A'){?>
-                    <option value="B">B</option>
-                <?php } else {?>
-                    <option value="A">A</option>
-                <?php }?>
-            </select>
             <button type="submit" class="btn btn-register text-white w-100 mt-5">Atualizar</button>   
             <a href="/visitors" class="btn btn-danger text-white w-100 mt-2">Voltar</a>      
         </form>
