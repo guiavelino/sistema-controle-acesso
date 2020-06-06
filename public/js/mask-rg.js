@@ -1,4 +1,4 @@
- // Máscaras de RG de acordo com o estado selecionado nos formulários de cadastro e registro
+ // Máscaras de RG de acordo com o estado selecionados nos formulários de cadastro e registro
 
 // Modal de cadastro
 $("#select-uf-cadastro").change(function() {

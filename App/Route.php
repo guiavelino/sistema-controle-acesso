@@ -129,6 +129,10 @@ class Route extends Bootstrap {
 			'action' => 'deleteResidents'
 		);
 
+
+
+		
+
 		$routes['visitors'] = array(
 			'route' => '/visitors',
 			'controller' => 'VisitorsController',

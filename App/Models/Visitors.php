@@ -171,6 +171,4 @@ class Visitors extends Model{
         }
     }
 }
-
-
 ?>

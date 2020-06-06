@@ -14,7 +14,7 @@ function cpf(cpf){
     });
     return result;
 }
-// chama a função de validação e altera as cores
+// Chama a função de validação e altera as cores
 document.getElementById('cpf').addEventListener('change',
 
 function valida(){
@@ -81,18 +81,5 @@ document.getElementById('select-uf-cadastro').addEventListener('change',
         document.getElementById('cad-rg').value = "";
     }
 );
-// teste de navegador para remoção de efeitos não suportados
-function identific_nav(){
-    var nav = navigator.userAgent.toLowerCase();
-    if(nav.indexOf("edge") != -1){
-        for (let i = 0; i < 30; i++) {
-            document.getElementsByTagName('label')[i].style = "color: transparent";
-        }
-    }
-}
 
-// verdadeiros
-// alert(cpf(cpf = '825.566.405-02'), cpf);
-// console.log('825.566.405-02', cpf('825.566.405-02'));
-// console.log('875.189.681-85', cpf('875.189.681-85'));
-// console.log('640.422.216-70', cpf('640.422.216-70'));
+

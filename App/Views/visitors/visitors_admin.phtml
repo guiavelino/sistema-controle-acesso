@@ -15,7 +15,7 @@
         <img width="35" height="35" src="img/users/<?= $_SESSION['imagem_usuario'] ?>">
     </button>
     <div class="dropdown-menu drop" aria-labelledby="dropdownMenuButton">
-        <a href="/my_cadastrados">
+        <a href="/my_profile">
             <i class="fas fa-user-alt"></i>
             <span class="ml-2">
                 Meu Perfil
@@ -122,7 +122,8 @@
     <ol class="breadcrumb mb-4 bg-dark justify-content-between">
         <li class="breadcrumb-item active">
             <button class="btn btn-outline-light" data-toggle="modal" data-target="#cad-modal">
-                <h4 class="m-0"><i class="fas fa-walking mr-3 ml-2" style="font-size:28px"></i>Cadastar Visitante</h4>
+                <h4 class="m-0 d-sm-block d-none"><i class="fas fa-walking mr-3 ml-2" style="font-size:28px"></i>Cadastar Visitante</h4>
+                <h4 class="m-0 d-sm-none d-block"><i class="fas fa-walking mr-3 ml-2" style="font-size:28px"></i>Cadastar</h4>
             </button>
         </li>
         <button class="btn bg-transparent btn-exports px-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -154,12 +155,13 @@
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link tabelas active" id="registros-tab" data-toggle="tab" href="#registros" role="tab" aria-controls="registros" aria-selected="true">
-                    Registros de entrada
+                    Registros <span class="d-sm-inline-block d-none">de entrada</span>
                 </a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link tabelas" id="cadastros-tab" data-toggle="tab" href="#cadastros" role="tab" aria-controls="cadastros" aria-selected="false">
-                    Visitantes cadastrados 
+                    <span class="d-sm-inline-block d-none">Visitantes cadastrados</span> 
+                    <span class="d-sm-none d-inline-block">Cadastros</span> 
                 </a>
             </li>
         </ul>
@@ -505,7 +507,6 @@
 <script src="lib/datatables/js/query-3.5.1.js"></script>
 <script src="lib/jquery/jquery.mask.min.js"></script>
 <script src="js/mask-rg.js"></script>
-
 
 <!-- Exibição dos campos RG e CPF de acordo com o documento escolhido -->
 <script>
