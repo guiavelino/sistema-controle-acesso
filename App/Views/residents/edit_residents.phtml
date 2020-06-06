@@ -5,34 +5,37 @@
 <div class="d-flex align-items-center justify-content-center px-1" style="min-height: 91vh">
     <div class="py-4 px-3 card" style="width:30rem">
         <form action="/update_residents" method="post">
-            <input type="hidden" name="id_morador" value="<?=$_POST['id_morador']?>">
-            <div class="label-float mt-4">    
-                <input type="text" name="nome" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?=$_POST['nome']?>">
+            <input type="hidden" name="id_morador" value="<?= $_POST['id_morador'] ?>">
+            <div class="label-float mt-4">
+                <input type="text" name="nome" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?= $_POST['nome'] ?>">
                 <label>Nome</label>
             </div>
-            <div class="label-float mt-4">    
-                <input type="text" name="cpf" id="cpf" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="14" placeholder="CPF" value="<?=$_POST['cpf']?>">
+            <div class="label-float mt-4">
+                <input type="text" name="cpf" id="cpf" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="14" placeholder="CPF" value="<?= $_POST['cpf'] ?>">
                 <label>CPF</label>
+                <div class="invalid-feedback" id="invalid">
+                    CPF inválido!
+                </div>
             </div>
-            <div class="label-float mt-4">    
-                <input type="text" name="telefone" id="telefone" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="20" placeholder="Telefone" value="<?=$_POST['telefone']?>">
+            <div class="label-float mt-4">
+                <input type="text" name="telefone" id="telefone" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="20" placeholder="Telefone" value="<?= $_POST['telefone'] ?>">
                 <label>Telefone</label>
             </div>
-            <div class="label-float mt-4">    
-                <input type="text" name="apartamento" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="5" placeholder="Apartamento" value="<?=$_POST['apartamento']?>">
+            <div class="label-float mt-4">
+                <input type="text" name="apartamento" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="5" placeholder="Apartamento" value="<?= $_POST['apartamento'] ?>">
                 <label>Apartamento</label>
             </div>
             <label class="mt-4 mb-0" style="color: #20B2AA">Bloco</label>
             <select class="form-custom form-control m-0 p-0" name="bloco" style="border-bottom: 2px solid #20B2AA!important;">
-                <option value="<?=$_POST['bloco']?>"><?=$_POST['bloco']?></option>
-                <?php if($_POST['bloco'] == 'A'){?>
+                <option value="<?= $_POST['bloco'] ?>"><?= $_POST['bloco'] ?></option>
+                <?php if ($_POST['bloco'] == 'A') { ?>
                     <option value="B">B</option>
-                <?php } else {?>
+                <?php } else { ?>
                     <option value="A">A</option>
-                <?php }?>
+                <?php } ?>
             </select>
-            <button type="submit" class="btn btn-register text-white w-100 mt-5">Atualizar</button>   
-            <a href="/residents" class="btn btn-danger text-white w-100 mt-2">Voltar</a>      
+            <button type="submit" class="btn btn-register text-white w-100 mt-5">Atualizar</button>
+            <a href="/residents" class="btn btn-danger text-white w-100 mt-2">Voltar</a>
         </form>
     </div>
 </div>

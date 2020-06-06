@@ -1,9 +1,14 @@
 // Teste de navegador para remoção de efeitos não suportados
-function identifyBrowser(){
+
+
+function identifyBrowser() {
     var nav = navigator.userAgent.toLowerCase();
-    if(nav.indexOf("edge") != -1){
-        for (let i = 0; i < 30; i++) {
-            document.getElementsByTagName('label')[i].style = "color: transparent";
-        }
+    if (nav.indexOf("edge") != -1) { 
+
+        $('.label-float input:last-of-type').addClass('my-3'); 
+        $('.label-float label:last-of-type').remove(); // remove a última
+        // $(conteudo_mover).insertBefore('.label-float input:first-of-type'); // insere antes da primeira
+            
+         $(".label-float").removeClass();
     }
 }
