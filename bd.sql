@@ -51,7 +51,7 @@ create table prestadores_servicos(
 	bloco char(1) not null,
 	data_entrada datetime default CURRENT_TIMESTAMP,
 	data_saida datetime,
-	fk_id_prestador_servico int,
+	fk_id_prestador_servico int not null,
     foreign key(fk_id_prestador_servico) references prestadores_servicos_cadastrados(id_prestador_servico) on delete cascade
 );
 
@@ -72,7 +72,7 @@ create table visitantes(
 	bloco char(1) not null,
 	data_entrada datetime default CURRENT_TIMESTAMP,
 	data_saida datetime,
-	fk_id_visitante int,
+	fk_id_visitante int not null,
     foreign key(fk_id_visitante) references visitantes_cadastrados(id_visitante) on delete cascade
 );
 
@@ -90,5 +90,7 @@ create table eventos (
     titulo_evento varchar(60) not null,
     inicio_evento datetime not null,
     fim_evento datetime not null,
-	cor varchar(10) not null
+	cor varchar(10) not null,
+	fk_id_morador int not null,
+    foreign key(fk_id_morador) references moradores(id_morador) on delete cascade
 )

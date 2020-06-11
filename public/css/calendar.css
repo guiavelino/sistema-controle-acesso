@@ -5,7 +5,7 @@
 }
 /* Título do calendário */
 .fc-center> h2{
-  text-transform: capitalize
+  text-transform: capitalize;
 }
 /* Botões do calendário */
 .fc-button-group> button{

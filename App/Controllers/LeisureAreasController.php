@@ -29,19 +29,22 @@ class LeisureAreasController extends Action {
 
     public function registerEvent(){
         $this->validateAuthentication();
-        if($_POST['cpf'] != '' && strlen($_POST['cpf']) == 14 && $_POST['titulo_evento'] != '' && $_POST['inicio_evento'] != '' && $_POST['fim_evento'] != ''){
+        if(strlen($_POST['cpf']) == 14 && $_POST['titulo_evento'] != '' && $_POST['inicio_evento'] != '' && $_POST['fim_evento'] != ''){
             $moradores = Container::getModel('Residents');
 
             $morador_existente = false;
+            $fk_id_morador = false;
 
-            foreach($moradores->getAll() as $e){
+            foreach($moradores->getAllResidentsRegisters() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     $morador_existente = true;
+                    $fk_id_morador = $e['id_morador'];
                 }
             }
 
-            if($morador_existente){
+            if($morador_existente && $fk_id_morador != false){
                 $eventos = Container::getModel('Events');
+                $eventos->fk_id_morador = $fk_id_morador;
                 $eventos->cpf = $_POST['cpf'];
                 $eventos->titulo_evento = $_POST['titulo_evento'];
                 $inicio_evento = str_replace('/', '-', $_POST['inicio_evento']);
@@ -65,21 +68,21 @@ class LeisureAreasController extends Action {
         echo "<script>location.href = '/leisure_areas'</script>";
     }
 
-    public function Events(){
+    public function event(){
         $this->validateAuthentication();
         $eventos = Container::getModel('Events');
         $eventos->id_evento = $_GET['id_evento'];
 
-        foreach($eventos->getAll() as $e){
-            $eventos->cpf = $e['cpf'];
+        foreach($eventos->getAllEventsRegisters() as $e){
+            $eventos->fk_id_morador = $e['fk_id_morador'];
         }
 
-        $this->view->eventos = $eventos->getAllData();
-
+        $this->view->eventos = $eventos->getAllEventAndResidentData();
         $this->render('view_event');
     }
 
-    public function deleteEvents(){
+    public function deleteEvent(){
+        $this->validateAuthentication();
         if(isset($_POST['id_evento'])){
             $eventos = Container::getModel('Events');
             $eventos->id_evento = $_POST['id_evento'];
@@ -89,23 +92,25 @@ class LeisureAreasController extends Action {
         echo "<script> location.href = '/leisure_areas' </script>";
     }
 
-    public function updateEvents(){
+    public function updateEvent(){
         $this->validateAuthentication();
-        if($_POST['id_evento'] != '' && $_POST['cpf'] != '' && strlen($_POST['cpf']) == 14 && $_POST['titulo_evento'] != '' && $_POST['inicio_evento'] != '' && $_POST['fim_evento'] != ''){
-           
+        if($_POST['id_evento'] != '' && strlen($_POST['cpf']) == 14 && $_POST['titulo_evento'] != '' && $_POST['inicio_evento'] != '' && $_POST['fim_evento'] != ''){
             $moradores = Container::getModel('Residents');
 
             $morador_existente = false;
+            $fk_id_morador = false;
 
-            foreach($moradores->getAll() as $e){
+            foreach($moradores->getAllResidentsRegisters() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     $morador_existente = true;
+                    $fk_id_morador = $e['id_morador'];
                 }
             }
 
-            if($morador_existente){
+            if($morador_existente && $fk_id_morador != false){
                 $eventos = Container::getModel('Events');
                 $eventos->id_evento = $_POST['id_evento'];
+                $eventos->fk_id_morador = $fk_id_morador;
                 $eventos->cpf = $_POST['cpf'];
                 $eventos->titulo_evento = $_POST['titulo_evento'];
                 $inicio_evento = str_replace('/', '-', $_POST['inicio_evento']);

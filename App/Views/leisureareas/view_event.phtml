@@ -1,5 +1,5 @@
 <div class="nav navbar align-items-center justify-content-between bg-dark" style="height:4rem">
-    <h4 class="m-0 text-light">Visualizar evento</h4>
+    <h4 class="m-0 text-light">Informações do evento</h4>
     <h4 class="m-0 text-white"><i class="fas fa-gamepad mr-2" style="font-size:28px"></i></h4>
 </div>
 <div class="d-flex align-items-center justify-content-center px-1" style="min-height: 91vh">
@@ -15,7 +15,14 @@
             </div>
             <div class="d-flex justify-content-between mt-4">
                 <h5 class="text-dark font-weight-bold">Telefone</h5>
-                <h5 class="text-secondary font-weight-bold"><?= $e['telefone'] ?></h5>
+                <h5 class="text-secondary font-weight-bold">
+                    <?php if($e['telefone'] != ''){
+                            echo $e['telefone'];
+                        } else{
+                            echo "(xx) xxxx-xxxxx";
+                        }
+                    ?>
+                </h5>
             </div>
             <div class="d-flex justify-content-between mt-4">
                 <h5 class="text-dark font-weight-bold">Apartamento</h5>
@@ -31,11 +38,11 @@
             </div>
             <div class="d-flex justify-content-between mt-4">
                 <h5 class="text-dark font-weight-bold">Início do evento</h5>
-                <h5 class="text-secondary font-weight-bold"><?= $e['inicio_evento'] = date("d/m/Y H:i", strtotime($e['inicio_evento'])) ?></h5>
+                <h5 class="text-secondary font-weight-bold"><?= date("d/m/Y H:i", strtotime($e['inicio_evento'])) ?></h5>
             </div>
             <div class="d-flex justify-content-between mt-4">
                 <h5 class="text-dark font-weight-bold">Fim do evento</h5>
-                <h5 class="text-secondary font-weight-bold"><?= $e['fim_evento'] = date("d/m/Y H:i", strtotime($e['fim_evento'])) ?></h5>
+                <h5 class="text-secondary font-weight-bold"><?= date("d/m/Y H:i", strtotime($e['fim_evento'])) ?></h5>
             </div>
         <?php } ?>
         <div class="d-flex justify-content-between">
@@ -66,7 +73,7 @@
                                 CPF inválido!
                             </div>
                         </div>
-                        <label class="mt-4 mb-0 text-secondary">Local</label>
+                        <label class="mt-3 mb-0 text-secondary">Local</label>
                         <select class="form-custom form-control m-0 p-0" name="titulo_evento" style="border-bottom: 2px solid #20B2AA!important;">
                             <option value="<?=$e['titulo_evento']?>"><?=$e['titulo_evento']?></option>
                             <?php if($e['titulo_evento'] == 'Salão de festas'){ ?> 
@@ -88,11 +95,11 @@
                             <?php } ?>
                         </select>
                         <div class="label-float mt-4">
-                            <input type="text" name="inicio_evento" class="form-custom form-control mt-2" size="60" maxlength="60" id="inicio_evento" onkeypress="DataHora(event, this)" placeholder="Início do evento" value="<?=$e['inicio_evento']?>">
+                            <input type="text" name="inicio_evento" class="form-custom form-control mt-2" size="60" maxlength="60" id="inicio_evento" onkeypress="DataHora(event, this)" placeholder="Início do evento" value="<?= date("d/m/Y H:i", strtotime($e['inicio_evento'])) ?>">
                             <label>Início do evento</label>
                         </div>
                         <div class="label-float mt-4">
-                            <input type="text" name="fim_evento" class="form-custom form-control mt-2" size="60" maxlength="60" id="fim_evento" onkeypress="DataHora(event, this)" placeholder="Fim do evento" value="<?=$e['fim_evento']?>">
+                            <input type="text" name="fim_evento" class="form-custom form-control mt-2" size="60" maxlength="60" id="fim_evento" onkeypress="DataHora(event, this)" placeholder="Fim do evento" value="<?= date("d/m/Y H:i", strtotime($e['fim_evento'])) ?>">
                             <label>Fim do evento</label>
                         </div>
                     </div>
@@ -127,3 +134,11 @@
         </div>
     </div>
 </div>
+
+<script src="lib/datatables/js/query-3.5.1.js"></script>
+<script src="lib/jquery/jquery.mask.min.js"></script>
+
+<script>
+    $("#inicio_evento").mask("99/99/9999 99:99:99");
+    $("#fim_evento").mask("99/99/9999 99:99:99");
+</script>

@@ -156,7 +156,7 @@
                             <td><?=$e['nome']?></td>
                             <td><?=$e['cpf']?></td>
                             <td>
-                                <?php if(strlen($e['telefone']) > 7){
+                                <?php if($e['telefone'] != ""){
                                         echo $e['telefone'];
                                     } else{
                                         echo "(xx) xxxx-xxxxx";
