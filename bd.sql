@@ -24,14 +24,35 @@ create table moradores(
 	bloco char(1) not null
 );
 
-create table prestadores_servicos(
+-- create table prestadores_servicos(
+-- 	id_prestador_servico int primary key AUTO_INCREMENT not null,
+-- 	nome varchar(60) not null,
+-- 	cpf char(14) not null,
+-- 	apartamento varchar(13),
+-- 	bloco varchar(13),
+-- 	data_entrada datetime default CURRENT_TIMESTAMP,
+-- 	data_saida datetime
+-- );
+
+create table prestadores_servicos_cadastrados(
 	id_prestador_servico int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
 	cpf char(14) not null,
-	apartamento varchar(13),
-	bloco varchar(13),
+	rg varchar(14) not null,
+	uf varchar(2) not null
+);
+
+create table prestadores_servicos(
+	id_prestador_servico int primary key AUTO_INCREMENT not null,
+	nome varchar(60) not null,
+	cpf_rg varchar(14) not null,
+	uf varchar(2) not null,
+	apartamento varchar(5) not null,
+	bloco char(1) not null,
 	data_entrada datetime default CURRENT_TIMESTAMP,
-	data_saida datetime
+	data_saida datetime,
+	fk_id_prestador_servico int,
+    foreign key(fk_id_prestador_servico) references prestadores_servicos_cadastrados(id_prestador_servico) on delete cascade
 );
 
 create table visitantes_cadastrados(

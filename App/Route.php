@@ -58,7 +58,9 @@ class Route extends Bootstrap {
 			'controller' => 'DashboardController',
 			'action' => 'dashboard'
 		);
-		
+
+
+
 		$routes['orders'] = array(
 			'route' => '/orders',
 			'controller' => 'OrdersController',
@@ -69,31 +71,32 @@ class Route extends Bootstrap {
 			'controller' => 'OrdersController',
 			'action' => 'exportOrders'
 		);
-		$routes['register_orders'] = array(
-			'route' => '/register_orders',
+		$routes['register_order'] = array(
+			'route' => '/register_order',
 			'controller' => 'OrdersController',
-			'action' => 'registerOrders'
+			'action' => 'registerOrder'
 		);
-		$routes['edit_orders'] = array(
-			'route' => '/edit_orders',
+		$routes['edit_order'] = array(
+			'route' => '/edit_order',
 			'controller' => 'OrdersController',
-			'action' => 'editOrders'
+			'action' => 'editOrder'
 		);
-		$routes['update_orders'] = array(
-			'route' => '/update_orders',
+		$routes['update_order'] = array(
+			'route' => '/update_order',
 			'controller' => 'OrdersController',
-			'action' => 'updateOrders'
+			'action' => 'updateOrder'
 		);
-		$routes['remove_orders'] = array(
-			'route' => '/remove_orders',
+		$routes['remove_order'] = array(
+			'route' => '/remove_order',
 			'controller' => 'OrdersController',
-			'action' => 'removeOrders'
+			'action' => 'removeOrder'
 		);
-		$routes['delete_orders'] = array(
-			'route' => '/delete_orders',
+		$routes['delete_order'] = array(
+			'route' => '/delete_order',
 			'controller' => 'OrdersController',
-			'action' => 'deleteOrders'
+			'action' => 'deleteOrder'
 		);
+
 
 
 		$routes['residents'] = array(
@@ -132,18 +135,18 @@ class Route extends Bootstrap {
 			'action' => 'deleteResident'
 		);
 
+
+
 		$routes['visitors'] = array(
 			'route' => '/visitors',
 			'controller' => 'VisitorsController',
 			'action' => 'visitors'
 		);
-
 		$routes['export_visitors'] = array(
 			'route' => '/export_visitors',
 			'controller' => 'VisitorsController',
 			'action' => 'exportVisitors'
 		);
-
 		$routes['register_visitor'] = array(
 			'route' => '/register_visitor',
 			'controller' => 'VisitorsController',
@@ -254,6 +257,9 @@ class Route extends Bootstrap {
 			'controller' => 'ServiceProvidersController',
 			'action' => 'deleteServiceProviders'
 		);
+
+
+		
 		$routes['leisure_areas'] = array(
 			'route' => '/leisure_areas',
 			'controller' => 'LeisureAreasController',
@@ -280,10 +286,6 @@ class Route extends Bootstrap {
 			'action' => 'deleteEvents'
 		);
 	
-
-		
-		
-
 		$this->setRoutes($routes);
 	}
 

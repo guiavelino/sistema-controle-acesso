@@ -18,17 +18,17 @@ class OrdersController extends Action {
         $this->validateAuthentication();
         if($_SESSION['nivel_acesso'] == 'administrador'){
             $encomendas = Container::getModel('Orders');   
-            $this->view->encomendas = $encomendas->getAll();
+            $this->view->encomendas = $encomendas->getAllOrdersRegisters();
             $this->render('orders_admin');
         }
         else{
             $encomendas = Container::getModel('Orders');
-            $this->view->encomendas = $encomendas->getAll();
+            $this->view->encomendas = $encomendas->getAllOrdersRegisters();
             $this->render('orders_user');
         }  
     }
 
-    public function registerOrders(){
+    public function registerOrder(){
         $this->validateAuthentication();
         if($_POST['empresa'] != '' &&  $_POST['apartamento'] != '' &&  $_POST['bloco'] != ''){
             $encomendas = Container::getModel('Orders');
@@ -36,18 +36,18 @@ class OrdersController extends Action {
             $encomendas->apartamento = $_POST['apartamento'];
             $encomendas->bloco = $_POST['bloco'];
             $encomendas->registerOrder();
-            echo "<script>alert('Encomenda cadastrada com sucesso!')</script>";
+            echo "<script>alert('Encomenda registrada com sucesso!')</script>";
         }
         else{
-            echo "<script>alert('Preencha todos os campos para realizar o cadastro!')</script>";
+            echo "<script>alert('Preencha todos os campos para realizar o registro!')</script>";
         }
         echo "<script> location.href = '/orders' </script>";
     }
 
-    public function editOrders(){
+    public function editOrder(){
         $this->validateAuthentication();
         if(isset($_POST['id_encomenda'])){
-            $this->render('edit_orders');
+            $this->render('edit_order');
         }
         else{
             echo "<script>alert('Selecione um registro para continuar!')</script>";
@@ -55,16 +55,16 @@ class OrdersController extends Action {
         }
     }
 
-    public function updateOrders(){
+    public function updateOrder(){
         $this->validateAuthentication();
-        if($_POST['empresa'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && isset($_POST['id_encomenda'])){
+        if($_POST['empresa'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && $_POST['id_encomenda'] != ''){
             $encomendas = Container::getModel('Orders');
             $encomendas->empresa = $_POST['empresa'];
             $encomendas->apartamento = $_POST['apartamento'];
             $encomendas->bloco = $_POST['bloco'];
             $encomendas->id_encomenda = $_POST['id_encomenda'];
             $encomendas->updateOrder();
-            echo "<script>alert('Registro atualizado com sucesso!')</script>";
+            echo "<script>alert('Dados atualizados com sucesso!')</script>";
         }
         else{
             echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
@@ -72,10 +72,10 @@ class OrdersController extends Action {
         echo "<script> location.href = '/orders' </script>";
     }
 
-    public function removeOrders(){
+    public function removeOrder(){
         $this->validateAuthentication();
         if(isset($_POST['id_encomenda'])){
-            $this->render('remove_orders');
+            $this->render('remove_order');
         }
         else{
             echo "<script>alert('Selecione um registro para continuar!')</script>";
@@ -83,7 +83,7 @@ class OrdersController extends Action {
         }
     }
 
-    public function deleteOrders(){
+    public function deleteOrder(){
         $this->validateAuthentication();
         if(isset($_POST['id_encomenda'])){
             $encomendas = Container::getModel('Orders');

@@ -43,7 +43,7 @@ class Orders extends Model{
         $stmt->execute();
     }
 
-    public function getAll(){
+    public function getAllOrdersRegisters(){
         $stmt = $this->db->prepare("SELECT * FROM encomendas");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

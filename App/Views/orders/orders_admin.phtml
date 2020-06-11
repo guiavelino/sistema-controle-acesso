@@ -136,7 +136,7 @@
     </ol>
     <div class="card mb-4 border-0 shadow">
         <div class="card-header text-center add" data-toggle="modal" data-target="#form-modal">
-            <h5 class="m-0"><i class="fas fa-archive mr-1"></i>Registrar Entrega</h5>
+            <h5 class="m-0"><i class="fas fa-archive mr-1"></i>Registrar Encomenda</h5>
         </div>
         <div class="card-body table-responsive pt-1">
             <table class="table-bordered table-hover mb-0 display responsive nowrap" style="width:100%" id="dataTable">
@@ -146,7 +146,6 @@
                         <th>Apartamento</th>
                         <th>Bloco</th>
                         <th>Data de entrega</th>
-                        <th>Hora de entrega</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -156,10 +155,9 @@
                             <td><?=$e['empresa']?></td>
                             <td><?=$e['apartamento']?></td>
                             <td><?=$e['bloco']?></td>
-                            <td><?=$e['data'] = date('d/m/Y', strtotime($e['data_entrega']))?></td>
-                            <td><?=$e['hora'] = date('H:i', strtotime($e['data_entrega']))?></td>
+                            <td><?=date('d/m/Y H:i', strtotime($e['data_entrega']))?></td>
                             <th>                  
-                                <form action="/edit_orders" method="post" class="d-inline-block">          
+                                <form action="/edit_order" method="post" class="d-inline-block">          
                                     <input type="hidden" name="id_encomenda" value="<?=$e['id_encomenda']?>">
                                     <input type="hidden" name="empresa" value="<?=$e['empresa']?>">
                                     <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
@@ -170,13 +168,12 @@
                                         </button>
                                     </abbr>
                                 </form>
-                                <form action="/remove_orders" method="post" class="d-inline-block"> 
+                                <form action="/remove_order" method="post" class="d-inline-block"> 
                                     <input type="hidden" name="id_encomenda" value="<?=$e['id_encomenda']?>">
                                     <input type="hidden" name="empresa" value="<?=$e['empresa']?>">
                                     <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
                                     <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
-                                    <input type="hidden" name="data_entrega" value="<?=$e['data']?>">
-                                    <input type="hidden" name="hora_entrega" value="<?=$e['hora']?>">
+                                    <input type="hidden" name="data_entrega" value="<?=$e['data_entrega']?>">
                                     <abbr title="Excluir registro">
                                         <button type="submit" class="btn btn-danger btn-action">
                                             <i class="fas fa-trash-alt"></i>
@@ -196,12 +193,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-0">
             <div class="modal-header text-center align-items-center">
-                <h4 class="modal-title font-weight-bold text-secondary">Encomendas</h4>
+                <h4 class="modal-title font-weight-bold text-secondary">Registrar Encomenda</h4>
                 <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/register_orders" method="post">
+            <form action="/register_order" method="post">
                 <div class="modal-body py-4">
                     <div class="card card-body border-0 pt-0">
                         <div class="label-float">
