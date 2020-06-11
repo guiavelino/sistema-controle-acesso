@@ -58,6 +58,7 @@ class Route extends Bootstrap {
 			'controller' => 'DashboardController',
 			'action' => 'dashboard'
 		);
+		
 		$routes['orders'] = array(
 			'route' => '/orders',
 			'controller' => 'OrdersController',
@@ -93,6 +94,8 @@ class Route extends Bootstrap {
 			'controller' => 'OrdersController',
 			'action' => 'deleteOrders'
 		);
+
+
 		$routes['residents'] = array(
 			'route' => '/residents',
 			'controller' => 'ResidentsController',
@@ -103,35 +106,31 @@ class Route extends Bootstrap {
 			'controller' => 'ResidentsController',
 			'action' => 'exportResidents'
 		);
-		$routes['register_residents'] = array(
-			'route' => '/register_residents',
+		$routes['register_resident'] = array(
+			'route' => '/register_resident',
 			'controller' => 'ResidentsController',
-			'action' => 'registerResidents'
+			'action' => 'registerResident'
 		);
-		$routes['edit_residents'] = array(
-			'route' => '/edit_residents',
+		$routes['edit_resident'] = array(
+			'route' => '/edit_resident',
 			'controller' => 'ResidentsController',
-			'action' => 'editResidents'
+			'action' => 'editResident'
 		);
-		$routes['update_residents'] = array(
-			'route' => '/update_residents',
+		$routes['update_resident'] = array(
+			'route' => '/update_resident',
 			'controller' => 'ResidentsController',
-			'action' => 'updateResidents'
+			'action' => 'updateResident'
 		);
-		$routes['remove_residents'] = array(
-			'route' => '/remove_residents',
+		$routes['remove_resident'] = array(
+			'route' => '/remove_resident',
 			'controller' => 'ResidentsController',
-			'action' => 'removeResidents'
+			'action' => 'removeResident'
 		);
-		$routes['delete_residents'] = array(
-			'route' => '/delete_residents',
+		$routes['delete_resident'] = array(
+			'route' => '/delete_resident',
 			'controller' => 'ResidentsController',
-			'action' => 'deleteResidents'
+			'action' => 'deleteResident'
 		);
-
-
-
-		
 
 		$routes['visitors'] = array(
 			'route' => '/visitors',

@@ -18,39 +18,32 @@ class ResidentsController extends Action {
         $this->validateAuthentication();
         if($_SESSION['nivel_acesso'] == 'administrador'){
             $moradores = Container::getModel('Residents');
-            $this->view->moradores = $moradores->getAll();
+            $this->view->moradores = $moradores->getAllResidentsRegisters();
             $this->render('residents_admin');
         }
         else{
             $moradores = Container::getModel('Residents');
-            $this->view->moradores = $moradores->getAll();
+            $this->view->moradores = $moradores->getAllResidentsRegisters();
             $this->render('residents_user');
         }  
     }
 
-    public function registerResidents(){
+    public function registerResident(){
         $this->validateAuthentication();
-        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
             $moradores = Container::getModel('Residents');
             $prestadores_servicos = Container::getModel('ServiceProviders');
             $visitantes = Container::getModel('Visitors');
             
             //Tratando duplicidade de CPF 
-            foreach($moradores->getAll() as $e){
+            foreach($moradores->getAllResidentsRegisters() as $e){
                 if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao realizar cadastro, um morador ja possui este CPF!')</script>";
+                    echo "<script>alert('Esse morador ja foi cadastrado!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
             }  
-            foreach($prestadores_servicos->getAll() as $e){
-                if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao realizar cadastro, um prestador de serviço ja possui este CPF!')</script>";
-                    echo "<script> location.href = '/residents' </script>";
-                    exit;
-                }
-            }
-            foreach($visitantes->getAll() as $e){
+            foreach($visitantes->getAllVisitorsRegisters() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um visitante ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
@@ -60,7 +53,7 @@ class ResidentsController extends Action {
 
             $moradores->nome = $_POST['nome'];
             $moradores->cpf = $_POST['cpf'];
-            $moradores->telefone = $_POST['telefone'];
+            $moradores->telefone = $_POST['telefone'] != '' ? $_POST['telefone'] : '';
             $moradores->apartamento = $_POST['apartamento'];
             $moradores->bloco = $_POST['bloco'];
             $moradores->registerResident();
@@ -75,40 +68,32 @@ class ResidentsController extends Action {
         echo "<script> location.href = '/residents' </script>";
     }
 
-    public function editResidents(){
+    public function editResident(){
         $this->validateAuthentication();
         if(isset($_POST['id_morador'])){
-            $this->render('edit_residents');
+            $this->render('edit_resident');
         }else{
             echo "<script>alert('Selecione um registro para continuar!')</script>";
             echo "<script> location.href = '/residents' </script>";
         }
     }
 
-    public function updateResidents(){
+    public function updateResident(){
         $this->validateAuthentication();
-        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['telefone'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && isset($_POST['id_morador'])){
+        if($_POST['nome'] != '' && strlen($_POST['cpf']) == 14 && $_POST['apartamento'] != '' && $_POST['bloco'] != '' && $_POST['id_morador'] != ''){
             $moradores = Container::getModel('Residents');
-            $prestadores_servicos = Container::getModel('ServiceProviders');
             $visitantes = Container::getModel('Visitors');
 
-            foreach($moradores->getAll() as $e){
+            foreach($moradores->getAllResidentsRegisters() as $e){
                 if($_POST['cpf'] == $e['cpf'] && $_POST['id_morador'] != $e['id_morador']){
-                    echo "<script>alert('Erro ao atualizar registro, um morador ja possui este CPF!')</script>";
+                    echo "<script>alert('Erro ao atualizar cadastro, um morador ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
             }
-            foreach($prestadores_servicos->getAll() as $e){
+            foreach($visitantes->getAllVisitorsRegisters() as $e){
                 if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao atualizar registro, um prestador de serviço ja possui este CPF!')</script>";
-                    echo "<script> location.href = '/residents' </script>";
-                    exit;
-                }
-            }
-            foreach($visitantes->getAll() as $e){
-                if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este CPF!')</script>";
+                    echo "<script>alert('Erro ao atualizar cadastro, um visitante ja possui este CPF!')</script>";
                     echo "<script> location.href = '/residents' </script>";
                     exit;
                 }
@@ -116,39 +101,39 @@ class ResidentsController extends Action {
 
             $moradores->nome = $_POST['nome'];
             $moradores->cpf = $_POST['cpf'];
-            $moradores->telefone = $_POST['telefone'];
+            $moradores->telefone = $_POST['telefone'] != '' ? $_POST['telefone'] : '';
             $moradores->apartamento = $_POST['apartamento'];
             $moradores->bloco = $_POST['bloco'];
             $moradores->id_morador = $_POST['id_morador'];
             $moradores->updateResident();
-            echo "<script>alert('Registro atualizado com sucesso!')</script>";
+            echo "<script>alert('Dados atualizados com sucesso!')</script>";
         }
         else if(strlen($_POST['cpf']) != 14){
-            echo "<script>alert('Digite um CPF válido para atualizar o registro!')</script>";
+            echo "<script>alert('Digite um CPF válido para atualizar o cadastro!')</script>";
         }
         else{
-            echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
+            echo "<script>alert('Preencha todos os campos para atualizar o cadastro!')</script>";
         }
         echo "<script> location.href = '/residents' </script>";
     }
 
-    public function removeResidents(){
+    public function removeResident(){
         $this->validateAuthentication();
         if(isset($_POST['id_morador'])){
-            $this->render('remove_residents');
+            $this->render('remove_resident');
         }else{
             echo "<script>alert('Selecione um registro para continuar!')</script>";
             echo "<script> location.href = '/residents' </script>";
         }
     }
 
-    public function deleteResidents(){
+    public function deleteResident(){
         $this->validateAuthentication();
         if(isset($_POST['id_morador'])){
             $moradores = Container::getModel('Residents');
             $moradores->id_morador = $_POST['id_morador'];
             $moradores->deleteResident();
-            echo "<script>alert('Registro excluído com sucesso!')</script>";
+            echo "<script>alert('Cadastro excluído com sucesso!')</script>";
         }
         echo "<script> location.href = '/residents' </script>";
     }

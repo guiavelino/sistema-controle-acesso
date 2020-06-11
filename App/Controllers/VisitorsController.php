@@ -28,7 +28,7 @@ class VisitorsController extends Action {
         }
         else{
             $visitantes = Container::getModel('Visitors');
-            $this->view->visitantes = $visitantes->getAllRegistersEntry();
+            $this->view->registros_entrada = $visitantes->getAllRegistersEntry();
             $this->render('visitors_user');
         }  
     }
@@ -43,7 +43,7 @@ class VisitorsController extends Action {
             $moradores = Container::getModel('Residents');
 
             //Tratando duplicidade de CPF
-            foreach($moradores->getAll() as $e){
+            foreach($moradores->getAllResidentsRegisters() as $e){
                 if($_POST['cpf'] == $e['cpf']){
                     echo "<script>alert('Erro ao realizar cadastro, um morador ja possui este CPF!')</script>";
                     echo "<script> location.href = '/visitors' </script>";
@@ -68,7 +68,6 @@ class VisitorsController extends Action {
         }
         else if(strlen($_POST['rg']) > 0 && $_POST['nome'] != '' && strlen($_POST['uf']) == 2){
             $visitantes = Container::getModel('Visitors');
-            $moradores = Container::getModel('Residents');
 
             //Tratando duplicidade de RG
             foreach($visitantes->getAllVisitorsRegisters() as $e){
@@ -80,7 +79,7 @@ class VisitorsController extends Action {
             }
 
             $visitantes->nome = $_POST['nome'];
-            $visitantes->cpf = md5(date('Y-m-d H:i')); // A coluna CPF no banco de dados utiliza o atributo UNIQUE, por isso um valor vazio não pode ser atribuído
+            $visitantes->cpf = md5(date('Y-m-d H:i:s')); // A coluna CPF no banco de dados utiliza o atributo UNIQUE, por isso um valor vazio não pode ser atribuído
             $visitantes->rg = $_POST['rg'];
             $visitantes->uf = $_POST['uf'];
 
@@ -91,12 +90,8 @@ class VisitorsController extends Action {
             }
 
             if($valida_rg){
-                if($visitantes->registerVisitor()){
-                    echo "<script>alert('Visitante cadastrado com sucesso, realize o registro e libere a entrada!')</script>";
-                }
-                else{
-                    echo "<script>alert('Erro ao relizar cadastro, tente novamente!')</script>";
-                }
+                $visitantes->registerVisitor();
+                echo "<script>alert('Visitante cadastrado com sucesso, realize o registro e libere a entrada!')</script>";
             }
             else {
                 echo "<script>alert('Digite um RG válido para realizar o cadastro!')</script>";
@@ -218,9 +213,9 @@ class VisitorsController extends Action {
             $moradores = Container::getModel('Residents');
 
             //Tratando duplicidade de CPF
-            foreach($moradores->getAll() as $e){
+            foreach($moradores->getAllResidentsRegisters() as $e){
                 if($_POST['cpf'] == $e['cpf']){
-                    echo "<script>alert('Erro ao atualizar registro, um morador ja possui este CPF!')</script>";
+                    echo "<script>alert('Erro ao atualizar cadastro, um morador ja possui este CPF!')</script>";
                     echo "<script> location.href = '/visitors' </script>";
                     exit;
                 }
@@ -237,7 +232,7 @@ class VisitorsController extends Action {
                 echo "<script>alert('Dados atualizados com sucesso!')</script>";
             }
             else{
-                echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este CPF!')</script>";
+                echo "<script>alert('Erro ao atualizar cadastro, um visitante ja possui este CPF!')</script>";
             }
         }
         else if($_POST['nome'] != '' && strlen($_POST['rg']) > 0 && strlen($_POST['uf']) == 2 && $_POST['id_visitante'] != ''){
@@ -246,7 +241,7 @@ class VisitorsController extends Action {
             //Tratando duplicidade de RG
             foreach($visitantes->getAllVisitorsRegisters() as $e){
                 if($_POST['rg'] == $e['rg'] && $_POST['uf'] == $e['uf'] && $_POST['id_visitante'] != $e['id_visitante']){ 
-                    echo "<script>alert('Erro ao atualizar registro, um visitante ja possui este RG!')</script>";
+                    echo "<script>alert('Erro ao atualizar cadastro, um visitante ja possui este RG!')</script>";
                     echo "<script> location.href = '/visitors' </script>";
                     exit;
                 }
@@ -270,14 +265,14 @@ class VisitorsController extends Action {
                 echo "<script>alert('Dados atualizados com sucesso!')</script>";
             }
             else {
-                echo "<script>alert('Digite um RG válido para atualizar o registro!')</script>";
+                echo "<script>alert('Digite um RG válido para atualizar o cadastro!')</script>";
             }
         }
         else if(strlen($_POST['cpf']) != 14 && $_POST['rg'] == ''){
-            echo "<script>alert('Digite um CPF válido para atualizar o registro!')</script>";
+            echo "<script>alert('Digite um CPF válido para atualizar o cadastro!')</script>";
         }
         else{
-            echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
+            echo "<script>alert('Preencha todos os campos para atualizar o cadastro!')</script>";
         }
         echo "<script> location.href = '/visitors' </script>";
     }

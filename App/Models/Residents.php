@@ -48,7 +48,7 @@ class Residents extends Model{
         $stmt->execute();
     }
 
-    public function getAll(){
+    public function getAllResidentsRegisters(){
         $stmt = $this->db->prepare("SELECT * FROM moradores");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

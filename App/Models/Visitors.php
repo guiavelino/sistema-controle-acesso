@@ -32,9 +32,7 @@ class Visitors extends Model{
         $stmt->bindValue(":cpf", $this->cpf);
         $stmt->bindValue(":rg", $this->rg);
         $stmt->bindValue(":uf", $this->uf);
-        if($stmt->execute()){
-            return true;
-        }
+        $stmt->execute();
     }
 
     public function registerEntry(){
@@ -92,7 +90,7 @@ class Visitors extends Model{
     }
 
     public function getAllVisitorsRegisters(){ 
-        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados ORDER BY id_visitante desc");
+        $stmt = $this->db->prepare("SELECT * FROM visitantes_cadastrados");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

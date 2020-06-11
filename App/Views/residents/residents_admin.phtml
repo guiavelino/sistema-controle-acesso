@@ -155,11 +155,18 @@
                         <tr>
                             <td><?=$e['nome']?></td>
                             <td><?=$e['cpf']?></td>
-                            <td><?=$e['telefone']?></td>
+                            <td>
+                                <?php if(strlen($e['telefone']) > 7){
+                                        echo $e['telefone'];
+                                    } else{
+                                        echo "(xx) xxxx-xxxxx";
+                                    }
+                                ?>
+                            </td>
                             <td><?=$e['apartamento']?></td>
                             <td><?=$e['bloco']?></td>
                             <th>                  
-                                <form action="/edit_residents" method="post" class="d-inline-block">          
+                                <form action="/edit_resident" method="post" class="d-inline-block">          
                                     <input type="hidden" name="id_morador" value="<?=$e['id_morador']?>">
                                     <input type="hidden" name="nome" value="<?=$e['nome']?>">
                                     <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
@@ -172,7 +179,7 @@
                                         </button>
                                     </abbr>
                                 </form>
-                                <form action="/remove_residents" method="post" class="d-inline-block"> 
+                                <form action="/remove_resident" method="post" class="d-inline-block"> 
                                     <input type="hidden" name="id_morador" value="<?=$e['id_morador']?>">
                                     <input type="hidden" name="nome" value="<?=$e['nome']?>">
                                     <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
@@ -198,12 +205,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-0">
             <div class="modal-header text-center align-items-center">
-                <h4 class="modal-title font-weight-bold text-secondary">Moradores</h4>
+                <h4 class="modal-title font-weight-bold text-secondary">Cadastrar Morador</h4>
                 <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="register_residents" method="post">
+            <form action="register_resident" method="post">
                 <div class="modal-body py-4">
                     <div class="card card-body border-0 pt-0">
                         <div class="label-float">
@@ -218,7 +225,7 @@
                             </div>
                         </div>
                         <div class="label-float mt-4">
-                            <input type="text" name="telefone" id="telefone" class="form-custom form-control mt-2" size="60" placeholder="telefone" maxlength="20" required>
+                            <input type="text" name="telefone" id="telefone" class="form-custom form-control mt-2" size="60" placeholder="telefone" maxlength="20">
                             <label>Telefone</label>
                         </div>
                         <div class="label-float mt-4">
