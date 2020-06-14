@@ -242,7 +242,6 @@ class Route extends Bootstrap {
 			'controller' => 'ServiceProvidersController',
 			'action' => 'registerExit'
 		);
-
 		$routes['edit_service_provider'] = array(
 			'route' => '/edit_service_provider',
 			'controller' => 'ServiceProvidersController',
@@ -253,8 +252,16 @@ class Route extends Bootstrap {
 			'controller' => 'ServiceProvidersController',
 			'action' => 'updateServiceProvider'
 		);
-
-		
+		$routes['edit_service_provider_entry'] = array(
+			'route' => '/edit_service_provider_entry',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'editServiceProviderEntry'
+		);
+		$routes['update_service_provider_entry'] = array(
+			'route' => '/update_service_provider_entry',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'updateServiceProviderEntry'
+		);
 		$routes['remove_service_provider'] = array(
 			'route' => '/remove_service_provider',
 			'controller' => 'ServiceProvidersController',
@@ -264,6 +271,16 @@ class Route extends Bootstrap {
 			'route' => '/delete_service_provider',
 			'controller' => 'ServiceProvidersController',
 			'action' => 'deleteServiceProvider'
+		);
+		$routes['remove_service_provider_entry'] = array(
+			'route' => '/remove_service_provider_entry',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'removeServiceProviderEntry'
+		);
+		$routes['delete_service_provider_entry'] = array(
+			'route' => '/delete_service_provider_entry',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'deleteServiceProviderEntry'
 		);
 
 

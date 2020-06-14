@@ -74,10 +74,10 @@ class ServiceProvidersController extends Action {
             $prestadores_servicos->uf = $_POST['uf'];
 
             // Validando RG de acordo com o estado
-            $valida_rg = false;
-            if((($_POST['uf'] == "AC" || $_POST['uf'] == "AM" || $_POST['uf'] == "RO" || $_POST['uf'] == "RR" || $_POST['uf'] == "TO") && strlen($_POST['rg']) == 8) || (($_POST['uf'] == "AL" || $_POST['uf'] == "DF" || $_POST['uf'] == "ES" || $_POST['uf'] == "GO" || $_POST['uf'] == "MS" || $_POST['uf'] == "PB" || $_POST['uf'] == "SE" || $_POST['uf'] == "PI" || $_POST['uf'] == "RN") && strlen($_POST['rg']) == 9) || ($_POST['uf'] == "PE" && strlen($_POST['rg']) == 10) || (($_POST['uf'] == "MT" || $_POST['uf'] == "PR" || $_POST['uf'] == "SC") && strlen($_POST['rg']) == 11) || (($_POST['uf'] == "RJ" || $_POST['uf'] == "MA" || $_POST['uf'] == "SP" || $_POST['uf'] == "PA") && strlen($_POST['rg']) == 12) || ($_POST['uf'] == "BA" && strlen($_POST['rg']) == 13) || ($_POST['uf'] == "RS"  && strlen($_POST['rg']) == 14)){
-                $valida_rg = true;
-            }
+            $valida_rg = true;
+            // if((($_POST['uf'] == "AC" || $_POST['uf'] == "AM" || $_POST['uf'] == "RO" || $_POST['uf'] == "RR" || $_POST['uf'] == "TO") && strlen($_POST['rg']) == 8) || (($_POST['uf'] == "AL" || $_POST['uf'] == "DF" || $_POST['uf'] == "ES" || $_POST['uf'] == "GO" || $_POST['uf'] == "MS" || $_POST['uf'] == "PB" || $_POST['uf'] == "SE" || $_POST['uf'] == "PI" || $_POST['uf'] == "RN") && strlen($_POST['rg']) == 9) || ($_POST['uf'] == "PE" && strlen($_POST['rg']) == 10) || (($_POST['uf'] == "MT" || $_POST['uf'] == "PR" || $_POST['uf'] == "SC") && strlen($_POST['rg']) == 11) || (($_POST['uf'] == "RJ" || $_POST['uf'] == "MA" || $_POST['uf'] == "SP" || $_POST['uf'] == "PA") && strlen($_POST['rg']) == 12) || ($_POST['uf'] == "BA" && strlen($_POST['rg']) == 13) || ($_POST['uf'] == "RS"  && strlen($_POST['rg']) == 14)){
+            //     $valida_rg = true;
+            // }
 
             if($valida_rg){
                 $prestadores_servicos->registerServiceProvider();
@@ -131,10 +131,10 @@ class ServiceProvidersController extends Action {
             $prestadores_servicos->uf = $_POST['uf'];
 
             // Validando RG de acordo com o estado
-            $valida_rg = false;
-            if((($_POST['uf'] == "AC" || $_POST['uf'] == "AM" || $_POST['uf'] == "RO" || $_POST['uf'] == "RR" || $_POST['uf'] == "TO") && strlen($_POST['rg']) == 8) || (($_POST['uf'] == "AL" || $_POST['uf'] == "DF" || $_POST['uf'] == "ES" || $_POST['uf'] == "GO" || $_POST['uf'] == "MS" || $_POST['uf'] == "PB" || $_POST['uf'] == "SE" || $_POST['uf'] == "PI" || $_POST['uf'] == "RN") && strlen($_POST['rg']) == 9) || ($_POST['uf'] == "PE" && strlen($_POST['rg']) == 10) || (($_POST['uf'] == "MT" || $_POST['uf'] == "PR" || $_POST['uf'] == "SC") && strlen($_POST['rg']) == 11) || (($_POST['uf'] == "RJ" || $_POST['uf'] == "MA" || $_POST['uf'] == "SP" || $_POST['uf'] == "PA") && strlen($_POST['rg']) == 12) || ($_POST['uf'] == "BA" && strlen($_POST['rg']) == 13) || ($_POST['uf'] == "RS"  && strlen($_POST['rg']) == 14)){
-                $valida_rg = true;
-            }
+            $valida_rg = true;
+            // if((($_POST['uf'] == "AC" || $_POST['uf'] == "AM" || $_POST['uf'] == "RO" || $_POST['uf'] == "RR" || $_POST['uf'] == "TO") && strlen($_POST['rg']) == 8) || (($_POST['uf'] == "AL" || $_POST['uf'] == "DF" || $_POST['uf'] == "ES" || $_POST['uf'] == "GO" || $_POST['uf'] == "MS" || $_POST['uf'] == "PB" || $_POST['uf'] == "SE" || $_POST['uf'] == "PI" || $_POST['uf'] == "RN") && strlen($_POST['rg']) == 9) || ($_POST['uf'] == "PE" && strlen($_POST['rg']) == 10) || (($_POST['uf'] == "MT" || $_POST['uf'] == "PR" || $_POST['uf'] == "SC") && strlen($_POST['rg']) == 11) || (($_POST['uf'] == "RJ" || $_POST['uf'] == "MA" || $_POST['uf'] == "SP" || $_POST['uf'] == "PA") && strlen($_POST['rg']) == 12) || ($_POST['uf'] == "BA" && strlen($_POST['rg']) == 13) || ($_POST['uf'] == "RS"  && strlen($_POST['rg']) == 14)){
+            //     $valida_rg = true;
+            // }
 
             if($valida_rg){
                 if(isset($prestadores_servicos->selectDocumentByCpfRgAndUF()['id_prestador_servico'])){ 
@@ -234,10 +234,10 @@ class ServiceProvidersController extends Action {
             $prestadores_servicos->cpf_rg = $_POST['rg'];
 
             // Validando RG de acordo com o estado
-            $valida_rg = false;
-            if((($_POST['uf'] == "AC" || $_POST['uf'] == "AM" || $_POST['uf'] == "RO" || $_POST['uf'] == "RR" || $_POST['uf'] == "TO") && strlen($_POST['rg']) == 8) || (($_POST['uf'] == "AL" || $_POST['uf'] == "DF" || $_POST['uf'] == "ES" || $_POST['uf'] == "GO" || $_POST['uf'] == "MS" || $_POST['uf'] == "PB" || $_POST['uf'] == "SE" || $_POST['uf'] == "PI" || $_POST['uf'] == "RN") && strlen($_POST['rg']) == 9) || ($_POST['uf'] == "PE" && strlen($_POST['rg']) == 10) || (($_POST['uf'] == "MT" || $_POST['uf'] == "PR" || $_POST['uf'] == "SC") && strlen($_POST['rg']) == 11) || (($_POST['uf'] == "RJ" || $_POST['uf'] == "MA" || $_POST['uf'] == "SP" || $_POST['uf'] == "PA") && strlen($_POST['rg']) == 12) || ($_POST['uf'] == "BA" && strlen($_POST['rg']) == 13) || ($_POST['uf'] == "RS"  && strlen($_POST['rg']) == 14)){
-                $valida_rg = true;
-            }
+            $valida_rg = true;
+            // if((($_POST['uf'] == "AC" || $_POST['uf'] == "AM" || $_POST['uf'] == "RO" || $_POST['uf'] == "RR" || $_POST['uf'] == "TO") && strlen($_POST['rg']) == 8) || (($_POST['uf'] == "AL" || $_POST['uf'] == "DF" || $_POST['uf'] == "ES" || $_POST['uf'] == "GO" || $_POST['uf'] == "MS" || $_POST['uf'] == "PB" || $_POST['uf'] == "SE" || $_POST['uf'] == "PI" || $_POST['uf'] == "RN") && strlen($_POST['rg']) == 9) || ($_POST['uf'] == "PE" && strlen($_POST['rg']) == 10) || (($_POST['uf'] == "MT" || $_POST['uf'] == "PR" || $_POST['uf'] == "SC") && strlen($_POST['rg']) == 11) || (($_POST['uf'] == "RJ" || $_POST['uf'] == "MA" || $_POST['uf'] == "SP" || $_POST['uf'] == "PA") && strlen($_POST['rg']) == 12) || ($_POST['uf'] == "BA" && strlen($_POST['rg']) == 13) || ($_POST['uf'] == "RS"  && strlen($_POST['rg']) == 14)){
+            //     $valida_rg = true;
+            // }
             
             if($valida_rg){
                 $prestadores_servicos->updateServiceProvider();
@@ -256,28 +256,10 @@ class ServiceProvidersController extends Action {
         echo "<script> location.href = '/service_providers' </script>";
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    public function removeServiceProviders(){
+    public function editServiceProviderEntry(){
         $this->validateAuthentication();
         if(isset($_POST['id_prestador_servico'])){
-            $this->render('remove_service_providers');
+            $this->render('edit_service_provider_entry');
         }
         else{
             echo "<script>alert('Selecione um registro para continuar!')</script>";
@@ -285,23 +267,67 @@ class ServiceProvidersController extends Action {
         }
     }
 
-    public function deleteServiceProviders(){
+    public function updateServiceProviderEntry(){
+        $this->validateAuthentication();
+        if($_POST['id_prestador_servico'] != '' && $_POST['apartamento'] != '' && $_POST['bloco'] != ''){
+            $prestadores_servicos = Container::getModel('ServiceProviders');
+
+            $prestadores_servicos->id_prestador_servico = $_POST['id_prestador_servico'];
+            $prestadores_servicos->apartamento = $_POST['apartamento'];
+            $prestadores_servicos->bloco = $_POST['bloco'];
+
+            $prestadores_servicos->updateServiceProviderEntry();
+            echo "<script>alert('Dados atualizados com sucesso!')</script>";
+        }
+        else{
+            echo "<script>alert('Preencha todos os campos para atualizar o registro!')</script>";
+        }
+        echo "<script> location.href = '/service_providers' </script>";
+    }
+
+    public function removeServiceProvider(){
+        $this->validateAuthentication();
+        if(isset($_POST['id_prestador_servico'])){
+            $this->render('remove_service_provider');
+        }
+        else{
+            echo "<script>alert('Selecione um registro para continuar!')</script>";
+            echo "<script> location.href = '/service_providers' </script>";
+        }
+    }
+
+    public function deleteServiceProvider(){
         $this->validateAuthentication();
         if(isset($_POST['id_prestador_servico'])){
             $prestadores_servicos = Container::getModel('ServiceProviders');
             $prestadores_servicos->id_prestador_servico = $_POST['id_prestador_servico'];
             $prestadores_servicos->deleteServiceProvider();
-            echo "<script>alert('Registro excluído com sucesso!')</script>";
+            echo "<script>alert('Cadastro excluído com sucesso!')</script>";
         }
         echo "<script> location.href = '/service_providers' </script>";
     }
 
+    public function removeServiceProviderEntry(){
+        $this->validateAuthentication();
+        if(isset($_POST['id_prestador_servico'])){
+            $this->render('remove_service_provider_entry');
+        }
+        else{
+            echo "<script>alert('Selecione um registro para continuar!')</script>";
+            echo "<script> location.href = '/service_providers' </script>";
+        }
+    }
 
-
-
-
-
-
+    public function deleteServiceProviderEntry(){
+        $this->validateAuthentication();
+        if(isset($_POST['id_prestador_servico'])){
+            $prestadores_servicos = Container::getModel('ServiceProviders');
+            $prestadores_servicos->id_prestador_servico = $_POST['id_prestador_servico'];
+            $prestadores_servicos->deleteServiceProviderEntry();
+            echo "<script>alert('Registro excluído com sucesso!')</script>";
+        }
+        echo "<script> location.href = '/service_providers' </script>";
+    }
 
     public function exportServiceProviders(){
         $this->validateAuthentication();

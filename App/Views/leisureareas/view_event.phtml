@@ -75,23 +75,12 @@
                         </div>
                         <label class="mt-3 mb-0 text-secondary">Local</label>
                         <select class="form-custom form-control m-0 p-0" name="titulo_evento" style="border-bottom: 2px solid #20B2AA!important;">
-                            <option value="<?=$e['titulo_evento']?>"><?=$e['titulo_evento']?></option>
                             <?php if($e['titulo_evento'] == 'Salão de festas'){ ?> 
-                                <option value="Salão de jogos">Salão de jogos</option>
-                                <option value="Churrasqueira">Churrasqueira</option>
-                                <option value="Quadra">Quadra</option>
-                            <?php } else if($e['titulo_evento'] == 'Salão de jogos') { ?> 
                                 <option value="Salão de festas">Salão de festas</option>
                                 <option value="Churrasqueira">Churrasqueira</option>
-                                <option value="Quadra">Quadra</option>
-                            <?php } else if($e['titulo_evento'] == 'Churrasqueira'){ ?>
-                                <option value="Salão de festas">Salão de festas</option>
-                                <option value="Salão de jogos">Salão de jogos</option>
-                                <option value="Quadra">Quadra</option>
                             <?php } else { ?>
-                                <option value="Salão de festas">Salão de festas</option>
-                                <option value="Salão de jogos">Salão de jogos</option>
                                 <option value="Churrasqueira">Churrasqueira</option>
+                                <option value="Salão de festas">Salão de festas</option> 
                             <?php } ?>
                         </select>
                         <div class="label-float mt-4">
