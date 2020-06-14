@@ -16,9 +16,7 @@ function cpf(cpf){
 }
 
 // Chamadas de validaçao, com teclas e alteração de input
-document.getElementById('cpf').addEventListener('change', valida, false);
 document.getElementById('cpf').addEventListener('keyup', testeRapido, false);
-document.getElementById('cpf').addEventListener('change', validaCadastro, false);
 document.getElementById('cad-cpf').addEventListener('keyup',testeRapido, false );
 
 function valida(){

@@ -16,11 +16,11 @@
             <div class="d-flex justify-content-between mt-4">
                 <h5 class="text-dark font-weight-bold">Telefone</h5>
                 <h5 class="text-secondary font-weight-bold">
-                    <?php if($e['telefone'] != ''){
-                            echo $e['telefone'];
-                        } else{
-                            echo "(xx) xxxx-xxxxx";
-                        }
+                    <?php if ($e['telefone'] != '') {
+                        echo $e['telefone'];
+                    } else {
+                        echo "(xx) xxxx-xxxxx";
+                    }
                     ?>
                 </h5>
             </div>
@@ -51,10 +51,10 @@
         <?php } ?>
         <div class="d-flex justify-content-between">
             <button type="button" class="btn btn-dark text-white w-100 mt-4 mr-1" data-toggle="modal" data-target="#editModal">Editar</button>
-            <button type="button" class="btn btn-register text-white w-100 mt-4 mr-1" data-toggle="modal" data-target="#deleteModal">Excluir</button>
+            <button type="button" class="btn text-white w-100 mt-4 mr-1" data-toggle="modal" data-target="#deleteModal" id="registrar">Excluir</button>
             <a href="/leisure_areas" class="btn btn-danger text-white w-100 mt-4">Voltar</a>
         </div>
-        <?php if($e['status_pagamento'] == 'Pendente'){?>
+        <?php if ($e['status_pagamento'] == 'Pendente') { ?>
             <form action="/confirm_payment" method="post">
                 <input type="hidden" name="id_evento" value="<?= $e['id_evento'] ?>">
                 <button type="submit" class="btn btn-dark text-white w-100 mt-2">Confirmar Pagamento</button>
@@ -77,7 +77,7 @@
                     <div class="card card-body border-0 pt-0">
                         <input type="hidden" name="id_evento" value="<?= $e['id_evento'] ?>">
                         <div class="label-float">
-                            <input type="text" name="cpf" class="form-custom form-control mt-2" size="60" maxlength="14" id="cpf" placeholder="CPF" value="<?=$e['cpf']?>">
+                            <input type="text" name="cpf" class="form-custom form-control mt-2" size="60" maxlength="14" id="cpf" placeholder="CPF" value="<?= $e['cpf'] ?>">
                             <label>CPF</label>
                             <div class="invalid-feedback" id="invalid">
                                 CPF inválido!
@@ -85,12 +85,12 @@
                         </div>
                         <label class="mt-3 mb-0 text-secondary">Local</label>
                         <select class="form-custom form-control m-0 p-0" name="titulo_evento" style="border-bottom: 2px solid #20B2AA!important;">
-                            <?php if($e['titulo_evento'] == 'Salão de festas'){ ?> 
+                            <?php if ($e['titulo_evento'] == 'Salão de festas') { ?>
                                 <option value="Salão de festas">Salão de festas</option>
                                 <option value="Churrasqueira">Churrasqueira</option>
                             <?php } else { ?>
                                 <option value="Churrasqueira">Churrasqueira</option>
-                                <option value="Salão de festas">Salão de festas</option> 
+                                <option value="Salão de festas">Salão de festas</option>
                             <?php } ?>
                         </select>
                         <div class="label-float mt-4">
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-register w-100 text-light">Atualizar</button>
+                    <button type="submit" class="btn w-100 text-light btn-register">Atualizar</button>
                 </div>
             </form>
         </div>
