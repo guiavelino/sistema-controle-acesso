@@ -13,6 +13,7 @@ class Events extends Model{
     private $inicio_evento;
     private $fim_evento;
     private $cor;
+    private $status_pagamento;
 
     public function __get($att){
         return $this->$att;
@@ -58,11 +59,18 @@ class Events extends Model{
     }
 
     public function getAllEventAndResidentData(){
-        $stmt = $this->db->prepare("SELECT * FROM eventos INNER join moradores on eventos.id_evento = :id_evento and moradores.id_morador =:fk_id_morador");
+        $stmt = $this->db->prepare("SELECT * FROM eventos INNER join moradores on eventos.id_evento = :id_evento and moradores.id_morador = :fk_id_morador");
         $stmt->bindValue(":id_evento", $this->id_evento);
         $stmt->bindValue(":fk_id_morador", $this->fk_id_morador);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function confirmPayment(){
+        $stmt = $this->db->prepare("UPDATE eventos SET status_pagamento = :status_pagamento where id_evento = :id_evento");
+        $stmt->bindValue(":status_pagamento", $this->status_pagamento);
+        $stmt->bindValue(":id_evento", $this->id_evento);
+        $stmt->execute();
     }
 }
 

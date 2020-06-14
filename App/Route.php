@@ -310,6 +310,12 @@ class Route extends Bootstrap {
 			'controller' => 'LeisureAreasController',
 			'action' => 'deleteEvent'
 		);
+		$routes['confirm_payment'] = array(
+			'route' => '/confirm_payment',
+			'controller' => 'LeisureAreasController',
+			'action' => 'confirmPayment'
+		);
+
 	
 		$this->setRoutes($routes);
 	}

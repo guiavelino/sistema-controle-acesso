@@ -44,12 +44,22 @@
                 <h5 class="text-dark font-weight-bold">Fim do evento</h5>
                 <h5 class="text-secondary font-weight-bold"><?= date("d/m/Y H:i", strtotime($e['fim_evento'])) ?></h5>
             </div>
+            <div class="d-flex justify-content-between mt-4">
+                <h5 class="text-dark font-weight-bold">Status do pagamento</h5>
+                <h5 class="text-secondary font-weight-bold"><?= $e['status_pagamento'] ?></h5>
+            </div>
         <?php } ?>
         <div class="d-flex justify-content-between">
             <button type="button" class="btn btn-dark text-white w-100 mt-4 mr-1" data-toggle="modal" data-target="#editModal">Editar</button>
             <button type="button" class="btn btn-register text-white w-100 mt-4 mr-1" data-toggle="modal" data-target="#deleteModal">Excluir</button>
             <a href="/leisure_areas" class="btn btn-danger text-white w-100 mt-4">Voltar</a>
         </div>
+        <?php if($e['status_pagamento'] == 'Pendente'){?>
+            <form action="/confirm_payment" method="post">
+                <input type="hidden" name="id_evento" value="<?= $e['id_evento'] ?>">
+                <button type="submit" class="btn btn-dark text-white w-100 mt-2">Confirmar Pagamento</button>
+            </form>
+        <?php } ?>
     </div>
 </div>
 <!-- Modal de edição-->

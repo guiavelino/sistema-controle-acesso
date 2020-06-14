@@ -132,6 +132,27 @@ class LeisureAreasController extends Action {
         }
         echo "<script>location.href = '/view_event?id_evento={$_POST['id_evento']}'</script>";
     }
+
+    public function confirmPayment(){
+        $this->validateAuthentication();
+        if($_POST['id_evento'] != ''){
+            $eventos = Container::getModel('Events');
+            $eventos->id_evento = $_POST['id_evento'];
+            $eventos->status_pagamento = 'Realizado';
+            $eventos->confirmPayment();
+
+            echo "<script>
+                alert('Pagamento confirmado!');
+                location.href = '/view_event?id_evento={$_POST['id_evento']}';
+            </script>";
+        }
+        else{
+            echo "<script>
+                location.href = '/leisure_areas'
+                alert('Erro ao confirmar pagamento, tente novamente!');
+            </script>";
+        }
+    }
 }
 
 ?>

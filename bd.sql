@@ -81,6 +81,7 @@ create table eventos (
     inicio_evento datetime not null,
     fim_evento datetime not null,
 	cor varchar(10) not null,
+	status_pagamento varchar(20) not null default 'Pendente', 
 	fk_id_morador int not null,
     foreign key(fk_id_morador) references moradores(id_morador) on delete cascade
 )
