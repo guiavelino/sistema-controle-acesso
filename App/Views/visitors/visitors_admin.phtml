@@ -146,7 +146,7 @@
                 <h5 class="m-0">
                     <i class="fas fa-door-open text-white mr-1"></i>
                     Registrar Saída
-                    <?php if ($this->view->total_visitantes_presentes) { ?>
+                    <?php if($this->view->total_visitantes_presentes) { ?>
                         <span class="badge badge-pill badge-danger" title="Total de visitantes presentes no condomínio"><?= $this->view->total_visitantes_presentes ?></span>
                     <?php } ?>
                 </h5>
@@ -165,6 +165,7 @@
                 </a>
             </li>
         </ul>
+
         <div class="card-body table-responsive pt-1 ">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="registros" role="tabpanel" aria-labelledby="registros-tab">
@@ -182,7 +183,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            <?php foreach ($this->view->registros_entrada as $e) { ?>
+                            <?php foreach($this->view->registros_entrada as $e){ ?>
                                 <tr>
                                     <td><?= $e['nome'] ?></td>
                                     <td><?= $e['cpf_rg'] ?></td>
@@ -264,7 +265,7 @@
                                             echo $e['rg'];
                                         } ?>
                                     </td>
-                                    <td><?= $e['uf']; ?></td>
+                                    <td><?= $e['uf'] ?></td>
                                     <th>
                                         <form action="/edit_visitor" method="post" class="d-inline-block">
                                             <input type="hidden" name="id_visitante" value="<?= $e['id_visitante'] ?>">

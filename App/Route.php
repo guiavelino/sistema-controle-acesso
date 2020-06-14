@@ -227,35 +227,43 @@ class Route extends Bootstrap {
 			'controller' => 'ServiceProvidersController',
 			'action' => 'exportServiceProviders'
 		);
-		$routes['register_service_providers'] = array(
-			'route' => '/register_service_providers',
+		$routes['register_service_provider'] = array(
+			'route' => '/register_service_provider',
 			'controller' => 'ServiceProvidersController',
-			'action' => 'registerServiceProviders'
+			'action' => 'registerServiceProvider'
 		);
-		$routes['register_exit_service_providers'] = array(
-			'route' => '/register_exit_service_providers',
+		$routes['register_entry_service_provider'] = array(
+			'route' => '/register_entry_service_provider',
+			'controller' => 'ServiceProvidersController',
+			'action' => 'registerEntry'
+		);
+		$routes['register_exit_service_provider'] = array(
+			'route' => '/register_exit_service_provider',
 			'controller' => 'ServiceProvidersController',
 			'action' => 'registerExit'
 		);
-		$routes['edit_service_providers'] = array(
-			'route' => '/edit_service_providers',
+
+		$routes['edit_service_provider'] = array(
+			'route' => '/edit_service_provider',
 			'controller' => 'ServiceProvidersController',
-			'action' => 'editServiceProviders'
+			'action' => 'editServiceProvider'
 		);
-		$routes['update_service_providers'] = array(
-			'route' => '/update_service_providers',
+		$routes['update_service_provider'] = array(
+			'route' => '/update_service_provider',
 			'controller' => 'ServiceProvidersController',
-			'action' => 'updateServiceProviders'
+			'action' => 'updateServiceProvider'
 		);
-		$routes['remove_service_providers'] = array(
-			'route' => '/remove_service_providers',
+
+		
+		$routes['remove_service_provider'] = array(
+			'route' => '/remove_service_provider',
 			'controller' => 'ServiceProvidersController',
-			'action' => 'removeServiceProviders'
+			'action' => 'removeServiceProvider'
 		);
-		$routes['delete_service_providers'] = array(
-			'route' => '/delete_service_providers',
+		$routes['delete_service_provider'] = array(
+			'route' => '/delete_service_provider',
 			'controller' => 'ServiceProvidersController',
-			'action' => 'deleteServiceProviders'
+			'action' => 'deleteServiceProvider'
 		);
 
 

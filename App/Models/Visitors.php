@@ -153,7 +153,6 @@ class Visitors extends Model{
 
     public function getAllVisitorsPresents(){ //Retorna os visitantes que estão com a saída em aberto para realizar uma exibição ao usuário
         $stmt = $this->db->prepare("SELECT * FROM visitantes WHERE data_saida is null");
-        $stmt->bindValue(":fk_id_visitante", $this->fk_id_visitante);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

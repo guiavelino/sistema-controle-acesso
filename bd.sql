@@ -24,20 +24,10 @@ create table moradores(
 	bloco char(1) not null
 );
 
--- create table prestadores_servicos(
--- 	id_prestador_servico int primary key AUTO_INCREMENT not null,
--- 	nome varchar(60) not null,
--- 	cpf char(14) not null,
--- 	apartamento varchar(13),
--- 	bloco varchar(13),
--- 	data_entrada datetime default CURRENT_TIMESTAMP,
--- 	data_saida datetime
--- );
-
 create table prestadores_servicos_cadastrados(
 	id_prestador_servico int primary key AUTO_INCREMENT not null,
 	nome varchar(60) not null,
-	cpf char(14) not null,
+	cpf char(14) unique not null,
 	rg varchar(14) not null,
 	uf varchar(2) not null
 );

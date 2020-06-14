@@ -1,0 +1,69 @@
+<div class="nav navbar align-items-center justify-content-between bg-dark" style="height:4rem">
+    <h4 class="m-0 text-light">Editar cadastro</h4>
+    <h4 class="m-0 text-white"><i class="fas fa-toolbox mr-2" style="font-size:28px"></i></h4>
+</div>
+<div class="d-flex align-items-center justify-content-center px-1" style="min-height: 91vh">
+    <div class="py-4 px-3 card" style="width:30rem">
+        <form action="/update_service_provider" method="post">
+            <input type="hidden" name="id_prestador_servico" value="<?= $_POST['id_prestador_servico'] ?>">
+            <div class="label-float mt-4">    
+                <input type="text" name="nome" class="form-custom form-control mt-1 bg-transparent" size="60" maxlength="60" placeholder="Nome" value="<?=$_POST['nome']?>" required>
+                <label>Nome</label>
+            </div>
+            <?php if($_POST['uf'] ==  '--'){?>
+                <div class="label-float mt-4" id="input-cpf-cadastro">
+                    <input type="text" id="cpf" name="cpf" class="form-custom form-control mt-2" size="60" placeholder="CPF" maxlength="14" value="<?=$_POST['cpf']?>" required>
+                    <label>CPF</label>
+                    <div class="invalid-feedback" id="invalid">
+                        CPF inválido!
+                    </div>
+                </div>
+                <input type="hidden" name="rg">
+            <?php } else {?>
+                <label id="label-uf-registro" class="mt-4 mb-0 text-secondary">UF</label>
+                <select id="select-uf-registro" name="uf" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
+                    <option value="<?=$_POST['uf']?>"><?=$_POST['uf']?></option>
+                    <option value="SP">SP</option> 
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AM">AM</option>
+                    <option value="AP">AP</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="DF">DF</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>      
+                    <option value="MA">MA</option>      
+                    <option value="MG">MG</option>      
+                    <option value="MS">MS</option>      
+                    <option value="MT">MT</option>      
+                    <option value="PA">PA</option>      
+                    <option value="PB">PB</option>      
+                    <option value="PI">PI</option>      
+                    <option value="PE">PE</option>      
+                    <option value="PR">PR</option>   
+                    <option value="RJ">RJ</option>   
+                    <option value="RN">RN</option>      
+                    <option value="RO">RO</option>      
+                    <option value="RR">RR</option>      
+                    <option value="RS">RS</option>      
+                    <option value="SC">SC</option>      
+                    <option value="SE">SE</option>      
+                    <option value="TO">TO</option>      
+                </select>
+                <div class="label-float mt-4" id="input-rg-registro">
+                    <input type="text" id="rg-edit" name="rg" class="form-custom form-control mt-2" maxlength="14" size="60" placeholder="RG" value="<?=$_POST['rg']?>" required>
+                    <label>RG</label>
+                </div>
+                <input type="hidden" name="cpf">
+            <?php }?>
+            <button type="submit" class="btn btn-register text-white w-100 mt-5">Atualizar</button>   
+            <a href="/service_providers" class="btn btn-danger text-white w-100 mt-2">Voltar</a>      
+        </form>
+    </div>
+</div>
+
+
+
+
+
