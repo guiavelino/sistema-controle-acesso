@@ -36,10 +36,10 @@ class OrdersController extends Action {
             $encomendas->apartamento = $_POST['apartamento'];
             $encomendas->bloco = $_POST['bloco'];
             $encomendas->registerOrder();
-            echo "<script>alert('Encomenda registrada com sucesso!')</script>";
+            echo "<script>alert('Encomenda cadastrada com sucesso!')</script>";
         }
         else{
-            echo "<script>alert('Preencha todos os campos para realizar o registro!')</script>";
+            echo "<script>alert('Preencha todos os campos para realizar o cadastro!')</script>";
         }
         echo "<script> location.href = '/orders' </script>";
     }
