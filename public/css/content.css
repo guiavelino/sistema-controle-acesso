@@ -264,7 +264,12 @@ tbody th{
     text-decoration-color: none!important;
     background-color: #343a40;
     color:white;
+    transition: .5s;
 }
 .tabelas:hover{
-    color:white;
+    background-color: white;
+    color:#343a40;
+}
+.content-user{
+    margin-top: 10vh;
 }

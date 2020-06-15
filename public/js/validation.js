@@ -18,6 +18,8 @@ function cpf(cpf){
 // Chamadas de validaçao, com teclas e alteração de input
 document.getElementById('cpf').addEventListener('keyup', testeRapido, false);
 document.getElementById('cad-cpf').addEventListener('keyup',testeRapido, false );
+document.getElementById('cpf').addEventListener('change', testeRapido, false);
+document.getElementById('cad-cpf').addEventListener('change',testeRapido, false );
 
 function valida(){
     var inputCpf = document.getElementById('cpf').value;
@@ -29,12 +31,14 @@ function valida(){
         document.getElementById('invalid').style ="display: none";
         document.getElementById('cpf').style = "border-bottom: 2px solid #20B2AA!important;";
         btn.disabled = false;
+        return true
     }
     else{
         document.getElementById('cpf').style = "border-bottom: 2px solid red!important;";
+        document.getElementById('cpf').focus();
         document.getElementById('invalid').style ="display: block";
         btn.disabled = true;
-
+        return false
     }
     
 }
@@ -54,11 +58,14 @@ function validaCadastro(){
         document.getElementById('cad-invalid').style ="display: none";
         document.getElementById('cad-cpf').style = "border-bottom: 2px solid #20B2AA!important;";
         btn.disabled = false;
+        return true;
     }
     else{
         document.getElementById('cad-cpf').style = "border-bottom: 2px solid red!important;";
+        document.getElementById('cad-cpf').focus();
         document.getElementById('cad-invalid').style ="display: block";
         btn.disabled = true;
+        return false;
     }
 }
 

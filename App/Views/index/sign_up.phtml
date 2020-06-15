@@ -36,7 +36,7 @@
           <label class="custom-control-label text-dark" for="administrador">Administrador</label>
         </div>
       </div>
-      <button type="submit" class="btn btn-register text-white w-100 mt-4">Cadastrar</button>
+      <button type="submit" class="btn btn-register text-white w-100 mt-4" onclick="return valida()">Cadastrar</button>
 
       <?php if (empty($this->view->erroCadastroDados)) { ?>
       <?php } else if ($this->view->erroCadastroDados == 1) { ?>

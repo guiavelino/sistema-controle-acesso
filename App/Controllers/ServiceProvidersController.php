@@ -28,7 +28,11 @@ class ServiceProvidersController extends Action {
         }
         else{
             $prestadores_servicos = Container::getModel('ServiceProviders');
+            
             $this->view->registros_entrada = $prestadores_servicos->getAllRegistersEntry();
+            $this->view->prestadores_servicos_cadastrados = $prestadores_servicos->getAllServiceProvidersRegisters();
+            $this->view->total_prestadores_servicos_presentes = $prestadores_servicos->getAllNumberServiceProvidersPresents()['prestadores_servicos_presentes'];
+
             $this->render('service_providers_user');
         }  
     }

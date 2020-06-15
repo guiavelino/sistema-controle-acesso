@@ -29,6 +29,9 @@ class VisitorsController extends Action {
         else{
             $visitantes = Container::getModel('Visitors');
             $this->view->registros_entrada = $visitantes->getAllRegistersEntry();
+            $this->view->visitantes_cadastrados = $visitantes->getAllVisitorsRegisters();
+            $this->view->total_visitantes_presentes = $visitantes->getAllNumberVisitorsPresents()['visitantes_presentes'];
+            
             $this->render('visitors_user');
         }  
     }

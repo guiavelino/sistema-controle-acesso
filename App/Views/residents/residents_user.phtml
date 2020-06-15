@@ -45,7 +45,7 @@
         </a>
     </div>
 </div>
-<section class="content py-4 container-fluid" id="content">
+<section class="content-user p-3" id="">
     <ol class="breadcrumb mb-4 bg-dark justify-content-between">
         <li class="breadcrumb-item active text-light">
             <h4 class="m-0"><i class="fas fa-building mr-3 ml-2" style="font-size:28px"></i>Moradores</h4>
@@ -61,13 +61,13 @@
             </a>
         </div>
     </ol>
-    <div class="card mb-4 border-0">
+    <div class="card mb-4 border-0 shadow">
         <div class="card-header text-center add" data-toggle="modal" data-target="#form-modal">
-            <h5 class="m-0"><i class="fas fa-plus-circle mr-1"></i>Adicionar</h5>
+            <h5 class="m-0"><i class="fas fa-user mr-1"></i>Cadastrar Morador</h5>
         </div>
         <div class="card-body table-responsive pt-1">
-            <table class="table table-bordered table-hover mb-0" id="dataTable">
-                <thead class="text-center card-header text-dark"> 
+            <table class="table-bordered table-hover mb-0 display responsive nowrap" style="width:100%" id="dataTable">
+                <thead class="text-center card-header text-dark">
                     <tr>
                         <th>Nome</th>
                         <th>CPF</th>
@@ -78,42 +78,53 @@
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    <?php foreach($this->view->moradores as $e){?>
+                    <?php foreach ($this->view->moradores as $e) { ?>
                         <tr>
-                            <td><?=$e['nome']?></td>
-                            <td><?=$e['cpf']?></td>
-                            <td><?=$e['telefone']?></td>
-                            <td><?=$e['apartamento']?></td>
-                            <td><?=$e['bloco']?></td>
-                            <th>                  
-                                <form action="/edit_residents" method="post" class="d-inline-block">          
-                                    <input type="hidden" name="id_morador" value="<?=$e['id_morador']?>">
-                                    <input type="hidden" name="nome" value="<?=$e['nome']?>">
-                                    <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
-                                    <input type="hidden" name="telefone" value="<?=$e['telefone']?>">
-                                    <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
-                                    <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
-                                    <button type="submit" class="btn btn-info btn-action">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
+                            <td><?= $e['nome'] ?></td>
+                            <td><?= $e['cpf'] ?></td>
+                            <td>
+                                <?php if ($e['telefone'] != "") {
+                                    echo $e['telefone'];
+                                } else {
+                                    echo "(xx) xxxx-xxxxx";
+                                }
+                                ?>
+                            </td>
+                            <td><?= $e['apartamento'] ?></td>
+                            <td><?= $e['bloco'] ?></td>
+                            <th>
+                                <form action="/edit_resident" method="post" class="d-inline-block">
+                                    <input type="hidden" name="id_morador" value="<?= $e['id_morador'] ?>">
+                                    <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
+                                    <input type="hidden" name="cpf" value="<?= $e['cpf'] ?>">
+                                    <input type="hidden" name="telefone" value="<?= $e['telefone'] ?>">
+                                    <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
+                                    <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
+                                    <abbr title="Editar registro">
+                                        <button type="submit" class="btn btn-info btn-action">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </abbr>
                                 </form>
-                                <form action="/remove_residents" method="post" class="d-inline-block"> 
-                                    <input type="hidden" name="id_morador" value="<?=$e['id_morador']?>">
-                                    <input type="hidden" name="nome" value="<?=$e['nome']?>">
-                                    <input type="hidden" name="cpf" value="<?=$e['cpf']?>">
-                                    <input type="hidden" name="telefone" value="<?=$e['telefone']?>">
-                                    <input type="hidden" name="apartamento" value="<?=$e['apartamento']?>">
-                                    <input type="hidden" name="bloco" value="<?=$e['bloco']?>">
-                                    <button type="submit" class="btn btn-danger btn-action">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                <form action="/remove_resident" method="post" class="d-inline-block">
+                                    <input type="hidden" name="id_morador" value="<?= $e['id_morador'] ?>">
+                                    <input type="hidden" name="nome" value="<?= $e['nome'] ?>">
+                                    <input type="hidden" name="cpf" value="<?= $e['cpf'] ?>">
+                                    <input type="hidden" name="telefone" value="<?= $e['telefone'] ?>">
+                                    <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
+                                    <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
+                                    <abbr title="Excluir registro">
+                                        <button type="submit" class="btn btn-danger btn-action">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </abbr>
                                 </form>
                             </th>
                         </tr>
-                    <?php }?>
+                    <?php } ?>
                 </tbody>
             </table>
-        </div>   
+        </div>
     </div>
 </section>
 <!-- Modal de cadastro-->
@@ -121,12 +132,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content border-0">
             <div class="modal-header text-center align-items-center">
-                <h4 class="modal-title font-weight-bold text-secondary">Moradores</h4>
+                <h4 class="modal-title font-weight-bold text-secondary">Cadastrar Morador</h4>
                 <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="register_residents" method="post">
+            <form action="register_resident" method="post">
                 <div class="modal-body py-4">
                     <div class="card card-body border-0 pt-0">
                         <div class="label-float">
@@ -156,7 +167,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-register w-100 text-light">Cadastrar</button>
+                    <button type="submit" class="btn btn-register w-100 text-light" onclick="return valida()">Cadastrar</button>
                 </div>
             </form>
         </div>
