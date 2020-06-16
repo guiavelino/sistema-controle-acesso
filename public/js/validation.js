@@ -16,17 +16,16 @@ function cpf(cpf) {
 }
 // Chamadas de validaçao, com teclas e alteração de input
 document.getElementById('cpf').addEventListener('keyup', testeRapido, false);
-if (document.getElementById('cad-cpf') == undefined) {
-    //para evitar erros verifica se cad-cpf existe
-} else {
+//para evitar erros verifica se cad-cpf existe
+if (document.getElementById('cad-cpf') != undefined) {
     document.getElementById('cad-cpf').addEventListener('keyup', testeRapido, false);
 }
 function valida() {
     var inputCpf = document.getElementById('cpf').value;
-    if (document.getElementById('rg') == undefined) {
-        var rg = false
-    } else {
+    if (document.getElementById('rg') != undefined) {
         var rg = document.getElementById('rg').value
+    } else {
+        var rg = false
     }
     // var btn = document.querySelector('.btn-register');
     // btn.disabled = true;
@@ -74,8 +73,7 @@ function testeRapido() {
     setTimeout(validaCadastro(), delay);
 }
 
-if (document.getElementById('select-documento-cadastro') == undefined || document.getElementById('select-documento-registro') == undefined) {
-} else {
+if (document.getElementById('select-documento-cadastro') != undefined || document.getElementById('select-documento-registro') != undefined) {
     document.getElementById('select-documento-cadastro').addEventListener('change',
         function apagaInput() {
             // var btn = document.querySelector('#registrar');
