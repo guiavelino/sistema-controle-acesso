@@ -140,12 +140,20 @@ ul>a>span{
 .add{
     background-color: #20B2AA;
     color: #FFFFFF;
+    transition: 0.2s;
     cursor: pointer;
+}
+.add:hover{
+    background-color: rgb(28, 145, 139);
 }
 .exit{
     background-color: #FFC107;
     color: #FFFFFF;
+    transition: 0.2s;
     cursor: pointer; 
+}
+.exit:hover{
+    background-color: rgb(226, 171, 4);
 }
 .badge-pill{
     padding-right: 0 !important;

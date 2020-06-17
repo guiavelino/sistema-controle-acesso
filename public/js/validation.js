@@ -49,7 +49,6 @@ function validaCadastro() {
     var rg = document.getElementById('cad-rg').value;
     // var btn = document.querySelector('#registrar');
     // btn.disabled = true;
-
     teste = cpf(inputCpf);
     if (rg.length > 0 || teste) {
         document.getElementById('cad-invalid').style = "display: none";
