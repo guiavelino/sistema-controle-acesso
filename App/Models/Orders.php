@@ -11,6 +11,8 @@ class Orders extends Model{
     private $apartamento;
     private $bloco;
     private $data_atual;
+    private $data_inicio;
+    private $data_fim;
 
     public function __get($att){
         return $this->$att;
@@ -45,6 +47,14 @@ class Orders extends Model{
 
     public function getAllOrdersRegisters(){
         $stmt = $this->db->prepare("SELECT * FROM encomendas");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllRegistersFilter(){ 
+        $stmt = $this->db->prepare("SELECT * FROM encomendas where DATE(data_entrega) between :data_inicio AND :data_fim ORDER BY data_entrega desc");
+        $stmt->bindValue(":data_inicio", $this->data_inicio);
+        $stmt->bindValue(":data_fim", $this->data_fim);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

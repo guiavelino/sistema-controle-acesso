@@ -13,7 +13,7 @@
                 <h5 class="text-dark font-weight-bold">CPF</h5>
                 <h5 class="text-secondary font-weight-bold"><?=$_POST['cpf']?></h5>
             </div>
-        <? } else {?>
+        <?php } else {?>
             <div class="d-flex justify-content-between mt-4">
                 <h5 class="text-dark font-weight-bold">RG</h5>
                 <h5 class="text-secondary font-weight-bold"><?=$_POST['rg']?></h5>
@@ -22,7 +22,7 @@
                 <h5 class="text-dark font-weight-bold">UF</h5>
                 <h5 class="text-secondary font-weight-bold"><?=$_POST['uf']?></h5>
             </div>
-        <? } ?>
+        <?php } ?>
         <button type="button" class="btn btn-register text-white w-100 mt-4" data-toggle="modal" data-target="#deleteModal">Excluir</button>   
         <a href="/service_providers" class="btn btn-danger text-white w-100 mt-2">Voltar</a>      
     </div>

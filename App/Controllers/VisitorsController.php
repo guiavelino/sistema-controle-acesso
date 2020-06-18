@@ -357,60 +357,152 @@ class VisitorsController extends Action {
         echo "<script> location.href = '/visitors' </script>";
     }
 
-
     public function exportVisitors(){
         $this->validateAuthentication();
         $visitantes = Container::getModel('Visitors');
+        $arquivo = '';
 
-        // Definindo o nome do arquivo que será exportado
-		$arquivo = 'relacao_visitantes.xls';
-        
         // Formatando estilo da tabela
-        $style_first_header = "height: 60px; text-align:center; background-color:#1EA39C; color:#FFFFFF; display:table-cell; vertical-align:middle;";
+        $style_first_header = "height: 60px; font-size:22px; text-align:center; background-color:#1EA39C; color:#FFFFFF; display:table-cell; vertical-align:middle;";
         $style_second_header_name = "height: 45px; width: 300px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
         $style_second_header = "height: 45px; width: 200px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
-        $style_titile_header = "font-size:22px";
+        $style_titile_header = "font-size:20px";
         $style_content = "height:32px; text-align:center; font-size:20;  display:table-cell; vertical-align:middle";
 
-		// Criando uma tabela HTML com o formato da planilha
-        $html = '';
-        $html .= '<meta charset="utf-8"/>';
-		$html .= '<table border="1">';
-		$html .= "<tr>";
-		$html .= "<td colspan='7' style='$style_first_header'><h2>Visitantes</h2></td>";
-		$html .= "</tr>";
-		$html .= '<tr>';
-		$html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Nome</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>CPF / RG</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>UF</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Entrada</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Saída</h4></td>";
-		$html .= '</tr>';
-        foreach($visitantes->getAll() as $visitantes){
-            $html .= "<tr style='$style_content'>";
-			$html .= '<td>'.$visitantes["nome"].'</td>';
-            $html .= '<td>'.$visitantes["cpf_rg"].'</td>';
-            $html .= '<td>'.$visitantes["uf"].'</td>';
-            $html .= '<td>'.$visitantes['apartamento'].'</td>';
-            $html .= '<td>'.$visitantes['bloco'].'</td>';
-            $html .= '<td>'.date('d/m/Y H:i', strtotime($visitantes['data_entrada'])).'</td>';
-            $html .= '<td>'.date('d/m/Y H:i', strtotime($visitantes['data_saida'])).'</td>';
-			$html .= '</tr>';
-        }
+        if($_POST['categoria'] == 'Cadastros' && $_POST['periodo'] == 'Todo o período' && $_POST['data-inicio'] == '' && $_POST['data-fim'] == ''){
+            // Definindo o nome do arquivo que será exportado
+            $arquivo = 'relacao_visitantes_cadastrados.xls';
+
+            // Criando uma tabela HTML com o formato da planilha
+            $html = '';
+            $html .= '<meta charset="utf-8"/>';
+            $html .= '<table border="1">';
+            $html .= "<tr>";
+            $html .= "<td colspan='4' style='$style_first_header'><h2>Relação de visitantes cadastrados</h2></td>";
+            $html .= "</tr>";
+            $html .= '<tr>';
+            $html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Nome</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>CPF</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>RG</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>UF</h4></td>";
+            $html .= '</tr>';
+            foreach($visitantes->getAllVisitorsRegisters() as $e){
+                if(strpos($e["cpf"], '.')){
+                    $cpf = $e["cpf"];
+                }
+                else{
+                    $cpf = '--';
+                }
+                $html .= "<tr style='$style_content'>";
+                $html .= '<td>'.$e["nome"].'</td>';
+                $html .= '<td>'.$cpf.'</td>';
+                $html .= '<td>'.$e["rg"].'</td>';
+                $html .= '<td>'.$e["uf"].'</td>';
+                $html .= '</tr>';
+            }
+        }  
+        else if($_POST['categoria'] == 'Registros' && $_POST['periodo'] == 'Todo o período' && $_POST['data-inicio'] == '' && $_POST['data-fim'] == ''){
+            // Definindo o nome do arquivo que será exportado
+            $arquivo = 'relacao_entrada_visitantes.xls';
+
+            // Criando uma tabela HTML com o formato da planilha
+            $html = '';
+            $html .= '<meta charset="utf-8"/>';
+            $html .= '<table border="1">';
+            $html .= "<tr>";
+            $html .= "<td colspan='7' style='$style_first_header'><h2>Registros de entrada de visitantes</h2></td>";
+            $html .= "</tr>";
+            $html .= '<tr>';
+            $html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Nome</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>CPF / RG</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>UF</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Entrada</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Saída</h4></td>";
+            $html .= '</tr>';
+            foreach($visitantes->getAllRegistersEntry() as $e){
+                if (!isset($e['data_saida'])) {
+                    $data_saida = 'Saída em aberto';
+                } else {
+                    $data_saida = date('d/m/Y H:i', strtotime($e['data_saida']));
+                }
+
+                $html .= "<tr style='$style_content'>";
+                $html .= '<td>'.$e["nome"].'</td>';
+                $html .= '<td>'.$e["cpf_rg"].'</td>';
+                $html .= '<td>'.$e["uf"].'</td>';
+                $html .= '<td>'.$e['apartamento'].'</td>';
+                $html .= '<td>'.$e['bloco'].'</td>';
+                $html .= '<td>'.date('d/m/Y H:i', strtotime($e['data_entrada'])).'</td>';
+                $html .= '<td>'.$data_saida.'</td>';
+                $html .= '</tr>';
+            }
+        } 
+        else if($_POST['categoria'] == 'Registros' && $_POST['periodo'] == 'Personalizado' && strlen($_POST['data-inicio']) == 10 && strlen($_POST['data-fim']) == 10){
+            // Definindo o nome do arquivo que será exportado
+            $arquivo = 'relacao_entrada_visitantes.xls';
+
+            $visitantes->data_inicio = $_POST['data-inicio'];
+            $visitantes->data_fim = $_POST['data-fim'];
+
+            $data_inicio = date('d/m/Y', strtotime($_POST['data-inicio']));
+            $data_fim = date('d/m/Y', strtotime($_POST['data-fim']));
+
+            // Criando uma tabela HTML com o formato da planilha
+            $html = '';
+            $html .= '<meta charset="utf-8"/>';
+            $html .= '<table border="1">';
+            $html .= "<tr>";
+            $html .= "<td colspan='7' style='$style_first_header'><h2>Registros de entrada de visitantes - $data_inicio até $data_fim</h2></td>";
+            $html .= "</tr>";
+            $html .= '<tr>';
+            $html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Nome</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>CPF / RG</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>UF</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Entrada</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Saída</h4></td>";
+            $html .= '</tr>';
+            foreach($visitantes->getAllRegistersEntryFilter() as $e){
+                if (!isset($e['data_saida'])) {
+                    $data_saida = 'Saída em aberto';
+                } else {
+                    $data_saida = date('d/m/Y H:i', strtotime($e['data_saida']));
+                }
+
+                $html .= "<tr style='$style_content'>";
+                $html .= '<td>'.$e["nome"].'</td>';
+                $html .= '<td>'.$e["cpf_rg"].'</td>';
+                $html .= '<td>'.$e["uf"].'</td>';
+                $html .= '<td>'.$e['apartamento'].'</td>';
+                $html .= '<td>'.$e['bloco'].'</td>';
+                $html .= '<td>'.date('d/m/Y H:i', strtotime($e['data_entrada'])).'</td>';
+                $html .= '<td>'.$data_saida.'</td>';
+                $html .= '</tr>';
+            }
+        } 
+        else if($_POST['categoria'] == 'Registros' && $_POST['periodo'] == 'Personalizado' && (strlen($_POST['data-inicio']) != 10 || strlen($_POST['data-fim']) != 10)){
+            echo "<script>
+                alert('Digite uma data válida para exportar os registros!');
+                location.href = '/visitors'
+            </script>";
+        } 
         
-		// Configurações header para forçar o download
-		header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-		header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
-		header ("Cache-Control: no-cache, must-revalidate");
-		header ("Pragma: no-cache");
-		header ("Content-type: application/x-msexcel");
-		header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
-		header ("Content-Description: PHP Generated Data" );
-		// Envia o conteúdo do arquivo
-		echo $html;
-		exit;
+        if(strlen($arquivo) > 3){
+            // // Configurações header para forçar o download
+            header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+            header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+            header ("Cache-Control: no-cache, must-revalidate");
+            header ("Pragma: no-cache");
+            header ("Content-type: application/x-msexcel");
+            header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+            header ("Content-Description: PHP Generated Data" );
+            // Envia o conteúdo do arquivo
+            echo $html;
+            exit;
+        }
     }
 }
 

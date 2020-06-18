@@ -17,6 +17,8 @@ class ServiceProviders extends Model{
     private $bloco;
     private $data_saida;
     private $data_atual;
+    private $data_inicio;
+    private $data_fim;
 
     public function __get($att){
         return $this->$att;
@@ -97,6 +99,14 @@ class ServiceProviders extends Model{
 
     public function getAllRegistersEntry(){ 
         $stmt = $this->db->prepare("SELECT * FROM prestadores_servicos ORDER BY data_entrada desc");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllRegistersEntryFilter(){ 
+        $stmt = $this->db->prepare("SELECT * FROM prestadores_servicos where DATE(data_entrada) between :data_inicio AND :data_fim ORDER BY data_entrada desc");
+        $stmt->bindValue(":data_inicio", $this->data_inicio);
+        $stmt->bindValue(":data_fim", $this->data_fim);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

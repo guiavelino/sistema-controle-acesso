@@ -146,10 +146,10 @@ class ResidentsController extends Action {
 		$arquivo = 'relacao_moradores.xls';
         
         // Formatando estilo da tabela
-        $style_first_header = "height: 60px; text-align:center; background-color:#1EA39C; color:#FFFFFF; display:table-cell; vertical-align:middle;";
+        $style_first_header = "height: 60px; font-size:22px; text-align:center; background-color:#1EA39C; color:#FFFFFF; display:table-cell; vertical-align:middle;";
         $style_second_header_name = "height: 45px; width: 300px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
         $style_second_header = "height: 45px; width: 200px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
-        $style_titile_header = "font-size:22px";
+        $style_titile_header = "font-size:20px";
         $style_content = "height:32px; text-align:center; font-size:20;  display:table-cell; vertical-align:middle";
 
 		// Criando uma tabela HTML com o formato da planilha
@@ -157,7 +157,7 @@ class ResidentsController extends Action {
         $html .= '<meta charset="utf-8"/>';
 		$html .= '<table border="1">';
 		$html .= "<tr>";
-		$html .= "<td colspan='5' style='$style_first_header'><h2>Moradores</h2></td>";
+		$html .= "<td colspan='5' style='$style_first_header'><h2>Relação de moradores</h2></td>";
 		$html .= "</tr>";
 		$html .= '<tr>';
 		$html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Nome</h4></td>";
@@ -166,7 +166,7 @@ class ResidentsController extends Action {
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
         $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
 		$html .= '</tr>';
-        foreach($moradores->getAll() as $moradores){
+        foreach($moradores->getAllResidentsRegisters() as $moradores){
             $html .= "<tr style='$style_content'>";
 			$html .= '<td>'.$moradores["nome"].'</td>';
 			$html .= '<td>'.$moradores["cpf"].'</td>';

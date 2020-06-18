@@ -55,7 +55,7 @@
         </button>
         <div class="dropdown-menu drop p-0" aria-labelledby="dropdownMenuButton">
             <h6 class="p-2">Exportar</h6>
-            <a href="/export_orders" class="px-2">
+            <a type="button" data-toggle="modal" data-target="#export-modal">
                 <i class="far fa-file-excel"></i>
                 <span class="ml-1">Para Excel</span>
             </a>
@@ -150,3 +150,63 @@
         </div>
     </div>
 </div>
+<!-- Modal de exportação-->
+<div class="modal fade" id="export-modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header text-center align-items-center">
+                <h4 class="modal-title font-weight-bold text-secondary">Exportação de dados</h4>
+                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/export_orders" method="post">
+                <div class="modal-body py-4">
+                    <div class="card card-body border-0 pt-0">
+                        <label id="label-periodo-export" class="mt-2 mb-0 text-secondary">Período</label>
+                        <select id="select-periodo-export" name="periodo" class="form-custom form-control m-0 p-0" style="border-bottom: 2px solid #20B2AA!important;">
+                            <option value="Todo o período">Todo o período</option>
+                            <option value="Personalizado">Personalizado</option>
+                        </select>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div id="label-data-inicio" class="label-float mt-4 mr-2">
+                                <input type="date" id="input-data-inicio" name="data-inicio" class="form-custom form-control mt-2" maxlength="10" size="60" placeholder="Data inicial">
+                                <label>Data inicial</label>
+                            </div>
+                            <div id="label-data-fim" class="label-float mt-4 ml-2">
+                                <input type="date" id="input-data-fim" name="data-fim" class="form-custom form-control mt-2" maxlength="10" size="60" placeholder="Data final">
+                                <label>Data final</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-register text-white w-100">Exportar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="lib/datatables/js/query-3.5.1.js"></script>
+<script>
+    // Exportação de dados
+    $('#label-data-inicio').hide();
+    $('#input-data-inicio').hide();
+    $('#label-data-fim').hide();
+    $('#input-data-fim').hide();
+
+    $("#select-periodo-export").change(function() {
+        if (this.value == "Todo o período") {
+            $('#label-data-inicio').hide();
+            $('#input-data-inicio').hide();
+            $('#label-data-fim').hide();
+            $('#input-data-fim').hide();
+        } else if (this.value == "Personalizado") {
+            $('#label-data-inicio').show();
+            $('#input-data-inicio').show();
+            $('#label-data-fim').show();
+            $('#input-data-fim').show();
+        }
+    });
+</script>

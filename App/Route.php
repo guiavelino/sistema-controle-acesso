@@ -192,16 +192,6 @@ class Route extends Bootstrap {
 			'controller' => 'VisitorsController',
 			'action' => 'deleteVisitor'
 		);
-		$routes['remove_visitor'] = array(
-			'route' => '/remove_visitor',
-			'controller' => 'VisitorsController',
-			'action' => 'removeVisitor'
-		);
-		$routes['delete_visitor'] = array(
-			'route' => '/delete_visitor',
-			'controller' => 'VisitorsController',
-			'action' => 'deleteVisitor'
-		);
 		$routes['remove_visitor_entry'] = array(
 			'route' => '/remove_visitor_entry',
 			'controller' => 'VisitorsController',
@@ -212,8 +202,6 @@ class Route extends Bootstrap {
 			'controller' => 'VisitorsController',
 			'action' => 'deleteVisitorEntry'
 		);
-
-
 
 
 

@@ -98,51 +98,93 @@ class OrdersController extends Action {
         $this->validateAuthentication();
         $encomendas = Container::getModel('Orders');
 
-        // Definindo o nome do arquivo que será exportado
-		$arquivo = 'relacao_encomendas.xls';
-        
+        $arquivo = '';
+
         // Formatando estilo da tabela
-        $style_first_header = "height: 60px; text-align:center; background-color:#1EA39C; color:#FFFFFF; display:table-cell; vertical-align:middle;";
+        $style_first_header = "height: 60px; font-size:22px; text-align:center; background-color:#1EA39C; color:#FFFFFF; display:table-cell; vertical-align:middle;";
         $style_second_header_name = "height: 45px; width: 300px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
         $style_second_header = "height: 45px; width: 200px; text-align:center; background-color:#F7F7F7; display:table-cell; vertical-align:middle;";
-        $style_titile_header = "font-size:22px";
+        $style_titile_header = "font-size:20px";
         $style_content = "height:32px; text-align:center; font-size:20;  display:table-cell; vertical-align:middle";
 
-		// Criando uma tabela HTML com o formato da planilha
-        $html = '';
-        $html .= '<meta charset="utf-8"/>';
-		$html .= '<table border="1">';
-		$html .= "<tr>";
-		$html .= "<td colspan='5' style='$style_first_header'><h2>Encomendas</h2></td>";
-		$html .= "</tr>";
-		$html .= '<tr>';
-		$html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Empresa</h4></td>";
-		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
-		$html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data de entrega</h4></td>";
-        $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Hora de entrega</h4></td>";
-		$html .= '</tr>';
-        foreach($encomendas->getAll() as $encomendas){
-            $html .= "<tr style='$style_content'>";
-			$html .= '<td>'.$encomendas["empresa"].'</td>';
-			$html .= '<td>'.$encomendas["apartamento"].'</td>';
-			$html .= '<td>'.$encomendas["bloco"].'</td>';
-            $html .= '<td>'.date('d/m/Y', strtotime($encomendas['data_entrega'])).'</td>';
-            $html .= '<td>'.date('H:i', strtotime($encomendas['data_entrega'])).'</td>';
-			$html .= '</tr>';
+        if($_POST['periodo'] == 'Todo o período' && $_POST['data-inicio'] == '' && $_POST['data-fim'] == ''){
+             // Definindo o nome do arquivo que será exportado
+		    $arquivo = 'relacao_encomendas.xls';
+
+            // Criando uma tabela HTML com o formato da planilha
+            $html = '';
+            $html .= '<meta charset="utf-8"/>';
+            $html .= '<table border="1">';
+            $html .= "<tr>";
+            $html .= "<td colspan='4' style='$style_first_header'><h2>Relação de encomendas</h2></td>";
+            $html .= "</tr>";
+            $html .= '<tr>';
+            $html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Empresa</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data de entrega</h4></td>";
+            $html .= '</tr>';
+            foreach($encomendas->getAllOrdersRegisters() as $e){
+                $html .= "<tr style='$style_content'>";
+                $html .= '<td>'.$e["empresa"].'</td>';
+                $html .= '<td>'.$e["apartamento"].'</td>';
+                $html .= '<td>'.$e["bloco"].'</td>';
+                $html .= '<td>'.date('d/m/Y H:i', strtotime($e['data_entrega'])).'</td>';
+                $html .= '</tr>';
+            }
+        }  
+        if($_POST['periodo'] == 'Personalizado' && strlen($_POST['data-inicio']) == 10 && strlen($_POST['data-fim']) == 10){
+            // Definindo o nome do arquivo que será exportado
+            $arquivo = 'relacao_encomendas.xls';
+
+            $encomendas->data_inicio = $_POST['data-inicio'];
+            $encomendas->data_fim = $_POST['data-fim'];
+
+            $data_inicio = date('d/m/Y', strtotime($_POST['data-inicio']));
+            $data_fim = date('d/m/Y', strtotime($_POST['data-fim']));
+
+           // Criando uma tabela HTML com o formato da planilha
+            $html = '';
+            $html .= '<meta charset="utf-8"/>';
+            $html .= '<table border="1">';
+            $html .= "<tr>";
+            $html .= "<td colspan='4' style='$style_first_header'><h2>Relação de encomendas - $data_inicio até $data_fim</h2></td>";
+            $html .= "</tr>";
+            $html .= '<tr>';
+            $html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Empresa</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data de entrega</h4></td>";
+            $html .= '</tr>';
+            foreach($encomendas->getAllRegistersFilter() as $e){
+                $html .= "<tr style='$style_content'>";
+                $html .= '<td>'.$e["empresa"].'</td>';
+                $html .= '<td>'.$e["apartamento"].'</td>';
+                $html .= '<td>'.$e["bloco"].'</td>';
+                $html .= '<td>'.date('d/m/Y H:i', strtotime($e['data_entrega'])).'</td>';
+                $html .= '</tr>';
+            }
+       }  
+       else if($_POST['periodo'] == 'Personalizado' && (strlen($_POST['data-inicio']) != 10 || strlen($_POST['data-fim']) != 10)){
+        echo "<script>
+            alert('Digite uma data válida para exportar os registros!');
+            location.href = '/orders'
+        </script>";
+        } 
+
+		if(strlen($arquivo) > 3){
+            // // Configurações header para forçar o download
+            header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+            header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+            header ("Cache-Control: no-cache, must-revalidate");
+            header ("Pragma: no-cache");
+            header ("Content-type: application/x-msexcel");
+            header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+            header ("Content-Description: PHP Generated Data" );
+            // Envia o conteúdo do arquivo
+            echo $html;
+            exit;
         }
-        
-		// Configurações header para forçar o download
-		header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-		header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
-		header ("Cache-Control: no-cache, must-revalidate");
-		header ("Pragma: no-cache");
-		header ("Content-type: application/x-msexcel");
-		header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
-		header ("Content-Description: PHP Generated Data" );
-		// Envia o conteúdo do arquivo
-		echo $html;
-		exit;
     }
 }
 ?>
