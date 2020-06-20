@@ -171,6 +171,12 @@ class OrdersController extends Action {
             location.href = '/orders'
         </script>";
         } 
+        else{
+            echo "<script>
+                alert('Erro ao exportar registros, tente novamente mais tarde!');
+                location.href = '/orders'
+            </script>";
+        }
 
 		if(strlen($arquivo) > 3){
             // // Configurações header para forçar o download

@@ -468,6 +468,12 @@ class ServiceProvidersController extends Action {
                 location.href = '/service_providers'
             </script>";
         } 
+        else{
+            echo "<script>
+                alert('Erro ao exportar registros, tente novamente mais tarde!');
+                location.href = '/service_providers'
+            </script>";
+        }
         
 		if(strlen($arquivo) > 3){
             // // Configurações header para forçar o download

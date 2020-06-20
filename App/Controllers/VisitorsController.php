@@ -489,6 +489,12 @@ class VisitorsController extends Action {
                 location.href = '/visitors'
             </script>";
         } 
+        else{
+            echo "<script>
+                alert('Erro ao exportar registros, tente novamente mais tarde!');
+                location.href = '/visitors'
+            </script>";
+        }
         
         if(strlen($arquivo) > 3){
             // // Configurações header para forçar o download
