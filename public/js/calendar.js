@@ -77,3 +77,48 @@ function DataHora(evento, objeto) {
         event.returnValue = false;
     }
 }
+
+let calendarE2 = document.getElementById('calendar2');
+    
+    let calendar = new FullCalendar.Calendar(calendarE2, {
+        locale: 'pt-br',
+        plugins: ['interaction', 'dayGrid', 'list'],
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,listMonth'
+        },
+        
+        eventTimeFormat: { // Formatação da data do evento
+            hour: '2-digit',
+            minute: '2-digit',
+            meridiem: false
+        },
+        displayEventEnd: true, //Exibindo hora de término do evento 
+        businessHours: true, //Cor personalizada para Fins de semana
+        editable: true, 
+        height: 1000, //Altura do calendário
+        selectLongPressDelay: 0, //Tempo de ação após o toque para dispositivos móveis        
+        eventLimit: true, //Limitando visualização da quantidade de eventos por data
+        events: '../php/list_events.php', // Eventos
+        eventTextColor: "#FFFFFF", //Cor do texto do evento
+        extraParams: function () {
+            return {
+                cachebuster: new Date().valueOf()
+            };
+        },
+    
+        // Visualizando detalhes do evento
+        eventClick: function (info) {
+            location.href = `/view_event?id_evento=${info.event.id}`
+        },
+
+        // Início e fim do evento apresentados no formulário de cadastro, definidos baseados na data selecionada
+        selectable: true,
+        select: function (info) {
+            $('#cadastrar #inicio_evento').val(info.start.toLocaleString());
+            $('#cadastrar #fim_evento').val(info.start.toLocaleString());
+            $('#cadastrar').modal('show');
+        }
+    });
+        calendar.render();

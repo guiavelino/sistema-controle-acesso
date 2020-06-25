@@ -58,6 +58,11 @@ class Events extends Model{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getAllEvents(){
+        $stmt = $this->db->prepare("SELECT * FROM eventos");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function getAllEventAndResidentData(){
         $stmt = $this->db->prepare("SELECT * FROM eventos INNER join moradores on eventos.id_evento = :id_evento and moradores.id_morador = :fk_id_morador");
         $stmt->bindValue(":id_evento", $this->id_evento);

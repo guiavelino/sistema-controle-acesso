@@ -27,6 +27,21 @@ class LeisureAreasController extends Action {
         }  
     } 
 
+    public function leisureAreasUser(){
+        $this->validateAuthentication();
+        if($_SESSION['nivel_acesso'] != 'administrador'){   
+            $events = Container::getModel('Events');
+            $this->view->event =  $events->getAllEvents();        
+            $this->render('leisure_areas_user');
+        }
+        else{
+            echo "<script>
+                alert('Essa página é apenas para usuários!');
+                location.href = '/dashboard'
+            </script>";
+        }  
+    } 
+
     public function registerEvent(){
         $this->validateAuthentication();
         if(strlen($_POST['cpf']) == 14 && $_POST['titulo_evento'] != '' && $_POST['inicio_evento'] != '' && $_POST['fim_evento'] != ''){

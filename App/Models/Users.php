@@ -13,9 +13,6 @@ class Users extends Model{
     private $senha;
     private $nivel_acesso;
     private $telefone;
-    private $data_nascimento;
-    private $genero;
-    private $imagem_usuario;
 
     public function __get($att){
         return $this->$att;
