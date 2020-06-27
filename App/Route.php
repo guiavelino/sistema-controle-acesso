@@ -303,13 +303,7 @@ class Route extends Bootstrap {
 			'controller' => 'LeisureAreasController',
 			'action' => 'confirmPayment'
 		);
-		$routes['leisure_areas_user'] = array(
-			'route' => '/leisure_areas_user',
-			'controller' => 'LeisureAreasController',
-			'action' => 'leisureAreasUser'
-		);
 
-	
 		$this->setRoutes($routes);
 	}
 

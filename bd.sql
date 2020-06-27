@@ -71,7 +71,8 @@ create table encomendas(
 	empresa varchar(60) not null,
 	apartamento varchar(5) not null,
 	bloco char(1) not null,
-	data_entrega datetime default CURRENT_TIMESTAMP
+	data_entrega datetime default CURRENT_TIMESTAMP,
+    status_entrega varchar(30) not null default 'Processando'
 );
 
 create table eventos (

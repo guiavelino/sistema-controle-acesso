@@ -37,8 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Início e fim do evento apresentados no formulário de cadastro, definidos baseados na data selecionada
         selectable: true,
         select: function (info) {
-            $('#cadastrar #inicio_evento').val(info.start.toLocaleString());
-            $('#cadastrar #fim_evento').val(info.start.toLocaleString());
+            let format = {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}
+            $('#cadastrar #inicio_evento').val(info.start.toLocaleString('pt-BR', format));
+            $('#cadastrar #fim_evento').val(info.start.toLocaleString('pt-BR', format));
             $('#cadastrar').modal('show');
         }
     });
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function DataHora(evento, objeto) {
     var keypress = (window.event) ? event.keyCode : evento.which;
     campo = eval(objeto);
-    if (campo.value == '00/00/0000 00:00:00') {
+    if (campo.value == '00/00/0000 00:00') {
         campo.value = "";
     }
 
@@ -62,7 +63,7 @@ function DataHora(evento, objeto) {
     conjunto3 = 10;
     conjunto4 = 13;
     conjunto5 = 16;
-    if ((caracteres.search(String.fromCharCode(keypress)) != -1) && campo.value.length < (19)) {
+    if ((caracteres.search(String.fromCharCode(keypress)) != -1) && campo.value.length <= (16)) {
         if (campo.value.length == conjunto1)
             campo.value = campo.value + separacao1;
         else if (campo.value.length == conjunto2)
@@ -71,54 +72,7 @@ function DataHora(evento, objeto) {
             campo.value = campo.value + separacao2;
         else if (campo.value.length == conjunto4)
             campo.value = campo.value + separacao3;
-        else if (campo.value.length == conjunto5)
-            campo.value = campo.value + separacao3;
     } else {
         event.returnValue = false;
     }
 }
-
-let calendarE2 = document.getElementById('calendar2');
-    
-    let calendar = new FullCalendar.Calendar(calendarE2, {
-        locale: 'pt-br',
-        plugins: ['interaction', 'dayGrid', 'list'],
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,listMonth'
-        },
-        
-        eventTimeFormat: { // Formatação da data do evento
-            hour: '2-digit',
-            minute: '2-digit',
-            meridiem: false
-        },
-        displayEventEnd: true, //Exibindo hora de término do evento 
-        businessHours: true, //Cor personalizada para Fins de semana
-        editable: true, 
-        height: 1000, //Altura do calendário
-        selectLongPressDelay: 0, //Tempo de ação após o toque para dispositivos móveis        
-        eventLimit: true, //Limitando visualização da quantidade de eventos por data
-        events: '../php/list_events.php', // Eventos
-        eventTextColor: "#FFFFFF", //Cor do texto do evento
-        extraParams: function () {
-            return {
-                cachebuster: new Date().valueOf()
-            };
-        },
-    
-        // Visualizando detalhes do evento
-        eventClick: function (info) {
-            location.href = `/view_event?id_evento=${info.event.id}`
-        },
-
-        // Início e fim do evento apresentados no formulário de cadastro, definidos baseados na data selecionada
-        selectable: true,
-        select: function (info) {
-            $('#cadastrar #inicio_evento').val(info.start.toLocaleString());
-            $('#cadastrar #fim_evento').val(info.start.toLocaleString());
-            $('#cadastrar').modal('show');
-        }
-    });
-        calendar.render();

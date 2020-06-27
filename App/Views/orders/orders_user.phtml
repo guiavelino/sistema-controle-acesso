@@ -2,7 +2,7 @@
     <div class="button ml-3 text-center" onclick="sidebarUser()">
         <i class="fas fa-bars"></i>
     </div>
-    <a href="leisure_areas_user" class="btn btn-dark text-white ml-auto mr-1">
+    <a href="leisure_areas" class="btn btn-dark text-white ml-auto mr-1">
         <i class="fa fa-calendar" aria-hidden="true"></i>
     </a>
 
@@ -77,6 +77,7 @@
                         <th>Apartamento</th>
                         <th>Bloco</th>
                         <th>Data de entrega</th>
+                        <th>Status de recebimento</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -87,12 +88,14 @@
                             <td><?= $e['apartamento'] ?></td>
                             <td><?= $e['bloco'] ?></td>
                             <td><?= date('d/m/Y H:i', strtotime($e['data_entrega'])) ?></td>
+                            <td><?= $e['status_entrega'] ?></td>
                             <th>
                                 <form action="/edit_order" method="post" class="d-inline-block">
                                     <input type="hidden" name="id_encomenda" value="<?= $e['id_encomenda'] ?>">
                                     <input type="hidden" name="empresa" value="<?= $e['empresa'] ?>">
                                     <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
                                     <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
+                                    <input type="hidden" name="status_entrega" value="<?= $e['status_entrega'] ?>">
                                     <abbr title="Editar registro">
                                         <button type="submit" class="btn btn-info btn-action">
                                             <i class="fas fa-edit"></i>
@@ -105,6 +108,7 @@
                                     <input type="hidden" name="apartamento" value="<?= $e['apartamento'] ?>">
                                     <input type="hidden" name="bloco" value="<?= $e['bloco'] ?>">
                                     <input type="hidden" name="data_entrega" value="<?= $e['data_entrega'] ?>">
+                                    <input type="hidden" name="status_entrega" value="<?= $e['status_entrega'] ?>">
                                     <abbr title="Excluir registro">
                                         <button type="submit" class="btn btn-danger btn-action">
                                             <i class="fas fa-trash-alt"></i>

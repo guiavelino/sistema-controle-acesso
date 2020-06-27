@@ -17,28 +17,12 @@ class LeisureAreasController extends Action {
 	public function leisureAreas(){
         $this->validateAuthentication();
         if($_SESSION['nivel_acesso'] == 'administrador'){           
-            $this->render('leisure_areas');
+            $this->render('leisure_areas_admin');
         }
-        else{
-            echo "<script>
-                alert('Essa página é restrita para administradores!');
-                location.href = '/dashboard'
-            </script>";
-        }  
-    } 
-
-    public function leisureAreasUser(){
-        $this->validateAuthentication();
-        if($_SESSION['nivel_acesso'] != 'administrador'){   
+        else if($_SESSION['nivel_acesso'] == 'usuario'){
             $events = Container::getModel('Events');
             $this->view->event =  $events->getAllEvents();        
             $this->render('leisure_areas_user');
-        }
-        else{
-            echo "<script>
-                alert('Essa página é apenas para usuários!');
-                location.href = '/dashboard'
-            </script>";
         }  
     } 
 

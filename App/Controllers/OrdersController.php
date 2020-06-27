@@ -116,13 +116,14 @@ class OrdersController extends Action {
             $html .= '<meta charset="utf-8"/>';
             $html .= '<table border="1">';
             $html .= "<tr>";
-            $html .= "<td colspan='4' style='$style_first_header'><h2>Relação de encomendas</h2></td>";
+            $html .= "<td colspan='5' style='$style_first_header'><h2>Relação de encomendas</h2></td>";
             $html .= "</tr>";
             $html .= '<tr>';
             $html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Empresa</h4></td>";
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data de entrega</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Status de recebimento</h4></td>";
             $html .= '</tr>';
             foreach($encomendas->getAllOrdersRegisters() as $e){
                 $html .= "<tr style='$style_content'>";
@@ -130,6 +131,7 @@ class OrdersController extends Action {
                 $html .= '<td>'.$e["apartamento"].'</td>';
                 $html .= '<td>'.$e["bloco"].'</td>';
                 $html .= '<td>'.date('d/m/Y H:i', strtotime($e['data_entrega'])).'</td>';
+                $html .= '<td>'.$e["status_entrega"].'</td>';
                 $html .= '</tr>';
             }
         }  
@@ -148,13 +150,14 @@ class OrdersController extends Action {
             $html .= '<meta charset="utf-8"/>';
             $html .= '<table border="1">';
             $html .= "<tr>";
-            $html .= "<td colspan='4' style='$style_first_header'><h2>Relação de encomendas - $data_inicio até $data_fim</h2></td>";
+            $html .= "<td colspan='5' style='$style_first_header'><h2>Relação de encomendas - $data_inicio até $data_fim</h2></td>";
             $html .= "</tr>";
             $html .= '<tr>';
             $html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Empresa</h4></td>";
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data de entrega</h4></td>";
+            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Status de recebimento</h4></td>";
             $html .= '</tr>';
             foreach($encomendas->getAllRegistersFilter() as $e){
                 $html .= "<tr style='$style_content'>";
@@ -162,6 +165,7 @@ class OrdersController extends Action {
                 $html .= '<td>'.$e["apartamento"].'</td>';
                 $html .= '<td>'.$e["bloco"].'</td>';
                 $html .= '<td>'.date('d/m/Y H:i', strtotime($e['data_entrega'])).'</td>';
+                $html .= '<td>'.$e["status_entrega"].'</td>';
                 $html .= '</tr>';
             }
        }  
