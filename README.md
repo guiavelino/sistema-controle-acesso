@@ -8,14 +8,12 @@ Access  é um sistema web responsável por realizar o controle de acesso a condo
 
 ![](https://github.com/Guilherme1612/sistema-controle-acesso/blob/master/public/github/login.PNG?raw=true)
 
-##Iniciando projeto
+## Iniciando Projeto
 
     cd public
     php -S localhost:8080
 
-![](https://github.com/Guilherme1612/sistema-controle-acesso/blob/master/public/github/dashboard.PNG?raw=true)
-
-##Bibliotecas e Linguagens
+## Bibliotecas e Linguagens
 
 - PHP
 - Composer
