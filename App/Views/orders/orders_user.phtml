@@ -2,10 +2,9 @@
     <div class="button ml-3 text-center" onclick="sidebarUser()">
         <i class="fas fa-bars"></i>
     </div>
-    <a href="leisure_areas" class="btn btn-dark text-white ml-auto mr-1">
+    <a href="leisure_areas" class="btn btn-dark text-white ml-auto mr-1" title="Consultar eventos agendados">
         <i class="fa fa-calendar" aria-hidden="true"></i>
     </a>
-
     <button class="btn btn-light btn-user border-0 mr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="text-dark">
             Olá,
@@ -90,6 +89,16 @@
                             <td><?= date('d/m/Y H:i', strtotime($e['data_entrega'])) ?></td>
                             <td><?= $e['status_entrega'] ?></td>
                             <th>
+                                <?php if($e['status_entrega'] == 'Processando') { ?>
+                                    <form action="/confirm_receipt" method="post" class="d-inline-block">
+                                        <input type="hidden" name="id_encomenda" value="<?=$e['id_encomenda']?>">
+                                        <abbr title="Confirmar recebimento">
+                                            <button type="submit" class="btn btn-warning btn-action">
+                                                <i class="fas fa-user-check text-white"></i>
+                                            </button>
+                                        </abbr>
+                                    </form>    
+                                <?php } ?>   
                                 <form action="/edit_order" method="post" class="d-inline-block">
                                     <input type="hidden" name="id_encomenda" value="<?= $e['id_encomenda'] ?>">
                                     <input type="hidden" name="empresa" value="<?= $e['empresa'] ?>">

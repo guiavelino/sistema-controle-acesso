@@ -94,6 +94,18 @@ class OrdersController extends Action {
         echo "<script> location.href = '/orders' </script>";
     }
 
+    public function confirmReceipt(){
+        $this->validateAuthentication();
+        if(isset($_POST['id_encomenda'])){
+            $encomendas = Container::getModel('Orders');
+            $encomendas->id_encomenda = $_POST['id_encomenda'];
+            $encomendas->status_entrega = 'Recebido';
+            $encomendas->confirmReceipt();
+            echo "<script>alert('Encomenda recebida!')</script>";
+        }
+        echo "<script> location.href = '/orders' </script>";
+    }
+    
     public function exportOrders(){
         $this->validateAuthentication();
         $encomendas = Container::getModel('Orders');
@@ -123,7 +135,7 @@ class OrdersController extends Action {
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data de entrega</h4></td>";
-            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Status de recebimento</h4></td>";
+            $html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Status de recebimento</h4></td>";
             $html .= '</tr>';
             foreach($encomendas->getAllOrdersRegisters() as $e){
                 $html .= "<tr style='$style_content'>";
@@ -157,7 +169,7 @@ class OrdersController extends Action {
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Apartamento</h4></td>";
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Bloco</h4></td>";
             $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Data de entrega</h4></td>";
-            $html .= "<td style='$style_second_header'><h4 style='$style_titile_header'>Status de recebimento</h4></td>";
+            $html .= "<td style='$style_second_header_name'><h4 style='$style_titile_header'>Status de recebimento</h4></td>";
             $html .= '</tr>';
             foreach($encomendas->getAllRegistersFilter() as $e){
                 $html .= "<tr style='$style_content'>";

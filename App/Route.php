@@ -96,7 +96,11 @@ class Route extends Bootstrap {
 			'controller' => 'OrdersController',
 			'action' => 'deleteOrder'
 		);
-
+		$routes['confirm_receipt'] = array(
+			'route' => '/confirm_receipt',
+			'controller' => 'OrdersController',
+			'action' => 'confirmReceipt'
+		);
 
 
 		$routes['residents'] = array(

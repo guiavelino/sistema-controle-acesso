@@ -39,7 +39,7 @@
             </button>
         </div>
       <div class="modal-body">
-        Você tem certeza que deseja excluir o registro de encomenda ao apartamento <?=$_POST['apartamento']?>, realizado pela empresa <?=$_POST['empresa']?> no dia <?=date('d/m/Y', strtotime($_POST['data_entrega']))?> às <?=date('H:i', strtotime($_POST['data_entrega']))?>?
+        Você tem certeza que deseja excluir o registro de entrega de encomenda ao apartamento <?=$_POST['apartamento']?>, realizado pela empresa <?=$_POST['empresa']?> no dia <?=date('d/m/Y', strtotime($_POST['data_entrega']))?> às <?=date('H:i', strtotime($_POST['data_entrega']))?>?
       </div>
       <div class="modal-footer">
         <form action="/delete_order" method="post">

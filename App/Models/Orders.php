@@ -13,6 +13,7 @@ class Orders extends Model{
     private $data_atual;
     private $data_inicio;
     private $data_fim;
+    private $status_entrega;
 
     public function __get($att){
         return $this->$att;
@@ -41,6 +42,13 @@ class Orders extends Model{
 
     public function deleteOrder(){
         $stmt = $this->db->prepare("DELETE from encomendas where id_encomenda = :id_encomenda");
+        $stmt->bindValue(":id_encomenda", $this->id_encomenda);
+        $stmt->execute();
+    }
+
+    public function confirmReceipt(){
+        $stmt = $this->db->prepare("UPDATE encomendas SET status_entrega = :status_entrega where id_encomenda = :id_encomenda");
+        $stmt->bindValue(":status_entrega", $this->status_entrega);
         $stmt->bindValue(":id_encomenda", $this->id_encomenda);
         $stmt->execute();
     }

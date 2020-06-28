@@ -158,7 +158,17 @@
                             <td><?=$e['bloco']?></td>
                             <td><?=date('d/m/Y H:i', strtotime($e['data_entrega']))?></td>
                             <td><?= $e['status_entrega'] ?></td>
-                            <th>                  
+                            <th>      
+                                <?php if($e['status_entrega'] == 'Processando') { ?>
+                                    <form action="/confirm_receipt" method="post" class="d-inline-block">
+                                        <input type="hidden" name="id_encomenda" value="<?=$e['id_encomenda']?>">
+                                        <abbr title="Confirmar recebimento">
+                                            <button type="submit" class="btn btn-warning btn-action">
+                                                <i class="fas fa-user-check text-white"></i>
+                                            </button>
+                                        </abbr>
+                                    </form>    
+                                <?php } ?>        
                                 <form action="/edit_order" method="post" class="d-inline-block">          
                                     <input type="hidden" name="id_encomenda" value="<?=$e['id_encomenda']?>">
                                     <input type="hidden" name="empresa" value="<?=$e['empresa']?>">
